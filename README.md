@@ -5,8 +5,10 @@
 
 ## Key ideas of the paper
 
-- Use the data municipal atlas of Bolivia to show the usefulness of exploratory spatial data analysis
-- TBA
+Use the data municipal atlas of Bolivia to show the usefulness of
+- Exploratory spatial data analysis for regional development
+- Reproducible spatial data science
+- Python programing
 
 ## Tentative summary
 
@@ -25,7 +27,7 @@
 
 ## Manuscript
 
-- Overleaf link:
+- Overleaf link: Maybe not needed if we submit the manuscript as a jupyter notebook
 
 
 ## Target Journal
