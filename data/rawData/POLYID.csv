@@ -1,0 +1,340 @@
+POLY_ID,DEPARTAMEN,mun
+1,Chuquisaca,Sucre
+2,Chuquisaca,Yotala
+3,Chuquisaca,Poroma
+4,Chuquisaca,Azurduy
+5,Chuquisaca,Tarvita
+6,Chuquisaca,Zuda<f1>ez
+7,Chuquisaca,Presto
+8,Chuquisaca,Mojocoya
+9,Chuquisaca,Icla
+10,Chuquisaca,Padilla
+11,Chuquisaca,Tomina
+12,Chuquisaca,Sopachuy
+13,Chuquisaca,Villa Alcal<e1>
+14,Chuquisaca,El Villar
+15,Chuquisaca,Monteagudo
+16,Chuquisaca,Huacareta
+17,Chuquisaca,Tarabuco
+18,Chuquisaca,Yampar<e1>ez
+19,Chuquisaca,Camargo
+20,Chuquisaca,San Lucas
+21,Chuquisaca,Incahuasi
+22,Chuquisaca,Villa Charcas
+23,Chuquisaca,Villa Serrano
+24,Chuquisaca,Villa Abecia
+25,Chuquisaca,Culpina
+26,Chuquisaca,Las Carreras
+27,Chuquisaca,Muyupampa
+28,Chuquisaca,Huacaya
+29,Chuquisaca,Macharet<ed>
+30,La Paz,La Paz
+31,La Paz,Palca
+32,La Paz,Mecapaca
+33,La Paz,Achocalla
+34,La Paz,El Alto
+35,La Paz,Achacachi
+36,La Paz,Ancoraimes
+37,La Paz,Chua Cocani
+38,La Paz,Huarina
+39,La Paz,Santiago de Huata
+40,La Paz,Huatajata
+41,La Paz,Coro Coro
+42,La Paz,Caquiaviri
+43,La Paz,Calacoto
+44,La Paz,Comanche
+45,La Paz,Chara<f1>a
+46,La Paz,Waldo Ballivi<e1>n
+47,La Paz,Nazacara de Pacajes
+48,La Paz,Callapa
+49,La Paz,Puerto Acosta
+50,La Paz,Mocomoco
+51,La Paz,Puerto Carabuco
+52,La Paz,Humanata
+53,La Paz,Escoma
+54,La Paz,Chuma
+55,La Paz,Ayata
+56,La Paz,Aucapata
+57,La Paz,Sorata
+58,La Paz,Guanay
+59,La Paz,Tacacoma
+60,La Paz,Quiabaya
+61,La Paz,Combaya
+62,La Paz,Tipuani
+63,La Paz,Mapiri
+64,La Paz,Teoponte
+65,La Paz,Apolo
+66,La Paz,Pelechuco
+67,La Paz,Viacha
+68,La Paz,Guaqui
+69,La Paz,Tiahuanacu
+70,La Paz,Desaguadero
+71,La Paz,San Andr<e9>s de Machaca
+72,La Paz,Jes<fa>s de Machaca
+73,La Paz,Taraco
+74,La Paz,Luribay
+75,La Paz,Sapahaqui
+76,La Paz,Yaco
+77,La Paz,Malla
+78,La Paz,Cairoma
+79,La Paz,Inquisivi
+80,La Paz,Quime
+81,La Paz,Cajuata
+82,La Paz,Colquiri
+83,La Paz,Ichoca
+84,La Paz,Villa Libertad Licoma
+85,La Paz,Chulumani
+86,La Paz,Irupana
+87,La Paz,Yanacachi
+88,La Paz,Palos Blancos
+89,La Paz,La Asunta
+90,La Paz,Pucarani
+91,La Paz,Laja
+92,La Paz,Batallas
+93,La Paz,Puerto P<e9>rez
+94,La Paz,Sica Sica
+95,La Paz,Umala
+96,La Paz,Ayo Ayo
+97,La Paz,Calamarca
+98,La Paz,Patacamaya
+99,La Paz,Colquencha
+100,La Paz,Collana
+101,La Paz,Coroico
+102,La Paz,Coripata
+103,La Paz,Ixiamas
+104,La Paz,San Buenaventura
+105,La Paz,Charazani
+106,La Paz,Curva
+107,La Paz,Copacabana
+108,La Paz,San Pedro de Tiquina
+109,La Paz,Tito Yupanqui
+110,La Paz,San Pedro Cuarahuara
+111,La Paz,Papel Pampa
+112,La Paz,Chacarilla
+113,La Paz,Santiago de Machaca
+114,La Paz,Catacora
+115,La Paz,Caranavi
+116,La Paz,Alto Beni
+117,Cochabamba,Cochabamba
+118,Cochabamba,Aiquile
+119,Cochabamba,Pasorapa
+120,Cochabamba,Omereque
+121,Cochabamba,Independencia
+122,Cochabamba,Morochata
+123,Cochabamba,Cocapata
+124,Cochabamba,Tarata
+125,Cochabamba,Anzaldo
+126,Cochabamba,Arbieto
+127,Cochabamba,Sacabamba
+128,Cochabamba,Arani
+129,Cochabamba,Vacas
+130,Cochabamba,Arque
+131,Cochabamba,Tacopaya
+132,Cochabamba,Capinota
+133,Cochabamba,Santiva<f1>ez
+134,Cochabamba,Sicaya
+135,Cochabamba,Cliza
+136,Cochabamba,Toko
+137,Cochabamba,Tolata
+138,Cochabamba,Quillacollo
+139,Cochabamba,Sipe Sipe
+140,Cochabamba,Tiquipaya
+141,Cochabamba,Vinto
+142,Cochabamba,Colcapirhua
+143,Cochabamba,Sacaba
+144,Cochabamba,Colomi
+145,Cochabamba,Villa Tunari
+146,Cochabamba,Tapacar<ed>
+147,Cochabamba,Totora
+148,Cochabamba,Pojo
+149,Cochabamba,Pocona
+150,Cochabamba,Chimor<e9>
+151,Cochabamba,Puerto Villarroel
+152,Cochabamba,Entre R<ed>os
+153,Cochabamba,Mizque
+154,Cochabamba,Vila Vila
+155,Cochabamba,Alalay
+156,Cochabamba,Punata
+157,Cochabamba,Villa Rivero
+158,Cochabamba,San Benito
+159,Cochabamba,Tacachi
+160,Cochabamba,Cuchumuela
+161,Cochabamba,Bol<ed>var
+162,Cochabamba,Tiraque
+163,Cochabamba,Shinahota
+164,Oruro,Oruro
+165,Oruro,Caracollo
+166,Oruro,El Choro
+167,Oruro,Pari-Paria-Soracachi
+168,Oruro,Challapata
+169,Oruro,Quillacas
+170,Oruro,Corque
+171,Oruro,Choque Cota
+172,Oruro,Curahuara de Carangas
+173,Oruro,Turco
+174,Oruro,Huachacalla
+175,Oruro,Escara
+176,Oruro,Cruz de Machacamarca
+177,Oruro,Yunguyo de Litoral
+178,Oruro,Esmeralda
+179,Oruro,Poop<f3>
+180,Oruro,Paz<f1>a
+181,Oruro,Antequera
+182,Oruro,Huanuni
+183,Oruro,Machacamarca
+184,Oruro,Salinas de Garci Mendoza
+185,Oruro,Pampa Aullagas
+186,Oruro,Sabaya
+187,Oruro,Coipasa
+188,Oruro,Chipaya
+189,Oruro,Toledo
+190,Oruro,Eucaliptus
+191,Oruro,Santiago de Andamarca
+192,Oruro,Bel<e9>n de Andamarca
+193,Oruro,San Pedro de Totora
+194,Oruro,Huari
+195,Oruro,La Rivera
+196,Oruro,Todos Santos
+197,Oruro,Carangas
+198,Oruro,Huayllamarca
+199,Potosi,Potos<ed>
+200,Potosi,Tinguipaya
+201,Potosi,Yocalla
+202,Potosi,Urmiri
+203,Potosi,Unc<ed>a
+204,Potosi,Chayanta
+205,Potosi,Llallagua
+206,Potosi,Chuquihuta
+207,Potosi,Betanzos
+208,Potosi,Chaqu<ed>
+209,Potosi,Tacobamba
+210,Potosi,Colquechaca
+211,Potosi,Ravelo
+212,Potosi,Pocoata
+213,Potosi,Ocur<ed>
+214,Potosi,San Pedro de Buena Vista
+215,Potosi,Toro Toro
+216,Potosi,Cotagaita
+217,Potosi,Vitichi
+218,Potosi,Villa de Sacaca
+219,Potosi,Caripuyo
+220,Potosi,Tupiza
+221,Potosi,Atocha
+222,Potosi,"Colcha ""K"""
+223,Potosi,San Pedro de Quemes
+224,Potosi,San Pablo de L<ed>pez
+225,Potosi,Mojinete
+226,Potosi,San Antonio de Esmoruco
+227,Potosi,Puna
+228,Potosi,"Caiza ""D"""
+229,Potosi,Ckochas
+230,Potosi,Uyuni
+231,Potosi,Tomave
+232,Potosi,Porco
+233,Potosi,Arampampa
+234,Potosi,Acasio
+235,Potosi,Llica
+236,Potosi,Tahua
+237,Potosi,Villaz<f3>n
+238,Potosi,San Agust<ed>n
+239,Tarija,Tarija
+240,Tarija,Padcaya
+241,Tarija,Bermejo
+242,Tarija,Yacuiba
+243,Tarija,Carapar<ed>
+244,Tarija,Villamontes
+245,Tarija,Uriondo
+246,Tarija,Yunchar<e1>
+247,Tarija,Villa San Lorenzo
+248,Tarija,El Puente
+249,Tarija,Entre R<ed>os
+250,Santa Cruz,Santa Cruz de la Sierra
+251,Santa Cruz,Cotoca
+252,Santa Cruz,Porongo
+253,Santa Cruz,La Guardia
+254,Santa Cruz,El Torno
+255,Santa Cruz,Warnes
+256,Santa Cruz,Okinawa Uno
+257,Santa Cruz,San Ignacio de Velasco
+258,Santa Cruz,San Miguel de Velasco
+259,Santa Cruz,San Rafael
+260,Santa Cruz,Buena Vista
+261,Santa Cruz,San Carlos
+262,Santa Cruz,Yapacan<ed>
+263,Santa Cruz,San Juan de Yapacan<ed>
+264,Santa Cruz,San Jos<e9> de Chiquitos
+265,Santa Cruz,Pail<f3>n
+266,Santa Cruz,Robor<e9>
+267,Santa Cruz,Portachuelo
+268,Santa Cruz,Santa Rosa del Sara
+269,Santa Cruz,Colpa Belgica
+270,Santa Cruz,Lagunillas
+271,Santa Cruz,Charagua
+272,Santa Cruz,Cabezas
+273,Santa Cruz,Cuevo
+274,Santa Cruz,Guti<e9>rrez
+275,Santa Cruz,Camiri
+276,Santa Cruz,Boyuibe
+277,Santa Cruz,Vallegrande
+278,Santa Cruz,Trigal
+279,Santa Cruz,Moro Moro
+280,Santa Cruz,Postrer Valle
+281,Santa Cruz,Pucar<e1>
+282,Santa Cruz,Samaipata
+283,Santa Cruz,Pampa Grande
+284,Santa Cruz,Mairana
+285,Santa Cruz,Quirusillas
+286,Santa Cruz,Montero
+287,Santa Cruz,Gral. Saavedra
+288,Santa Cruz,Mineros
+289,Santa Cruz,Fern<e1>ndez Alonso
+290,Santa Cruz,San Pedro
+291,Santa Cruz,Concepci<f3>n
+292,Santa Cruz,San Javier
+293,Santa Cruz,San Ram<f3>n
+294,Santa Cruz,San Juli<e1>n
+295,Santa Cruz,San Antonio de Lomer<ed>o
+296,Santa Cruz,Cuatro Ca<f1>adas
+297,Santa Cruz,San Mat<ed>as
+298,Santa Cruz,Comarapa
+299,Santa Cruz,Saipina
+300,Santa Cruz,Puerto Su<e1>rez
+301,Santa Cruz,Puerto Quijarro
+302,Santa Cruz,Carmen Rivero T<f3>rrez
+303,Santa Cruz,Ascensi<f3>n de Guarayos
+304,Santa Cruz,Urubich<e1>
+305,Santa Cruz,El Puente
+306,Beni,Trinidad
+307,Beni,San Javier
+308,Beni,Riberalta
+309,Beni,Guayaramer<ed>n
+310,Beni,Reyes
+311,Beni,San Borja
+312,Beni,Santa Rosa
+313,Beni,Rurrenabaque
+314,Beni,Santa Ana de Yacuma
+315,Beni,Exaltaci<f3>n
+316,Beni,San Ignacio
+317,Beni,Loreto
+318,Beni,San Andr<e9>s
+319,Beni,San Joaqu<ed>n
+320,Beni,San Ram<f3>n
+321,Beni,Puerto Siles
+322,Beni,Magdalena
+323,Beni,Baures
+324,Beni,Huacaraje
+325,Pando,Cobija
+326,Pando,Porvenir
+327,Pando,Bolpebra
+328,Pando,Bella Flor
+329,Pando,Puerto Rico
+330,Pando,San Pedro
+331,Pando,Filadelfia
+332,Pando,Puerto Gonzalo Moreno
+333,Pando,San Lorenzo
+334,Pando,El Sena
+335,Pando,Santa Rosa
+336,Pando,Ingavi
+337,Pando,Nueva Esperanza
+338,Pando,Villa Nueva-Loma Alta
+339,Pando,Santos Mercado
