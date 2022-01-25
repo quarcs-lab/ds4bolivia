@@ -22,6 +22,10 @@
 - TBA
 - TBA
 
+## Data
+
+- [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
+
 
 ## Computational environment
 
