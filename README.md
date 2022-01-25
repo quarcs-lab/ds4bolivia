@@ -29,7 +29,8 @@
 
 ## Computational environment
 
-- Deepnote: https://deepnote.com/project/PYTHON-Regional-development-Bolivia-z6fQLXgQRJuokU1w8ILlrA
+- Deepnote example: https://deepnote.com/project/PYTHON-Regional-development-Bolivia-z6fQLXgQRJuokU1w8ILlrA
+- Actual computational notebook: https://deepnote.com/project/project2021o-Bolivia-esda-HABNFWMYQ8CWOKKwDrJrTQ
 
 ## Manuscript
 
