@@ -7,12 +7,15 @@
 
 Use the data municipal atlas of Bolivia to show the usefulness of
 - Exploratory spatial data analysis for regional development
-- Reproducible spatial data science
-- Python programing
+- Reproducible data science and cloud computing
+- Python programing for geospatial data analysis
 
-## Tentative summary
+## Tentative online
 
-- 
+- Basic mapping
+- Spatial dependence analysis
+- Spatial inequality anaysis
+- Spatial hetegeneity analysis
 
 ## Collaborators
 
