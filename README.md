@@ -1,4 +1,5 @@
-[A video introduction to the project](https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f)
+## A video introduction to the project 
+https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 
 ## Tentative titles for the paper
 
