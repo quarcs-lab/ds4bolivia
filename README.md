@@ -21,7 +21,7 @@ https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 ## Collaborators
 
 - Carlos Mendez  (carlos@gsid.nagoya-u.ac.jp, Nagoya University)
-- TBA
+- Erick Gonzales (erick.gonzalesrocha@un.org, United Nations Office for Disaster Risk Reduction)
 - Pedro Leoni (pedroleoni1605@gmail.com)
 
 ## Data
