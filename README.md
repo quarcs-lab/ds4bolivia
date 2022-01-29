@@ -1,6 +1,10 @@
 ## A video introduction to the project 
 https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 
+- On the connection of three datasets:
+  https://www.loom.com/share/8f2066a756294b4fb19596afb6e36ef2
+- 
+
 ## Tentative titles for the paper
 
 - A geocomputational notebook to monitor regional development in Bolivia
