@@ -87,10 +87,11 @@ import delimited "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computa
 	*     | Ascensi<f3>n de Guarayos        f3 |
 	*     |------------------------------------|
 	*     |      Jes<fa>s de Machaca        fa |
-	drop tempvar
+	drop dup
 	restore
+	drop tempvar
 	replace mun = subinstr(mun,"<e1>","á",.)
-	*do teh above for all the cases	
+	*do the above for all the cases	
 egen depmun = concat (departamen mun), punct(-)
 save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_polyid_Stata15_corrected.dta", replace
 *}

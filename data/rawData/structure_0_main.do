@@ -18,4 +18,3 @@ do structure_new_vars
 *Merging
 *Fusionar
 do structure_merge
-

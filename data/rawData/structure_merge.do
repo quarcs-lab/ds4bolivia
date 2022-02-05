@@ -1,5 +1,5 @@
 *Merge atlas municipal corrected (.dta) con polyid corrected (.dta)
-*Fusionar municipal atlas corregido (.dta) con polyid corrgido(.dta)
+*Fusionar municipal atlas corregido (.dta) con polyid corregido(.dta)
 clear
 use bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta
 keep id municipio dep depmun
