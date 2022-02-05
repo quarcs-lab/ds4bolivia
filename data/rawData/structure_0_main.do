@@ -1,17 +1,21 @@
+*Set path
+*Establecer camino
 cd /Users/pedro/Documents/GitHub/project2021o/data/rawData
+*cd "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData"
 
-*1. Concatenación de base de datos 1 Atlas
-*Usar Base de datos Atlas Municipal
-use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta 
-*Concatenar datos de Atlas Municipal
-egen uniquename = concat (municipio dep), punct(-)
-save as BaseDatosAtlasMunicipalODSBolivia2020_Stata15_COPY.dta 
+*Obs.:
+*In the main do file, please set a path (cd)
+*For the subtitles of do files, let's write both in Spanish and English
+*Let's name this file structure_0_main
+*IMPORTANT: Let us not modify the original data
+*IMPORTANT: Let us create working copies of the original data where changes can happen
+*Save polyid as .dta
 
-*2. Concatenación de base de datos POLYID
-*Usar Base de datos POLYID
-use POLYID.csv
-egen uniquename = concat (mun departamen), punct(-)
+*New vars
+*Nuevas variables
+do structure_new_vars
 
-*3. Merge 1:1
-use BaseDatosAtlasMunicipalODSBolivia2020_Stata15_COPY.dta
-merge 1:1 uniquename using POLYID.csv
+*Merging
+*Fusionar
+do structure_merge
+
