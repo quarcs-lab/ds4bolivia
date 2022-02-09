@@ -26,14 +26,14 @@ use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta
 	*     |      Pando   Santa Rosa |
 	drop dup
 egen depmun = concat (dep municipio), punct(-)
-save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace
 }
 
 *New vars at POLYID
 *Nuevas variables en POLYID
 *quietly{
 clear
-import delimited "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\POLYID.csv"
+import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID.csv"
 	*determine if a municipality has the same name in different department
 	sort mun
 	quietly by mun:  gen dup = cond(_N==1,0,_n) if (mun!="-")
@@ -91,7 +91,12 @@ import delimited "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computa
 	restore
 	drop tempvar
 	replace mun = subinstr(mun,"<e1>","á",.)
+	replace mun = subinstr(mun,"<e9>","é",.)
+	replace mun = subinstr(mun,"<ed>","í",.)
+	replace mun = subinstr(mun,"<f1>","ñ",.)
+	replace mun = subinstr(mun,"<f3>","ó",.)
+	replace mun = subinstr(mun,"<fa>","ú",.)
 	*do the above for all the cases	
 egen depmun = concat (departamen mun), punct(-)
-save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_polyid_Stata15_corrected.dta", replace
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
 *}
