@@ -26,6 +26,7 @@ use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta
 	*     |      Pando   Santa Rosa |
 	drop dup
 egen depmun = concat (dep municipio), punct(-)
+*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace
 }
 
@@ -59,6 +60,7 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID
 	*256 merged (first round)
 	*fixing name for Potosí
 	replace departamen="Potosí" if departamen=="Potosi"
+	replace mun= "Nuestra Señora de La Paz" if mun=="La Paz"
 	*289 merged (second round)
 	split mun, gen(tempvar) parse("<")
 	drop tempvar1
@@ -98,5 +100,130 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID
 	replace mun = subinstr(mun,"<fa>","ú",.)
 	*do the above for all the cases	
 egen depmun = concat (departamen mun), punct(-)
+*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
 *}
+*Crear base de datos NTL.dta 
+*Create data base NTL.dta
+quietly
+clear 
+import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL.csv"
+*Correct typing errors		
+		split namegq, gen(tempvar) parse("Ã")
+	drop tempvar1
+	gen tempvar = substr(tempvar2,1,2)
+	drop tempvar2
+	tab tempvar
+	preserve
+	drop if missing(tempvar)
+	sort tempvar
+	quietly by temp:  gen dup = cond(_N==1,0,_n) if (tempvar!="-")
+*identify errors	
+	*list namegq tempvar if dup<=2
+ *    |                 namegq   tempvar |
+ *   |----------------------------------|
+ *1. |      FernÃ¡ndez Alonso         ¡ |
+ *2. |                AlcalÃ¡         ¡ |
+ *8. |         Colpa BÃ©lgica         © |
+ *9. |                RoborÃ©         © |
+ *17. |            Entre RÃ­os         ­ |
+ *   |----------------------------------|
+ *18. |             MacharetÃ­         ­ |
+ *32. |               ZudaÃ±ez         ± |
+ *33. |        Cuatro CaÃ±adas         ± |
+ *38. | AscenciÃ³n de Guarayos         ³ |
+ *39. |            ConcepciÃ³n         ³ |
+ *    |----------------------------------|
+ *47. |      JesÃºs de Machaka         º |
+ *    +----------------------------------+
+
+	drop dup
+	restore
+	drop tempvar
+*correct first errors market as Ã
+	replace namegq = subinstr(namegq,"Ã","í",.)
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace	
+*identify other errors containing Ã(+ another character)	
+	use /Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta
+		split namegq, gen(tempvari) parse("í")
+	drop tempvari1
+	gen tempvari = substr(tempvari2,1,2)
+	drop tempvari2
+	tab tempvari
+	preserve
+	drop if missing(tempvari)
+	sort tempvari
+	quietly by temp:  gen dup = cond(_N==1,0,_n) if (tempvari!="-")
+	*list namegq tempvari if dup<=2
+	drop dup
+	restore
+	drop tempvari
+*correct new errors
+	sort namegq
+	replace namegq = subinstr(namegq,"í¡","á",.)
+	replace namegq = subinstr(namegq,"í©","é",.)
+	replace namegq = subinstr(namegq,"í±","ñ",.)
+	replace namegq = subinstr(namegq,"í³","ó",.)
+	replace namegq = subinstr(namegq,"íº","ú",.)
+	replace namegq= "San Ignacio" if namegq=="San Igcio"
+	replace namegq= "Colpa Belgica" if namegq=="Colpa Bélgica"
+	replace namegq= "Choque Cota" if namegq=="Choquecota"
+	replace namegq= "Chuquihuta" if namegq=="Chuquihuta Ayllu Jucumani"
+	replace namegq= "Collana" if namegq=="Colla"
+	replace namegq= "Coro Coro" if namegq=="Corocoro"
+	replace namegq= "Gral. Saavedra" if namegq=="General Saavedra"
+	replace namegq= "Guanay" if namegq=="Guay"
+	replace namegq= "Humanata" if namegq=="Humata"
+	replace namegq= "Irupana" if namegq=="Irupa"
+	replace namegq= "Jesús de Machaca" if namegq=="Jesús de Machaka"
+	replace namegq= "Magdalena" if namegq=="Magdale"
+	replace namegq= "Okinawa Uno" if namegq=="Okiwa Uno"
+	replace namegq= "Pari-Paria-Soracachi" if namegq=="Paria"
+	replace namegq= "Pocona" if namegq=="Poco"
+	replace namegq= "Postrer Valle" if namegq=="Postrervalle"
+	replace namegq= "Puerto Carabuco" if namegq=="Puerto Mayor de Carabuco"
+	replace namegq= "Puerto Suárez" if namegq=="Puerto Suarez"
+	replace namegq= "Puna" if namegq=="Pu"
+	replace namegq= "Rurrebaque" if namegq=="Puerto Menor de Rurrebaque"
+	replace namegq= "Saipina" if namegq=="Saipi"
+	replace namegq= "Salinas de Garci Mendoza" if namegq=="Salis de Garcí Mendoza"
+	replace namegq= "San Antonio de Lomerío" if namegq=="San Antonio de Lomerio"
+	replace namegq= "San José de Chiquitos" if namegq=="San José"
+	replace namegq= "San Juan de Yapacaní" if namegq=="San Juan"
+	replace namegq= "San Miguel de Velasco" if namegq=="San Miguel"
+	replace namegq= "San Pablo de Lípez" if namegq=="San Pablo"
+	replace namegq= "San Pedro de Tiquina" if namegq=="San Pedro de Tiqui"
+	replace namegq= "Santa Ana de Yacuma" if namegq=="Santa A"
+	replace namegq= "Quillacas" if namegq=="Santuario de Quillacas"
+	replace namegq= "Sica Sica" if namegq=="Sicasica"
+	replace namegq= "Sipe Sipe" if namegq=="Sipesipe"
+	replace namegq= "Sopachuy" if namegq=="Sopachui"
+	replace namegq= "Tiahuanacu" if namegq=="Tiahuacu"
+	replace namegq= "Toko" if namegq=="Toco"
+	replace namegq= "Tomina" if namegq=="Tomi"
+	replace namegq= "Urubichá" if namegq=="Urubicha"
+	replace namegq= "Villa de Sacaca" if namegq=="Sacaca"
+	replace namegq= "Villa Nueva-Loma Alta" if namegq=="Villa Nueva"
+	replace namegq= "Villa Tunari" if namegq=="Villa Turi"
+	replace namegq= "Villamontes" if namegq=="Villa Montes"
+	replace namegq= "Vitichi" if namegq=="Vitiche"
+	replace namegq= "Yanacachi" if namegq=="Yacachi"
+	replace namegq= "Nazacara de Pacajes" if namegq=="zacara de Pacajes"
+	replace namegq= "Buena Vista" if namegq=="Bue Vista"
+	replace namegq= "Caranavi" if namegq=="Caravi"
+	replace namegq= "Culpina" if namegq=="Culpi"
+	replace namegq= "Carmen Rivero Tórrez" if namegq=="El Carmen Rivero Tórrez"
+	replace namegq= "Icla" if namegq=="Villa Ricardo Mugia - Icla"
+	replace namegq= "Mairana" if namegq=="Maira"
+	replace namegq= "Moro Moro" if namegq=="Moromoro"
+	replace namegq= "Pocona" if namegq=="Poco"
+	replace namegq= "Punata" if namegq=="Puta"
+	replace namegq= "Shinahota" if namegq=="Shihota"
+	replace namegq= "El Sena" if namegq=="Se"
+	replace namegq= "Ancoraimes" if namegq=="Villa Ancoraimes"
+	replace namegq= "Callapa" if namegq=="Santiago de Callapa"
+	replace namegq= "San Andrés de Machaca" if namegq=="La (Marka) San Andrés de Mach"
+	replace namegq= "Santiago de Andamarca" if namegq=="Andamarca"
+	replace namegq= "Villa Alcalá" if namegq=="Alcalá"	
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+*determine if a municipality has the same name 
