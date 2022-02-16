@@ -173,6 +173,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "Chuquihuta" if namegq=="Chuquihuta Ayllu Jucumani"
 	replace namegq= "Collana" if namegq=="Colla"
 	replace namegq= "Coro Coro" if namegq=="Corocoro"
+	replace namegq= "Copacabana" if namegq=="Copacaba"
 	replace namegq= "Gral. Saavedra" if namegq=="General Saavedra"
 	replace namegq= "Guanay" if namegq=="Guay"
 	replace namegq= "Humanata" if namegq=="Humata"
@@ -186,7 +187,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "Puerto Carabuco" if namegq=="Puerto Mayor de Carabuco"
 	replace namegq= "Puerto Suárez" if namegq=="Puerto Suarez"
 	replace namegq= "Puna" if namegq=="Pu"
-	replace namegq= "Rurrebaque" if namegq=="Puerto Menor de Rurrebaque"
+	replace namegq= "Rurrenabaque" if namegq=="Puerto Menor de Rurrebaque"
 	replace namegq= "Saipina" if namegq=="Saipi"
 	replace namegq= "Salinas de Garci Mendoza" if namegq=="Salis de Garcí Mendoza"
 	replace namegq= "San Antonio de Lomerío" if namegq=="San Antonio de Lomerio"
@@ -230,8 +231,16 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq="San Pedro de Totora" if asdf_id==64
 	replace namegq="San Pedro de Buena Vista" if asdf_id==40
 	replace namegq="Santa Rosa del Sara" if asdf_id==69
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-
+	replace namegq="Independencia" if namegq=="Ayopaya"
+	replace namegq="Cuchumuela" if namegq=="Villa Gualberto Villarroel"
+	replace namegq="Muyupampa" if namegq=="Villa Vaca Guzmán"
+	replace namegq="Villa San Lorenzo" if asdf_id==97
+	replace namegq="Guaqui" if namegq=="Puerto Mayor de Guaqui"
+	replace namegq="San Buenaventura" if namegq=="San Buenventura"
+	replace namegq="Waldo Ballivián" if namegq=="Waldo Ballivian"
+	replace namegq="Yunguyo de Litoral" if namegq=="Yunguyo del Litoral"
+	*replace namegq="" if namegq==""
+	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly 
 clear
 use NTL_corrected.dta
@@ -297,3 +306,25 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 *------------------------+-----------------------------------
 *                  Total |        369      100.00
 	*second round
+ 
+*			tab _merge
+*
+*                _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |         25        6.85        6.85
+*         using only (2) |         26        7.12       13.97
+*            matched (3) |        314       86.03      100.00
+*------------------------+-----------------------------------
+*                  Total |        365      100.00
+	*third round
+	
+*			tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |         20        5.56        5.56
+*         using only (2) |         21        5.83       11.39
+*            matched (3) |        319       88.61      100.00
+*------------------------+-----------------------------------
+*                  Total |        360      100.00
+	*fourth round
