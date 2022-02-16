@@ -1,6 +1,6 @@
 *New vars at the Municipal Atlas of Sustainable Development Goals in Bolivia
 *Nuevas variables en el Atlas Municipal de los Objetivos de Desarrollo Sostenible en Bolivia
-quietly{
+quietly {
 clear
 use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta
 	*determine if a municipality has the same name in different department
@@ -103,6 +103,8 @@ egen depmun = concat (departamen mun), punct(-)
 *save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
 *}
+
+
 *Crear base de datos NTL.dta 
 *Create data base NTL.dta
 quietly
@@ -225,5 +227,73 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "San Andrés de Machaca" if namegq=="La (Marka) San Andrés de Mach"
 	replace namegq= "Santiago de Andamarca" if namegq=="Andamarca"
 	replace namegq= "Villa Alcalá" if namegq=="Alcalá"	
+	replace namegq="San Pedro de Totora" if asdf_id==64
+	replace namegq="San Pedro de Buena Vista" if asdf_id==40
+	replace namegq="Santa Rosa del Sara" if asdf_id==69
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-*determine if a municipality has the same name 
+
+quietly 
+clear
+use NTL_corrected.dta
+	*determine if a municipality has the same name in different department
+	sort namegq
+	quietly by namegq:  gen dup = cond(_N==1,0,_n) if (namegq!="-")
+	list asdf_id namegq if dup>=1
+* +-----------------------+
+*     | asdf_id        namegq |
+*     |-----------------------|
+* 98. |     319     El Puente |
+* 99. |      98     El Puente |
+*103. |     299   Entre Rí­os |
+*104. |      72   Entre Rí­os |
+*230. |      56   San Ignacio |
+*     |-----------------------|
+*231. |     293   San Ignacio |
+*232. |     264    San Javier |
+*233. |      57    San Javier |
+*238. |     147   San Lorenzo |
+*239. |      97   San Lorenzo |
+*     |-----------------------|
+*244. |     222     San Pedro |
+*245. |      58     San Pedro |
+*252. |      74     San Ramón |
+*253. |     263     San Ramón |
+*256. |     148    Santa Rosa |
+*     |-----------------------|
+*257. |     224    Santa Rosa |
+*     +-----------------------+
+* Second round
+		drop dup
+*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+
+
+*Merge NTL (.dta) with Poly_ID to create a new column and identify municipalities departments	
+clear 
+use NTL_corrected.dta
+rename namegq mun
+keep asdf_id mun
+merge m:m mun using bd_polyid_Stata15_corrected.dta
+	tab _merge
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+*.         tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |         28        7.53        7.53
+*         using only (2) |         33        8.87       16.40
+*            matched (3) |        311       83.60      100.00
+*------------------------+-----------------------------------
+*                  Total |        372      100.00
+	*first round
+	
+*.         tab _merge
+*
+*                _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |         28        7.59        7.59
+*         using only (2) |         30        8.13       15.72
+*            matched (3) |        311       84.28      100.00
+*------------------------+-----------------------------------
+*                  Total |        369      100.00
+	*second round
