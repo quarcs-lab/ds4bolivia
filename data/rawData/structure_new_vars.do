@@ -144,6 +144,7 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL.cs
 	drop tempvar
 *correct first errors market as Ã
 	replace namegq = subinstr(namegq,"Ã","í",.)
+	sort namegq
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace	
 *identify other errors containing Ã(+ another character)	
 	use /Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta
@@ -189,7 +190,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "Puna" if namegq=="Pu"
 	replace namegq= "Rurrenabaque" if namegq=="Puerto Menor de Rurrebaque"
 	replace namegq= "Saipina" if namegq=="Saipi"
-	replace namegq= "Salinas de Garci Mendoza" if namegq=="Salis de Garcí Mendoza"
+	replace namegq= "Salinas de Garci Mendoza" if namegq=="Salis de Garcí­ Mendoza"
 	replace namegq= "San Antonio de Lomerío" if namegq=="San Antonio de Lomerio"
 	replace namegq= "San José de Chiquitos" if namegq=="San José"
 	replace namegq= "San Juan de Yapacaní" if namegq=="San Juan"
@@ -239,9 +240,31 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq="San Buenaventura" if namegq=="San Buenventura"
 	replace namegq="Waldo Ballivián" if namegq=="Waldo Ballivian"
 	replace namegq="Yunguyo de Litoral" if namegq=="Yunguyo del Litoral"
-	*replace namegq="" if namegq==""
+	replace namegq="Bolívar" if namegq=="Bolivar"
+	replace namegq="San Agustín" if namegq=="San Agustí­n"
+	replace namegq="Ascensión de Guarayos" if namegq=="Ascención de Guarayos"
+	replace namegq="Caraparí" if namegq=="Caraparí­"
+	replace namegq="Chaquí" if namegq=="Chaquí­"
+	replace namegq="Guayaramerín" if namegq=="Guayaramerí­n"
+	replace namegq="Macharetí" if namegq=="Macharetí­"
+	replace namegq="Ocurí" if namegq=="Ocurí­"
+	replace namegq="Potosí" if namegq=="Potosí­"
+	replace namegq="San Joaquín" if namegq=="San Joaquí­n"
+	replace namegq="San Matías" if namegq=="San Matí­as"
+	replace namegq="San Pedro Cuarahuara" if namegq=="San Pedro de Curahuara"
+	replace namegq="Tapacarí" if namegq=="Tapacarí­"
+	replace namegq="Uncía" if namegq=="Uncí­a"
+	replace namegq="San Buenaventura" if namegq=="San Bueventura"
+	replace namegq="Yapacaní" if namegq=="Yapacaní­"
+	replace namegq="Entre Ríos" if namegq=="­Entre Rí­os"
+	replace namegq="San Ignacio de Velasco" if asdf_id==293
+	replace namegq="Huari" if asdf_id==10
+	replace namegq="Huarina" if asdf_id==237
+	replace namegq="Entre Rí­os" if asdf_id==299
+	*replace asdf_id=299 if namegq=="Entre Ríos"
+	*replace asdf_id=72 if namegq=="Entre Ríos"
 	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-quietly 
+quietly {
 clear
 use NTL_corrected.dta
 	*determine if a municipality has the same name in different department
@@ -275,7 +298,7 @@ use NTL_corrected.dta
 		drop dup
 *save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-
+}
 
 *Merge NTL (.dta) with Poly_ID to create a new column and identify municipalities departments	
 clear 
@@ -284,7 +307,12 @@ rename namegq mun
 keep asdf_id mun
 merge m:m mun using bd_polyid_Stata15_corrected.dta
 	tab _merge
+	replace asdf_id=57 if depmun=="Beni-San Javier"
+	replace asdf_id=264 if depmun=="Santa Cruz-San Javier"
+	replace asdf_id=222 if depmun=="Pando-San Pedro"
+	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+quietly {
 *.         tab _merge
 *
 *                 _merge |      Freq.     Percent        Cum.
@@ -328,3 +356,49 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 *------------------------+-----------------------------------
 *                  Total |        360      100.00
 	*fourth round
+	
+*		tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |         19        5.29        5.29
+*         using only (2) |         20        5.57       10.86
+*            matched (3) |        320       89.14      100.00
+*------------------------+-----------------------------------
+*                  Total |        359      100.00
+	*fifth round
+	
+*         tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |          5        1.45        1.45
+*         using only (2) |          6        1.74        3.19
+*            matched (3) |        334       96.81      100.00
+*------------------------+-----------------------------------
+*                  Total |        345      100.00
+		*sixth round
+		
+*		tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |          4        1.16        1.16
+*         using only (2) |          5        1.45        2.62
+*            matched (3) |        335       97.38      100.00
+*------------------------+-----------------------------------
+*                  Total |        344      100.00
+		*seventh round
+
+*        tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |          2        0.59        0.59
+*         using only (2) |          2        0.59        1.17
+*            matched (3) |        337       98.83      100.00
+*------------------------+-----------------------------------
+*                  Total |        341      100.00
+	*Eighth round
+
+}
