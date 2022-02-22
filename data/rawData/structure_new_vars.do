@@ -1,11 +1,12 @@
 *New vars at the Municipal Atlas of Sustainable Development Goals in Bolivia
 *Nuevas variables en el Atlas Municipal de los Objetivos de Desarrollo Sostenible en Bolivia
-quietly {
+quietly
 clear
 use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta
 	*determine if a municipality has the same name in different department
 	sort municipio
 	quietly by municipio:  gen dup = cond(_N==1,0,_n) if (municipio!="-")
+quietly {	
 	list dep municipio if dup>=1
 	*yes, the following cases were found, we need unique values for department and municipality
 	*     |        dep    municipio |
@@ -24,11 +25,12 @@ use BaseDatosAtlasMunicipalODSBolivia2020_Stata15.dta
 	*     |-------------------------|
 	*     |       Beni   Santa Rosa |
 	*     |      Pando   Santa Rosa |
+		}
 	drop dup
+replace municipio= "Nuestra Señora de La Paz" if municipio=="La Paz"
 egen depmun = concat (dep municipio), punct(-)
 *save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace
-}
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
 
 *New vars at POLYID
 *Nuevas variables en POLYID
@@ -259,6 +261,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "San Ignacio de Velasco" if asdf_id==293
 	replace namegq= "Huari" if asdf_id==10
 	replace namegq= "Huarina" if asdf_id==237
+	*replace namegq= "La Paz" if namegq=="Nuestra Señora de La Paz"
 	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly {
 clear
@@ -309,6 +312,7 @@ merge m:m mun using bd_polyid_Stata15_corrected.dta
 	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
 	replace asdf_id=299 if poly_id==152
 	replace asdf_id=72 if poly_id==249
+	drop if missing(poly_id)
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 
 use NTL_corrected.dta
@@ -413,4 +417,13 @@ quietly {
 *------------------------+-----------------------------------
 *                  Total |        341      100.00
 		*Ninth round
+		 
+*		 tab _merge
+*
+*                _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*            matched (3) |        339      100.00      100.00
+*------------------------+-----------------------------------
+*                  Total |        339      100.00
+		*Tenth round
 }
