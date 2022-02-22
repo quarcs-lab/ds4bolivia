@@ -229,40 +229,36 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "San Andrés de Machaca" if namegq=="La (Marka) San Andrés de Mach"
 	replace namegq= "Santiago de Andamarca" if namegq=="Andamarca"
 	replace namegq= "Villa Alcalá" if namegq=="Alcalá"	
-	replace namegq="San Pedro de Totora" if asdf_id==64
-	replace namegq="San Pedro de Buena Vista" if asdf_id==40
-	replace namegq="Santa Rosa del Sara" if asdf_id==69
-	replace namegq="Independencia" if namegq=="Ayopaya"
-	replace namegq="Cuchumuela" if namegq=="Villa Gualberto Villarroel"
-	replace namegq="Muyupampa" if namegq=="Villa Vaca Guzmán"
-	replace namegq="Villa San Lorenzo" if asdf_id==97
-	replace namegq="Guaqui" if namegq=="Puerto Mayor de Guaqui"
-	replace namegq="San Buenaventura" if namegq=="San Buenventura"
-	replace namegq="Waldo Ballivián" if namegq=="Waldo Ballivian"
-	replace namegq="Yunguyo de Litoral" if namegq=="Yunguyo del Litoral"
-	replace namegq="Bolívar" if namegq=="Bolivar"
-	replace namegq="San Agustín" if namegq=="San Agustí­n"
-	replace namegq="Ascensión de Guarayos" if namegq=="Ascención de Guarayos"
-	replace namegq="Caraparí" if namegq=="Caraparí­"
-	replace namegq="Chaquí" if namegq=="Chaquí­"
-	replace namegq="Guayaramerín" if namegq=="Guayaramerí­n"
-	replace namegq="Macharetí" if namegq=="Macharetí­"
-	replace namegq="Ocurí" if namegq=="Ocurí­"
-	replace namegq="Potosí" if namegq=="Potosí­"
-	replace namegq="San Joaquín" if namegq=="San Joaquí­n"
-	replace namegq="San Matías" if namegq=="San Matí­as"
-	replace namegq="San Pedro Cuarahuara" if namegq=="San Pedro de Curahuara"
-	replace namegq="Tapacarí" if namegq=="Tapacarí­"
-	replace namegq="Uncía" if namegq=="Uncí­a"
-	replace namegq="San Buenaventura" if namegq=="San Bueventura"
-	replace namegq="Yapacaní" if namegq=="Yapacaní­"
-	replace namegq="Entre Ríos" if namegq=="­Entre Rí­os"
-	replace namegq="San Ignacio de Velasco" if asdf_id==293
-	replace namegq="Huari" if asdf_id==10
-	replace namegq="Huarina" if asdf_id==237
-	replace namegq="Entre Rí­os" if asdf_id==299
-	*replace asdf_id=299 if namegq=="Entre Ríos"
-	*replace asdf_id=72 if namegq=="Entre Ríos"
+	replace namegq= "San Pedro de Totora" if asdf_id==64
+	replace namegq= "San Pedro de Buena Vista" if asdf_id==40
+	replace namegq= "Santa Rosa del Sara" if asdf_id==69
+	replace namegq= "Independencia" if namegq=="Ayopaya"
+	replace namegq= "Cuchumuela" if namegq=="Villa Gualberto Villarroel"
+	replace namegq= "Muyupampa" if namegq=="Villa Vaca Guzmán"
+	replace namegq= "Villa San Lorenzo" if asdf_id==97
+	replace namegq= "Guaqui" if namegq=="Puerto Mayor de Guaqui"
+	replace namegq= "San Buenaventura" if namegq=="San Buenventura"
+	replace namegq= "Waldo Ballivián" if namegq=="Waldo Ballivian"
+	replace namegq= "Yunguyo de Litoral" if namegq=="Yunguyo del Litoral"
+	replace namegq= "Bolívar" if namegq=="Bolivar"
+	replace namegq= "San Agustín" if namegq=="San Agustí­n"
+	replace namegq= "Ascensión de Guarayos" if namegq=="Ascención de Guarayos"
+	replace namegq= "Caraparí" if namegq=="Caraparí­"
+	replace namegq= "Chaquí" if namegq=="Chaquí­"
+	replace namegq= "Guayaramerín" if namegq=="Guayaramerí­n"
+	replace namegq= "Macharetí" if namegq=="Macharetí­"
+	replace namegq= "Ocurí" if namegq=="Ocurí­"
+	replace namegq= "Potosí" if namegq=="Potosí­"
+	replace namegq= "San Joaquín" if namegq=="San Joaquí­n"
+	replace namegq= "San Matías" if namegq=="San Matí­as"
+	replace namegq= "San Pedro Cuarahuara" if namegq=="San Pedro de Curahuara"
+	replace namegq= "Tapacarí" if namegq=="Tapacarí­"
+	replace namegq= "Uncía" if namegq=="Uncí­a"
+	replace namegq= "San Buenaventura" if namegq=="San Bueventura"
+	replace namegq= "Yapacaní" if namegq=="Yapacaní­"
+	replace namegq= "San Ignacio de Velasco" if asdf_id==293
+	replace namegq= "Huari" if asdf_id==10
+	replace namegq= "Huarina" if asdf_id==237
 	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly {
 clear
@@ -311,6 +307,14 @@ merge m:m mun using bd_polyid_Stata15_corrected.dta
 	replace asdf_id=264 if depmun=="Santa Cruz-San Javier"
 	replace asdf_id=222 if depmun=="Pando-San Pedro"
 	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
+	replace asdf_id=299 if poly_id==152
+	replace asdf_id=72 if poly_id==249
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+
+use NTL_corrected.dta
+keep asdf_id mun
+merge m:m mun using bd_polyid_Stata15_corrected.dta
+	tab _merge
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly {
 *.         tab _merge
@@ -399,6 +403,14 @@ quietly {
 *            matched (3) |        337       98.83      100.00
 *------------------------+-----------------------------------
 *                  Total |        341      100.00
-	*Eighth round
-
+		*Eighth round
+*		tab _merge
+*
+*                 _merge |      Freq.     Percent        Cum.
+*------------------------+-----------------------------------
+*        master only (1) |          2        0.59        0.59
+*            matched (3) |        339       99.41      100.00
+*------------------------+-----------------------------------
+*                  Total |        341      100.00
+		*Ninth round
 }
