@@ -1,9 +1,7 @@
 ## A video introduction to the project 
 https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 
-- On the connection of three datasets:
-  https://www.loom.com/share/8f2066a756294b4fb19596afb6e36ef2
-- On the connection of three datasets (update 2):https://www.loom.com/share/5275bdf0cb0a4ada91a789d2f059c3e8
+- On the connection of three datasets: [update 1](https://www.loom.com/share/8f2066a756294b4fb19596afb6e36ef2) (Erick), [update 2](https://www.loom.com/share/5275bdf0cb0a4ada91a789d2f059c3e8) (Erick), [update 3](https://www.youtube.com/watch?v=4QdkPmGrYwM) (Pedro), and [update 4](https://www.loom.com/share/20e6cc7fe6e4448daa8630f2ffb03494) (Erick)
 
 ## Tentative titles for the paper
 
