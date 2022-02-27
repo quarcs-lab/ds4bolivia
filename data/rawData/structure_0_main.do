@@ -1,7 +1,7 @@
 *Set path
 *Establecer camino
 cd /Users/pedro/Documents/GitHub/project2021o/data/rawData
-*cd "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData"
+*cd
 
 *Obs.:
 *In the main do file, please set a path (cd)
