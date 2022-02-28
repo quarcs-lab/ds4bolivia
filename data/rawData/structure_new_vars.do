@@ -28,7 +28,7 @@ quietly {
 		}
 	drop dup
 egen depmun = concat (dep municipio), punct(-)
-*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
+*save 
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
 
 *New vars at POLYID
@@ -101,7 +101,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_
 	replace mun = subinstr(mun,"<fa>","ú",.)
 	*do the above for all the cases	
 egen depmun = concat (departamen mun), punct(-)
-*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
+*save 
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
 *}
 
@@ -293,7 +293,7 @@ use NTL_corrected.dta
 *     +-----------------------+
 * Second round
 		drop dup
-*save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
+*save 
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 }
 
