@@ -27,7 +27,6 @@ quietly {
 	*     |      Pando   Santa Rosa |
 		}
 	drop dup
-replace municipio= "Nuestra Señora de La Paz" if municipio=="La Paz"
 egen depmun = concat (dep municipio), punct(-)
 *save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
@@ -62,7 +61,7 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID
 	*256 merged (first round)
 	*fixing name for Potosí
 	replace departamen="Potosí" if departamen=="Potosi"
-	replace mun= "Nuestra Señora de La Paz" if mun=="La Paz"
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
 	*289 merged (second round)
 	split mun, gen(tempvar) parse("<")
 	drop tempvar1
@@ -261,7 +260,6 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "San Ignacio de Velasco" if asdf_id==293
 	replace namegq= "Huari" if asdf_id==10
 	replace namegq= "Huarina" if asdf_id==237
-	*replace namegq= "La Paz" if namegq=="Nuestra Señora de La Paz"
 	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly {
 clear
@@ -319,6 +317,7 @@ use NTL_corrected.dta
 keep asdf_id mun
 merge m:m mun using bd_polyid_Stata15_corrected.dta
 	tab _merge
+	replace asdf_id=176 if poly_id==30
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
 quietly {
 *.         tab _merge
