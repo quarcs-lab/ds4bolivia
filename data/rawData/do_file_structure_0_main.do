@@ -13,8 +13,14 @@ cd /Users/pedro/Documents/GitHub/project2021o/data/rawData
 
 *New vars
 *Nuevas variables
-do structure_new_vars
+do do_file_structure_new_vars
 
 *Merging
 *Fusionar
-do structure_merge
+do do_file_structure_merge
+
+*Repeat new vars structure 
+do do_file_structure_new_vars
+
+*Second merging structure
+do do_file_structure_merge2

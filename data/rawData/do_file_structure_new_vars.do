@@ -29,7 +29,7 @@ quietly {
 	drop dup
 egen depmun = concat (dep municipio), punct(-)
 *save 
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
 
 *New vars at POLYID
 *Nuevas variables en POLYID
@@ -146,9 +146,9 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL.cs
 *correct first errors market as Ã
 	replace namegq = subinstr(namegq,"Ã","í",.)
 	sort namegq
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace	
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace	
 *identify other errors containing Ã(+ another character)	
-	use /Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta
+	use /Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta
 		split namegq, gen(tempvari) parse("í")
 	drop tempvari1
 	gen tempvari = substr(tempvari2,1,2)
@@ -260,10 +260,10 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta"
 	replace namegq= "San Ignacio de Velasco" if asdf_id==293
 	replace namegq= "Huari" if asdf_id==10
 	replace namegq= "Huarina" if asdf_id==237
-	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
+	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace
 quietly {
 clear
-use NTL_corrected.dta
+use bd_ntl_corrected.dta
 	*determine if a municipality has the same name in different department
 	sort namegq
 	quietly by namegq:  gen dup = cond(_N==1,0,_n) if (namegq!="-")
@@ -294,135 +294,5 @@ use NTL_corrected.dta
 * Second round
 		drop dup
 *save 
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-}
-
-*Merge NTL (.dta) with Poly_ID to create a new column and identify municipalities departments	
-clear 
-use NTL_corrected.dta
-rename namegq mun
-keep asdf_id mun
-merge m:m mun using bd_polyid_Stata15_corrected.dta
-	tab _merge
-	replace asdf_id=57 if depmun=="Beni-San Javier"
-	replace asdf_id=264 if depmun=="Santa Cruz-San Javier"
-	replace asdf_id=222 if depmun=="Pando-San Pedro"
-	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
-	replace asdf_id=299 if poly_id==152
-	replace asdf_id=72 if poly_id==249
-	drop if missing(poly_id)
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-
-use NTL_corrected.dta
-keep asdf_id mun
-merge m:m mun using bd_polyid_Stata15_corrected.dta
-	tab _merge
-	replace asdf_id=176 if poly_id==30
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
-quietly {
-*.         tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |         28        7.53        7.53
-*         using only (2) |         33        8.87       16.40
-*            matched (3) |        311       83.60      100.00
-*------------------------+-----------------------------------
-*                  Total |        372      100.00
-	*first round
-	
-*.         tab _merge
-*
-*                _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |         28        7.59        7.59
-*         using only (2) |         30        8.13       15.72
-*            matched (3) |        311       84.28      100.00
-*------------------------+-----------------------------------
-*                  Total |        369      100.00
-	*second round
- 
-*			tab _merge
-*
-*                _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |         25        6.85        6.85
-*         using only (2) |         26        7.12       13.97
-*            matched (3) |        314       86.03      100.00
-*------------------------+-----------------------------------
-*                  Total |        365      100.00
-	*third round
-	
-*			tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |         20        5.56        5.56
-*         using only (2) |         21        5.83       11.39
-*            matched (3) |        319       88.61      100.00
-*------------------------+-----------------------------------
-*                  Total |        360      100.00
-	*fourth round
-	
-*		tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |         19        5.29        5.29
-*         using only (2) |         20        5.57       10.86
-*            matched (3) |        320       89.14      100.00
-*------------------------+-----------------------------------
-*                  Total |        359      100.00
-	*fifth round
-	
-*         tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |          5        1.45        1.45
-*         using only (2) |          6        1.74        3.19
-*            matched (3) |        334       96.81      100.00
-*------------------------+-----------------------------------
-*                  Total |        345      100.00
-		*sixth round
-		
-*		tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |          4        1.16        1.16
-*         using only (2) |          5        1.45        2.62
-*            matched (3) |        335       97.38      100.00
-*------------------------+-----------------------------------
-*                  Total |        344      100.00
-		*seventh round
-
-*        tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |          2        0.59        0.59
-*         using only (2) |          2        0.59        1.17
-*            matched (3) |        337       98.83      100.00
-*------------------------+-----------------------------------
-*                  Total |        341      100.00
-		*Eighth round
-*		tab _merge
-*
-*                 _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*        master only (1) |          2        0.59        0.59
-*            matched (3) |        339       99.41      100.00
-*------------------------+-----------------------------------
-*                  Total |        341      100.00
-		*Ninth round
-		 
-*		 tab _merge
-*
-*                _merge |      Freq.     Percent        Cum.
-*------------------------+-----------------------------------
-*            matched (3) |        339      100.00      100.00
-*------------------------+-----------------------------------
-*                  Total |        339      100.00
-		*Tenth round
+save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace
 }

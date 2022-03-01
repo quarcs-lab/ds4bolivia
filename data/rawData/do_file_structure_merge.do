@@ -4,24 +4,10 @@ clear
 use bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta
 keep id municipio dep depmun
 merge 1:1 depmun using bd_polyid_Stata15_corrected.dta
-<<<<<<< HEAD
-	tab _merge
-=======
-tab _merge
-*save 
+tab _merge 
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
->>>>>>> 4e4737137f9a4f42203598fd9d23802e55bb7224
 	*256 merged (first round)
 	*289 merged (second round)
 	*339 merged (third round)
 *save "C:\Users\Erick Gonzales\Documents\1_Contributions\2022_computational_notebook_muni_bol\project2021o\data\rawData\bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta"
 save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
-
-*Merge NTL.corrected(dta.) with poly_id.corrected (.dta)
-clear
-use NTL_corrected.dta
-keep asdf_id mun poly_id depmun
-merge 1:1 poly_id using bd_polyid_Stata15_corrected.dta
-	sort asdf_id
-	tab _merge
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL_corrected.dta", replace
