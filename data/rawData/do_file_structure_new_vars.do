@@ -28,14 +28,13 @@ quietly {
 		}
 	drop dup
 egen depmun = concat (dep municipio), punct(-)
-*save 
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta", replace 
+save bd_atlasmunicipalodsbolivia2020_Stata15_corrected.dta, replace
 
 *New vars at POLYID
 *Nuevas variables en POLYID
 *quietly{
 clear
-import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID.csv"
+import delimited POLYID.csv
 	*determine if a municipality has the same name in different department
 	sort mun
 	quietly by mun:  gen dup = cond(_N==1,0,_n) if (mun!="-")
@@ -61,7 +60,7 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/POLYID
 	*256 merged (first round)
 	*fixing name for Potosí
 	replace departamen="Potosí" if departamen=="Potosi"
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
+save bd_polyid_Stata15_corrected.dta, replace
 	*289 merged (second round)
 	split mun, gen(tempvar) parse("<")
 	drop tempvar1
@@ -102,7 +101,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_
 	*do the above for all the cases	
 egen depmun = concat (departamen mun), punct(-)
 *save 
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_corrected.dta", replace
+save bd_polyid_Stata15_corrected.dta, replace
 *}
 
 
@@ -110,7 +109,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_polyid_Stata15_
 *Create data base NTL.dta
 quietly
 clear 
-import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL.csv"
+import delimited NTL.csv
 *Correct typing errors		
 		split namegq, gen(tempvar) parse("Ã")
 	drop tempvar1
@@ -146,9 +145,9 @@ import delimited "/Users/pedro/Documents/GitHub/project2021o/data/rawData/NTL.cs
 *correct first errors market as Ã
 	replace namegq = subinstr(namegq,"Ã","í",.)
 	sort namegq
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace	
+save bd_ntl_corrected.dta, replace	
 *identify other errors containing Ã(+ another character)	
-	use /Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta
+	use bd_ntl_corrected.dta
 		split namegq, gen(tempvari) parse("í")
 	drop tempvari1
 	gen tempvari = substr(tempvari2,1,2)
@@ -260,7 +259,7 @@ save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.d
 	replace namegq= "San Ignacio de Velasco" if asdf_id==293
 	replace namegq= "Huari" if asdf_id==10
 	replace namegq= "Huarina" if asdf_id==237
-	save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace
+	save bd_ntl_corrected.dta, replace
 quietly {
 clear
 use bd_ntl_corrected.dta
@@ -294,5 +293,29 @@ use bd_ntl_corrected.dta
 * Second round
 		drop dup
 *save 
-save "/Users/pedro/Documents/GitHub/project2021o/data/rawData/bd_ntl_corrected.dta", replace
+save bd_ntl_corrected.dta, replace
 }
+*Merge NTL (.dta) with Poly_ID to create a new column and identify municipalities departments	
+clear 
+use bd_ntl_corrected.dta
+rename namegq mun
+keep asdf_id mun
+merge m:m mun using bd_polyid_Stata15_corrected.dta
+	tab _merge
+	replace asdf_id=57 if depmun=="Beni-San Javier"
+	replace asdf_id=264 if depmun=="Santa Cruz-San Javier"
+	replace asdf_id=222 if depmun=="Pando-San Pedro"
+	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
+	replace asdf_id=299 if poly_id==152
+	replace asdf_id=72 if poly_id==249
+	drop if missing(poly_id)
+	drop _merge
+save bd_ntl_corrected.dta, replace
+
+use bd_ntl_corrected.dta
+keep asdf_id mun
+merge m:m mun using bd_polyid_Stata15_corrected.dta
+	tab _merge
+	replace asdf_id=176 if poly_id==30
+	drop _merge
+save bd_ntl_corrected.dta, replace
