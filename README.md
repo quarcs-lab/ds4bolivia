@@ -1,7 +1,8 @@
 ## A video introduction to the project 
 https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 
-- On the connection of three datasets: [update 1](https://www.loom.com/share/8f2066a756294b4fb19596afb6e36ef2) (Erick), [update 2](https://www.loom.com/share/5275bdf0cb0a4ada91a789d2f059c3e8) (Erick), [update 3](https://www.youtube.com/watch?v=4QdkPmGrYwM) (Pedro), [update 4](https://www.loom.com/share/20e6cc7fe6e4448daa8630f2ffb03494) (Erick), [update 5](https://www.youtube.com/watch?v=mGxvxfPP3dM) (Pedro), and [update 6](https://www.loom.com/share/8741dd85a1e945bca395a260c1c5733c) (Erick)
+- On the connection of three datasets: [update 1](https://www.loom.com/share/8f2066a756294b4fb19596afb6e36ef2) (Erick), [update 2](https://www.loom.com/share/5275bdf0cb0a4ada91a789d2f059c3e8) (Erick), [update 3](https://www.youtube.com/watch?v=4QdkPmGrYwM) (Pedro), [update 4](https://www.loom.com/share/20e6cc7fe6e4448daa8630f2ffb03494) (Erick), [update 5](https://www.youtube.com/watch?v=mGxvxfPP3dM) (Pedro), [update 6](https://www.loom.com/share/8741dd85a1e945bca395a260c1c5733c) (Erick), [update 7](https://www.youtube.com/watch?v=YwrjB2tIybw) (Pedro), and [update 8](https://www.loom.com/share/b7ad839d3b0d41c983eb1342259284a7) (Erick)
+- Overall update and next steps: [update](https://www.loom.com/share/21b8e37380b447cc96ff4a7d8dfbd853)
 
 ## Tentative titles for the paper
 
