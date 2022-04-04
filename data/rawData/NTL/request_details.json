@@ -1,0 +1,98 @@
+{
+    "status": 2, 
+    "raster_data": [
+        {
+            "files": [
+                {
+                    "path": "2019.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2019", 
+                    "display": "2019"
+                }, 
+                {
+                    "path": "2014.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2014", 
+                    "display": "2014"
+                }, 
+                {
+                    "path": "2012.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2012", 
+                    "display": "2012"
+                }, 
+                {
+                    "path": "2016.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2016", 
+                    "display": "2016"
+                }, 
+                {
+                    "path": "2015.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2015", 
+                    "display": "2015"
+                }, 
+                {
+                    "path": "2013.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2013", 
+                    "display": "2013"
+                }, 
+                {
+                    "path": "2017.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2017", 
+                    "display": "2017"
+                }, 
+                {
+                    "path": "2020.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2020", 
+                    "display": "2020"
+                }, 
+                {
+                    "path": "2018.tif", 
+                    "name": "viirs_ntl_annual_v20_avg_masked_2018", 
+                    "display": "2018"
+                }
+            ], 
+            "name": "viirs_ntl_annual_v20_avg_masked", 
+            "custom_name": "Bolivia-Municipalities-Annual VIIRS Nighttime Lights v2 - SUM-Average Value", 
+            "title": "Annual VIIRS Nighttime Lights v2 - Average Value", 
+            "type": "raster", 
+            "base": "/sciclone/aiddata10/REU/geo/data/rasters/viirs/eogdata/annual/v20/avg_masked", 
+            "temporal_type": "year", 
+            "options": {
+                "extract_types": [
+                    "sum"
+                ]
+            }
+        }
+    ], 
+    "custom_name": "Bolivia-Municipalities-Annual VIIRS Nighttime Lights v2 - SUM-Average Value", 
+    "release_data": [], 
+    "priority": 0, 
+    "info": [
+        "<b><font size=4>CSV Column Names</font></b><br/>Each CSV will contain a column labeled \"asdf_id\" which has values for each feature that are unique (within that boundary dataset), one or more columns for your extract data, followed by the original source attributes for the boundary file (e.g., from GADM)<br/><br/>The standard format for extract data column names is a three part string delimited by periods (.)<br/>&nbsp;&nbsp;&nbsp;&nbsp;Example:  <b>&#60;dataset&#62;.&#60;filter&#62;.&#60;method&#62;</b>  =  gpw_v4_count<b>.</b>2010<b>.</b>sum<br/><br/>For more details, please read the documentation pdf accompanying your request results.<br/>"
+    ], 
+    "boundary": {
+        "path": "/sciclone/aiddata10/REU/geo/data/boundaries/geoboundaries/v4/BOL_ADM3/BOL_ADM3.geojson", 
+        "description": "GeoBoundaries boundary file for ADM3 in Bolivia (Plurinational State of).", 
+        "group": "bol_gb_v4", 
+        "name": "bol_adm3_gb_v4", 
+        "title": "Bolivia (Plurinational State of) ADM3 - GeoBoundaries v4"
+    }, 
+    "_id": "61556172109a8645cf7aca33", 
+    "email": "carlosmendez777@gmail.com", 
+    "stage": [
+        {
+            "name": "submitted", 
+            "time": 1632985458
+        }, 
+        {
+            "name": "prepared", 
+            "time": 1632985266
+        }, 
+        {
+            "name": "processed", 
+            "time": 1632986352
+        }, 
+        {
+            "name": "completed", 
+            "time": 0
+        }
+    ]
+}
