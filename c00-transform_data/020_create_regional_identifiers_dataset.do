@@ -69,8 +69,8 @@ order mun_id, after(mun)
 list poly_id asdf_id mun dep
 
 ** X. Save dataset
-save             "../data/regional_indentifiers.dta", replace
-export delimited "../data/regional_indentifiers.csv", replace
+save             "../data/regional_identifiers.dta", replace
+export delimited "../data/regional_identifiers.csv", replace
 
 ** 99. Close log file
 log close
