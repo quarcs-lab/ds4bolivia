@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data/030_clean_and_estimate_NTL_trends.txt
   log type:  text
- opened on:   5 Apr 2022, 02:09:45
+ opened on:   5 Apr 2022, 09:09:01
 
 . 
 . ** 3. Install modules
@@ -565,5 +565,5 @@ file ../data/NTL_trends.csv saved
       name:  <unnamed>
        log:  /Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data/030_clean_and_estimate_NTL_trends.txt
   log type:  text
- closed on:   5 Apr 2022, 02:09:58
+ closed on:   5 Apr 2022, 09:09:15
 --------------------------------------------------------------------------------------------------------------------

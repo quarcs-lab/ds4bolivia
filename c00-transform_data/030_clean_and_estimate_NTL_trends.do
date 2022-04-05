@@ -1,6 +1,6 @@
 cls
 **=====================================================
-** Program Name: 
+** Program Name: Clean data and estimate nighttime lights (NTL) trends
 ** Author: Carlos Mendez
 ** Date: 2022-04-04
 ** --------------------------------------------------------------------------------------------
