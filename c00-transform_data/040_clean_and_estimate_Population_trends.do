@@ -14,7 +14,7 @@ cls
 **=====================================================
 
 ** 0. Change working directory
-* cd " "
+cd "/Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data"
 
 ** 1. Setup
 clear all
@@ -42,7 +42,7 @@ describe
 summarize
 
 ** Drop unnecesary variables
-drop worldpop_pop_count_1km_mosaic200 v4 v6 v8 v10 v12 v14 v16 v18 v20 worldpop_pop_count_1km_mosaic201 v24 v26 v28 v30 v32 v34 v36 v38 v40 worldpop_pop_count_1km_mosaic202 Level gqid id shapeID shapeType shapeGroup
+drop worldpop_pop_count_1km_mosaic200 v4 v6 v8 v10 v12 v14 v16 v18 v20 worldpop_pop_count_1km_mosaic201 v24 v26 v28 v30 v32 v34 v36 v38 v40 worldpop_pop_count_1km_mosaic202 Level gqid id shapeType shapeGroup
 describe
 sum
 
@@ -92,7 +92,7 @@ sum
 drop pop2000 
 
 ** Reshape data from wide to long
-reshape long pop, i(asdf_id shapeName) j(year)
+reshape long pop, i(asdf_id shapeName shapeID) j(year)
 
 ** Linear interpolation of missing values
 xtset asdf_id year
@@ -115,16 +115,18 @@ gen tr100_pop = exp(tr100_ln_y)
 gen tr400_pop = exp(tr400_ln_y)
 
 ** Label variables
-*label variable shapeName "Municipality name"
-*label variable ntl "NTL (Sum of nighttime lights)"
-*notes ntl: viirs_ntl_annual_v20_avg_masked_sum  >>> Annual VIIRS nighttime lights product Version 2. Average value with background pixels masked.  >>>Download link: geo.aiddata.org/query/#!/status/61556172109a8645cf7aca33 
+label variable shapeName "Municipality name"
+label variable shapeID   "Municipality Geoquery Polygon ID"
 
-*label variable tr6_ntl "Trend of NTL (HP 6.25)"
-*notes tr6_ntl: The trend is based on the HP filter with a smoothing parameter of 6.25
-*label variable tr100_ntl "Trend of NTL (HP 100)"
-*notes tr100_ntl: The trend is based on the HP filter with a smoothing parameter of 100
-*label variable tr400_ntl "Trend of NTL (HP 400)"
-*notes tr400_ntl: The trend is based on the HP filter with a smoothing parameter of 400
+label variable pop "Estimated population count"
+notes pop: Estimated population count from WorldPop. Underlying dataset provides number of people per 1km pixel. The mapping approach is Random Forest-based dasymetric redistribution  >>>Download link: http://geo.aiddata.org/query/#!/status/622081a016cfcc2a7a4e3ab2
+
+label variable tr6_pop "Trend of population (HP 6.25)"
+notes tr6_pop: The trend is based on the HP filter with a smoothing parameter of 6.25
+label variable tr100_pop "Trend of population (HP 100)"
+notes tr100_pop: The trend is based on the HP filter with a smoothing parameter of 100
+label variable tr400_pop "Trend of population (HP 400)"
+notes tr400_pop: The trend is based on the HP filter with a smoothing parameter of 400
 
 
 ** Verify similarity with the original series
@@ -158,7 +160,7 @@ tsline tr400_pop pop if asdf_id == 160, name(fElAlto, replace)
 
 
 ** Drop unnecesary variables
-*drop ln_1000000ntl ln_1000000ntl_ip ln_1000000ntl_ip_pr ln_1000000ntl_ip2 tr6_ln_y tr100_ln_y tr400_ln_y
+drop tr6_ln_y tr100_ln_y tr400_ln_y ln_pop ln_pop_ip
 
 describe
 sum
