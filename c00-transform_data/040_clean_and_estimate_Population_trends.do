@@ -167,9 +167,19 @@ sum
 
 
 
-** X. Save dataset
-save "../data/Population_trends.dta", replace
+** Save long-form panel dataset
+save             "../data/Population_trends.dta", replace
 export delimited "../data/Population_trends.csv", replace
+
+
+** Save wide-form panel dataset
+reshape wide pop tr6_pop tr100_pop tr400_pop, i(asdf_id shapeName)  j(year)  
+order _all, alphabetic
+order shapeName, after(asdf_id)
+drop shapeID
+save             "../data/Population_trends-wide.dta", replace
+export delimited "../data/Population_trends-wide.csv", replace
+
 
 ** 99. Close log file
 log close

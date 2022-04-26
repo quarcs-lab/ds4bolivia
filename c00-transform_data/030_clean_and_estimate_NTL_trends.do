@@ -164,9 +164,16 @@ drop ln_1000000ntl ln_1000000ntl_ip ln_1000000ntl_ip_pr ln_1000000ntl_ip2 tr6_ln
 describe
 sum
 
-** X. Save dataset
-save "../data/NTL_trends.dta", replace
+** Save long-form panel dataset
+save             "../data/NTL_trends.dta", replace
 export delimited "../data/NTL_trends.csv", replace
+
+** Save wide-form panel dataset
+reshape wide ntl tr6_ntl tr100_ntl tr400_ntl, i(asdf_id shapeName)  j(year)  
+order _all, alphabetic
+order shapeName, after(asdf_id)
+save             "../data/NTL_trends-wide.dta", replace
+export delimited "../data/NTL_trends-wide.csv", replace
 
 ** 99. Close log file
 log close

@@ -1,0 +1,106 @@
+-----------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/060_compute_NTL_pc.txt
+  log type:  text
+ opened on:  26 Apr 2022, 16:13:22
+
+. 
+. ** 3. Install modules
+. *ssc install estout, replace all
+. *ssc install outreg2, replace all
+. *ssc install reghdfe, replace all * INFO: http://scorreia.com/software/reghdfe/
+. *net install gr0009_1, from (http://www.stata-journal.com/software/sj10-1) replace all
+. *net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes/main/schemes/") replace al
+> l
+. *set scheme white_tableau, permanently
+. *set scheme gg_tableau, permanently
+. 
+. 
+. ** 4. Import data
+. use "../data/Population_trends.dta", clear
+
+. 
+. describe
+
+Contains data from ../data/Population_trends.dta
+ Observations:         6,780                  
+    Variables:             8                  26 Apr 2022 12:56
+-----------------------------------------------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+-----------------------------------------------------------------------------------------------------------------------
+asdf_id         int     %8.0g                 
+shapeName       str32   %32s                  Municipality name
+shapeID         str26   %26s                  Municipality Geoquery Polygon ID
+year            int     %10.0g                
+pop             float   %9.0g               * Estimated population count
+tr6_pop         float   %9.0g               * Trend of population (HP 6.25)
+tr100_pop       float   %9.0g               * Trend of population (HP 100)
+tr400_pop       float   %9.0g               * Trend of population (HP 400)
+                                            * indicated variables have notes
+-----------------------------------------------------------------------------------------------------------------------
+Sorted by: asdf_id  year
+
+. summarize
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+     asdf_id |      6,780         169    97.86766          0        338
+   shapeName |          0
+     shapeID |          0
+        year |      6,780      2010.5    5.766707       2001       2020
+         pop |      6,780    29193.15    105045.7   219.5939    1721638
+-------------+---------------------------------------------------------
+     tr6_pop |      6,780    29192.65    105045.3   220.2197    1720778
+   tr100_pop |      6,780     29192.4    105045.3   221.3703    1722643
+   tr400_pop |      6,780    29192.24    105045.3   221.6266    1723612
+
+. 
+. ** Select observations from 2012-2020
+. keep if year > 2011
+(3,729 observations deleted)
+
+. 
+. ** Merge with NTL dataset
+. sort asdf_id year
+
+. merge 1:1 asdf_id year using "../data/NTL_trends.dta"
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                             3,051  (_merge==3)
+    -----------------------------------------
+
+. 
+end of do-file
+
+. sum ntl pop
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ntl |      2,984    984.4628    4549.933   .1356391   64137.62
+         pop |      3,051    32267.72    115689.3   518.9156    1721638
+
+. sum pop if year == 2018
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         pop |        339    33559.27    120157.7    657.392    1643086
+
+. sum tr400_pop tr400_ntl
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+   tr400_pop |      3,051     32264.7      115644   518.6144    1723612
+   tr400_ntl |      3,051    958.5357    4479.558   .0000266   67801.87
+
+. sum ntl tr6_ntl tr100_ntl tr400_ntl
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+         ntl |      2,984    984.4628    4549.933   .1356391   64137.62
+     tr6_ntl |      3,051    959.2469    4483.889   .0000266   62760.92
+   tr100_ntl |      3,051    958.4536    4478.726   .0000266   67086.64
+   tr400_ntl |      3,051    958.5357    4479.558   .0000266   67801.87
+

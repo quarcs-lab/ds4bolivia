@@ -104,24 +104,24 @@ tw (sc co tr100_co) (lfit co tr100_co), name(fig2, replace)
 tw (sc co tr400_co) (lfit co tr400_co), name(fig3, replace)
 
 tsline tr6_co co if asdf_id == 91, name(fig4, replace)
-tsline tr6_co co if asdf_id == 93, name(fig5, replace)
-tsline tr6_co co if asdf_id == 109, name(fig6, replace)
-tsline tr6_co co if asdf_id == 217, name(fig7, replace)
-tsline tr6_co co if asdf_id == 218, name(fig8, replace)
-tsline tr6_co co if asdf_id == 225, name(fig9, replace)
-tsline tr6_co co if asdf_id == 228, name(fig10, replace)
-tsline tr6_co co if asdf_id == 218, name(fig11, replace)
-tsline tr6_co co if asdf_id == 160, name(ElAlto, replace)
-
-tsline tr400_co co if asdf_id == 91, name(ffig4, replace)
-tsline tr400_co co if asdf_id == 93, name(ffig5, replace)
-tsline tr400_co co if asdf_id == 109, name(ffig6, replace)
-tsline tr400_co co if asdf_id == 217, name(ffig7, replace)
-tsline tr400_co co if asdf_id == 218, name(ffig8, replace)
-tsline tr400_co co if asdf_id == 225, name(ffig9, replace)
-tsline tr400_co co if asdf_id == 228, name(ffig10, replace)
-tsline tr400_co co if asdf_id == 218, name(ffig11, replace)
-tsline tr400_co co if asdf_id == 160, name(fElAlto, replace)
+*tsline tr6_co co if asdf_id == 93, name(fig5, replace)
+*tsline tr6_co co if asdf_id == 109, name(fig6, replace)
+*tsline tr6_co co if asdf_id == 217, name(fig7, replace)
+*tsline tr6_co co if asdf_id == 218, name(fig8, replace)
+*tsline tr6_co co if asdf_id == 225, name(fig9, replace)
+*tsline tr6_co co if asdf_id == 228, name(fig10, replace)
+*tsline tr6_co co if asdf_id == 218, name(fig11, replace)
+*tsline tr6_co co if asdf_id == 160, name(ElAlto, replace)
+*
+*tsline tr400_co co if asdf_id == 91, name(ffig4, replace)
+*tsline tr400_co co if asdf_id == 93, name(ffig5, replace)
+*tsline tr400_co co if asdf_id == 109, name(ffig6, replace)
+*tsline tr400_co co if asdf_id == 217, name(ffig7, replace)
+*tsline tr400_co co if asdf_id == 218, name(ffig8, replace)
+*tsline tr400_co co if asdf_id == 225, name(ffig9, replace)
+*tsline tr400_co co if asdf_id == 228, name(ffig10, replace)
+*tsline tr400_co co if asdf_id == 218, name(ffig11, replace)
+*tsline tr400_co co if asdf_id == 160, name(fElAlto, replace)
 
 
 
@@ -131,12 +131,17 @@ drop tr6_ln_y tr100_ln_y tr400_ln_y ln_co
 describe
 sum
 
-
-
-** X. Save dataset
+** Save long-form panel dataset
 save             "../data/CO2_trends.dta", replace
 export delimited "../data/CO2_trends.csv", replace
 
+** Save wide-form panel dataset
+reshape wide co tr6_co tr100_co tr400_co, i(asdf_id shapeName)  j(year)  
+order _all, alphabetic
+order shapeName, after(asdf_id)
+save             "../data/CO2_trends-wide.dta", replace
+export delimited "../data/CO2_trends-wide.csv", replace
+drop shapeID
 ** 99. Close log file
 log close
 

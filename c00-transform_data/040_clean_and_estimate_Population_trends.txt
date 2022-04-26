@@ -3,7 +3,7 @@
        log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/040_clean_and_estimate_Population_tre
 > nds.txt
   log type:  text
- opened on:  25 Apr 2022, 15:35:39
+ opened on:  26 Apr 2022, 12:56:12
 
 . 
 . ** 3. Install modules
@@ -705,13 +705,44 @@ Sorted by: asdf_id  year
 . 
 . 
 . 
-. ** X. Save dataset
-. save "../data/Population_trends.dta", replace
+. ** Save long-form panel dataset
+. save             "../data/Population_trends.dta", replace
 file ../data/Population_trends.dta saved
 
 . export delimited "../data/Population_trends.csv", replace
 file ../data/Population_trends.csv saved
 
+. 
+. 
+. ** Save wide-form panel dataset
+. reshape wide pop tr6_pop tr100_pop tr400_pop, i(asdf_id shapeName)  j(year)  
+(j = 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020)
+
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations            6,780   ->   339         
+Number of variables                   8   ->   83          
+j variable (20 values)             year   ->   (dropped)
+xij variables:
+                                    pop   ->   pop2001 pop2002 ... pop2020
+                                tr6_pop   ->   tr6_pop2001 tr6_pop2002 ... tr6_pop2020
+                              tr100_pop   ->   tr100_pop2001 tr100_pop2002 ... tr100_pop2020
+                              tr400_pop   ->   tr400_pop2001 tr400_pop2002 ... tr400_pop2020
+-----------------------------------------------------------------------------
+
+. order _all, alphabetic
+
+. order shapeName, after(asdf_id)
+
+. drop shapeID
+
+. save             "../data/Population_trends-wide.dta", replace
+file ../data/Population_trends-wide.dta saved
+
+. export delimited "../data/Population_trends-wide.csv", replace
+file ../data/Population_trends-wide.csv saved
+
+. 
 . 
 . ** 99. Close log file
 . log close
@@ -719,5 +750,5 @@ file ../data/Population_trends.csv saved
        log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/040_clean_and_estimate_Population_tre
 > nds.txt
   log type:  text
- closed on:  25 Apr 2022, 15:36:23
+ closed on:  26 Apr 2022, 12:56:55
 -----------------------------------------------------------------------------------------------------------------------

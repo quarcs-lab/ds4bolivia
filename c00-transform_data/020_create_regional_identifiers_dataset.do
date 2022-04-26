@@ -14,7 +14,8 @@ cls
 **=====================================================
 
 ** 0. Change working directory
-cd "/Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data"
+*cd "/Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data"
+cd "/Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data"
 
 ** 1. Setup
 clear all
@@ -67,6 +68,10 @@ order dep_id, after(dep)
 order mun_id, after(mun)
 
 list poly_id asdf_id mun dep
+
+** Merge with dataset: shapeID
+merge 1:1 asdf_id using "../data/shapeID.dta"
+drop _merge
 
 ** X. Save dataset
 save             "../data/regional_identifiers.dta", replace

@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/050_clean_and_estimate_CO2_trends.txt
   log type:  text
- opened on:  25 Apr 2022, 16:53:02
+ opened on:  26 Apr 2022, 12:53:18
 
 . 
 . ** 3. Install modules
@@ -299,65 +299,31 @@ Linear regression                               Number of obs     =      2,034
 . 
 . tsline tr6_co co if asdf_id == 91, name(fig4, replace)
 
-. tsline tr6_co co if asdf_id == 93, name(fig5, replace)
-
-. tsline tr6_co co if asdf_id == 109, name(fig6, replace)
-
-. tsline tr6_co co if asdf_id == 217, name(fig7, replace)
-
-. tsline tr6_co co if asdf_id == 218, name(fig8, replace)
-
-. tsline tr6_co co if asdf_id == 225, name(fig9, replace)
-
-. tsline tr6_co co if asdf_id == 228, name(fig10, replace)
-
-. tsline tr6_co co if asdf_id == 218, name(fig11, replace)
-
-. tsline tr6_co co if asdf_id == 160, name(ElAlto, replace)
-
+. *tsline tr6_co co if asdf_id == 93, name(fig5, replace)
+. *tsline tr6_co co if asdf_id == 109, name(fig6, replace)
+. *tsline tr6_co co if asdf_id == 217, name(fig7, replace)
+. *tsline tr6_co co if asdf_id == 218, name(fig8, replace)
+. *tsline tr6_co co if asdf_id == 225, name(fig9, replace)
+. *tsline tr6_co co if asdf_id == 228, name(fig10, replace)
+. *tsline tr6_co co if asdf_id == 218, name(fig11, replace)
+. *tsline tr6_co co if asdf_id == 160, name(ElAlto, replace)
+. *
+. *tsline tr400_co co if asdf_id == 91, name(ffig4, replace)
+. *tsline tr400_co co if asdf_id == 93, name(ffig5, replace)
+. *tsline tr400_co co if asdf_id == 109, name(ffig6, replace)
+. *tsline tr400_co co if asdf_id == 217, name(ffig7, replace)
+. *tsline tr400_co co if asdf_id == 218, name(ffig8, replace)
+. *tsline tr400_co co if asdf_id == 225, name(ffig9, replace)
+. *tsline tr400_co co if asdf_id == 228, name(ffig10, replace)
+. *tsline tr400_co co if asdf_id == 218, name(ffig11, replace)
+. *tsline tr400_co co if asdf_id == 160, name(fElAlto, replace)
 . 
-. tsline tr400_co co if asdf_id == 91, name(ffig4, replace)
-
-. tsline tr400_co co if asdf_id == 93, name(ffig5, replace)
-
-. tsline tr400_co co if asdf_id == 109, name(ffig6, replace)
-
-. tsline tr400_co co if asdf_id == 217, name(ffig7, replace)
-
-. tsline tr400_co co if asdf_id == 218, name(ffig8, replace)
-
-. tsline tr400_co co if asdf_id == 225, name(ffig9, replace)
-
-. tsline tr400_co co if asdf_id == 228, name(ffig10, replace)
-
-. tsline tr400_co co if asdf_id == 218, name(ffig11, replace)
-
-. tsline tr400_co co if asdf_id == 160, name(fElAlto, replace)
-
 . 
-end of do-file
-
-. do /var/folders/tq/t98kb27n6djgrh085g476yhc0000gn/T/StataRun1650873339930.do
-
-. ** Drop unnecesary variables
-. drop tr6_ln_y tr100_ln_y tr400_ln_y ln_co ln_co_ip
-variable ln_co_ip not found
-r(111);
-
-end of do-file
-
-r(111);
-
-. do /var/folders/tq/t98kb27n6djgrh085g476yhc0000gn/T/StataRun1650873361303.do
-
+. 
 . ** Drop unnecesary variables
 . drop tr6_ln_y tr100_ln_y tr400_ln_y ln_co 
 
 . 
-end of do-file
-
-. do /var/folders/tq/t98kb27n6djgrh085g476yhc0000gn/T/StataRun1650873378162.do
-
 . describe
 
 Contains data
@@ -395,19 +361,46 @@ Sorted by: asdf_id  year
     tr400_co |      2,034    404.9702    4.164867   396.0675   414.1588
 
 . 
-. 
-. 
-. ** X. Save dataset
+. ** Save long-form panel dataset
 . save             "../data/CO2_trends.dta", replace
-(file ../data/CO2_trends.dta not found)
 file ../data/CO2_trends.dta saved
 
 . export delimited "../data/CO2_trends.csv", replace
-(file ../data/CO2_trends.csv not found)
 file ../data/CO2_trends.csv saved
 
 . 
-end of do-file
+. ** Save wide-form panel dataset
+. reshape wide co tr6_co tr100_co tr400_co, i(asdf_id shapeName)  j(year)  
+(j = 2015 2016 2017 2018 2019 2020)
 
-. use "/Users/carlosmendez/Documents/GitHub/project2021o/data/regional_identifiers.dta"
+Data                               Long   ->   Wide
+-----------------------------------------------------------------------------
+Number of observations            2,034   ->   339         
+Number of variables                   8   ->   27          
+j variable (6 values)              year   ->   (dropped)
+xij variables:
+                                     co   ->   co2015 co2016 ... co2020
+                                 tr6_co   ->   tr6_co2015 tr6_co2016 ... tr6_co2020
+                               tr100_co   ->   tr100_co2015 tr100_co2016 ... tr100_co2020
+                               tr400_co   ->   tr400_co2015 tr400_co2016 ... tr400_co2020
+-----------------------------------------------------------------------------
 
+. order _all, alphabetic
+
+. order shapeName, after(asdf_id)
+
+. save             "../data/CO2_trends-wide.dta", replace
+file ../data/CO2_trends-wide.dta saved
+
+. export delimited "../data/CO2_trends-wide.csv", replace
+file ../data/CO2_trends-wide.csv saved
+
+. drop shapeID
+
+. ** 99. Close log file
+. log close
+      name:  <unnamed>
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/050_clean_and_estimate_CO2_trends.txt
+  log type:  text
+ closed on:  26 Apr 2022, 12:53:31
+-----------------------------------------------------------------------------------------------------------------------

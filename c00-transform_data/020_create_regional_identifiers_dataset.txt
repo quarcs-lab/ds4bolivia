@@ -1,9 +1,9 @@
---------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data/020_create_regional_identifiers_dataset
-> .txt
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/020_create_regional_identifiers_datas
+> et.txt
   log type:  text
- opened on:   5 Apr 2022, 02:17:15
+ opened on:  26 Apr 2022, 12:37:49
 
 . 
 . ** 3. Install modules
@@ -11,8 +11,8 @@
 . *ssc install outreg2, replace all
 . *ssc install reghdfe, replace all * INFO: http://scorreia.com/software/reghdfe/
 . *net install gr0009_1, from (http://www.stata-journal.com/software/sj10-1) replace all
-. *net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes/main/schemes/") replace
->  all
+. *net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes/main/schemes/") replace al
+> l
 . *set scheme white_tableau, permanently
 . *set scheme gg_tableau, permanently
 . 
@@ -479,21 +479,31 @@
      +-----------------------------------------------------------+
 
 . 
+. ** Merge with dataset: shapeID
+. merge 1:1 asdf_id using "../data/shapeID.dta"
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                               339  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. 
 . ** X. Save dataset
 . save             "../data/regional_identifiers.dta", replace
-(file ../data/regional_identifiers.dta not found)
 file ../data/regional_identifiers.dta saved
 
 . export delimited "../data/regional_identifiers.csv", replace
-(file ../data/regional_identifiers.csv not found)
 file ../data/regional_identifiers.csv saved
 
 . 
 . ** 99. Close log file
 . log close
       name:  <unnamed>
-       log:  /Users/carlos/Github/QuaRCS-lab/project2021o/c00-transform_data/020_create_regional_identifiers_dataset
-> .txt
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/020_create_regional_identifiers_datas
+> et.txt
   log type:  text
- closed on:   5 Apr 2022, 02:17:15
---------------------------------------------------------------------------------------------------------------------
+ closed on:  26 Apr 2022, 12:37:49
+-----------------------------------------------------------------------------------------------------------------------
