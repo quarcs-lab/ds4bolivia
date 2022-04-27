@@ -53,11 +53,43 @@ merge 1:1 asdf_id year using "../data/NTL_trends.dta"
 drop _merge
 
 ** Rescale NTL by 100,000,000 to be able to compute log (NTL/pop)
+gen NTL     = 100000000*ntl
+gen t6NTL   = 100000000*tr6_ntl
+gen t100NTL = 100000000*tr100_ntl
+gen t400NTL = 100000000*tr400_ntl
+
+label variable     NTL "NTL (Sum of NTL) rescaled by 100,000,000"
+label variable   t6NTL "Trend of NTL (HP 6.25)"
+label variable t100NTL "Trend of NTL (HP 100)"
+label variable t400NTL "Trend of NTL (HP 400)"
+
+** Compute log of NTL/POP
+gen ln_NTLpc = ln(NTL/pop)
+gen ln_t6NTLpc = ln(t6NTL/tr6_pop) 
+gen ln_t100NTLpc = ln(t100NTL/tr100_pop) 
+gen ln_t400NTLpc = ln(t400NTL/tr400_pop)
+
+label variable ln_NTLpc      "Log sum of lights per capita"
+label variable ln_t6NTLpc    "Log sum of lights per capita (Trend HP 6.25)"
+label variable ln_t100NTLpc  "Log sum of lights per capita (Trend HP 100)"
+label variable ln_t400NTLpc  "Log sum of lights per capita (Trend HP 400)"
+
+des ln_NTLpc ln_t6NTLpc ln_t100NTLpc ln_t400NTLpc
+sum ln_NTLpc ln_t6NTLpc ln_t100NTLpc ln_t400NTLpc
+
+** Save long-form panel dataset
+save             "../data/lnNTLpc.dta", replace
+export delimited "../data/lnNTLpc.csv", replace
+
+** Save wide-form panel dataset
+keep asdf_id shapeName year ln_NTLpc ln_t6NTLpc ln_t100NTLpc ln_t400NTLpc
+reshape wide ln_NTLpc ln_t6NTLpc ln_t100NTLpc ln_t400NTLpc, i(asdf_id shapeName)  j(year)  
+order _all, alphabetic
+order shapeName, after(asdf_id)
+save             "../data/lnNTLpc_trends-wide.dta", replace
+export delimited "../data/lnNTLpc_trends-wide.csv", replace
 
 
-** X. Save dataset
-save             "../data/NTLpc.dta", replace
-export delimited "../data/NTLpc.csv", replace
 
 ** 99. Close log file
 log close
