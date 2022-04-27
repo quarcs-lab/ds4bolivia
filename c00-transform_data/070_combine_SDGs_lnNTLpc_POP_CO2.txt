@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combine_SDGs_lnNTLpc_POP_CO2.txt
   log type:  text
- opened on:  27 Apr 2022, 14:41:53
+ opened on:  27 Apr 2022, 15:02:51
 
 . 
 . ** 3. Install modules
@@ -82,8 +82,29 @@ Sorted by: asdf_id
 
 . 
 . ** Merge with NTL database
+. merge 1:1 asdf_id using "../data/lnNTLpc_trends-wide.dta"
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                               339  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
 . 
 . ** Merge with CO2 database
+. merge 1:1 asdf_id using "../data/CO2_trends-wide.dta"
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                               339  (_merge==3)
+    -----------------------------------------
+
+. drop _merge
+
+. 
 . 
 . ** X. Save dataset
 . save             "../data/GeoDS4Bolivia.dta", replace
@@ -98,5 +119,5 @@ file ../data/GeoDS4Bolivia.csv saved
       name:  <unnamed>
        log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combine_SDGs_lnNTLpc_POP_CO2.txt
   log type:  text
- closed on:  27 Apr 2022, 14:41:53
+ closed on:  27 Apr 2022, 15:02:51
 -----------------------------------------------------------------------------------------------------------------------
