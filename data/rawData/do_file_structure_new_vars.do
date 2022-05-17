@@ -308,6 +308,12 @@ merge m:m mun using bd_polyid_Stata15_corrected.dta
 	replace asdf_id=58 if depmun=="Santa Cruz-SanPedro"
 	replace asdf_id=299 if poly_id==152
 	replace asdf_id=72 if poly_id==249
+	replace asdf_id=98 if poly_id==248
+	replace asdf_id=319 if poly_id==305
+	replace asdf_id=222 if poly_id==330
+	replace asdf_id=58 if poly_id==290
+	replace asdf_id=264 if poly_id==292
+	replace asdf_id=57 if poly_id==307
 	drop if missing(poly_id)
 	drop _merge
 save bd_ntl_corrected.dta, replace
