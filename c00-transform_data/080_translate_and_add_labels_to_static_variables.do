@@ -101,7 +101,47 @@ label variable sdg7_1_cep_abs "Residential electricity consumption, 2016 (kWh)"
 label variable sdg7_1_elc_abs "Number of households without clean energy for cooking, 2012"
 label variable sdg7_3_ecep_abs "Total CO2 emissions by energy, 2016 (tCO2/year)"
 label variable sdg8_4_mcc_abs "Residential electric meters with zero consumption, 2016 (%)"
-
+label variable sdg8_5_ph_abs "Overall male participation rate (>= 10 years), 2012 (%)"
+label variable sdg8_5_pm_abs "Overall female participation rate (>= 10 years), 2012 (%)"
+label variable sdg8_6_hnn_abs "Men neither studying nor participating in the labor market (15-24 years), 2012(%)"
+label variable sdg8_6_mnn_abs "Women neither studying nor participating in the labor market(15-24 years), 2012(%)"
+label variable sdg8_10_b_abs "Density of bank branches, 2018 (per 100,000 inhabitants)"
+label variable sdg9_1_rutas_~s "Number of railways/primary roads entering/leaving the municipality, 2019"
+label variable sdg9_5_c_abs "Number of Kuaa computers delivered, 2016"
+label variable sdg9_5_pt_abs "Number of educational units with technological floors, 2016"
+label variable sdg9_c_crdm_abs "Number of households without fixed or cellular telephony coverage, 2012"
+label variable sdg9_c_rb_abs "Total number of radio bases (ATT and Prontis), 2016"
+label variable sdg10_2_nhe_abs "Population>=3 years old, do not speak Spanish (as mother tongue,1st,2nd language), 2012."
+label variable sdg11_1_h_abs "Number of households with overcrowding (more than 2 persons per room), 2012"
+label variable sdg11_1_sss_abs "Number of households without sanitation services, 2012"
+label variable sdg11_2_atc_abs "Number of seats available in mass transit vehicles, 2017."
+label variable sdg13_2_ectp_~s "Total CO2 emissions, 2016 (tCO2/year)"
+label variable sdg13_2_td_abs "Annual deforestation, 2016-2018 (ha)"
+label variable sdg15_1_ap_abs "Legally declared protected area(Municipal,Departmental, National),2019(km2)"
+label variable sdg15_5_pb_abs "Absolute Species Richness Loss, 2016-2018 (% of national loss)"
+label variable sdg16_1_vh_abs "Number of registered homicides, 2015-2017"
+label variable sdg16_6_ce_abs "Annual Operating Budget (POA) in Bs., 2017"
+label variable sdg16_9_nrc_abs "Number of children under 5 years of age not registered in a civil registry, 2012"
+label variable sdg17_5_ip_abs "Total public investment, 2017 (Bs.)"
+label variable sdg1_1_ee_norm "Normalized (0-100): sdg1_1_eepr"
+label variable sdg1_1_nbi_norm "Normalized (0-100): sdg1_1_ubn"
+label variable sdg1_2_pm_norm "Normalized (0-100): sdg1_2_mpi"
+label variable sdg1_4_ssb_norm "Normalized (0-100): sdg1_4_abs"
+label variable sdg2_2_dm_norm "Normalized (0-100): sdg2_2_cmc"
+label variable sdg2_2_smu_norm "Normalized (0-100): sdg2_2_oww"
+label variable sdg2_4_su_norm "Normalized (0-100): sdg_2_4_pual"
+label variable sdg2_4_t_norm "Normalized (0-100): sdg_2_2_td"
+label variable sdg3_1_p_norm "Normalized (0-100): sdg_3_1_idca"
+label variable sdg3_2_mi_norm "Normalized (0-100): sdg_3_2_imr"
+label variable sdg3_2_mn_norm "Normalized (0-100): sdg_3_2_mrc"
+label variable sdg3_3_c_norm "Normalized (0-100): sdg_3_3_cdir"
+label variable sdg3_3_d_norm "Normalized (0-100): sdg_3_3_di"
+label variable sdg3_3_m_norm "Normalized (0-100): sdg_3_3_imr"
+label variable sdg3_3_t_norm "Normalized (0-100): sdg_3_3_ti"
+label variable sdg3_3_vih_norm "Normalized (0-100): sdg_3_3_hivi"
+label variable sdg3_7_fa_norm "Normalized (0-100): sdg3_7_afr"
+}
+quietly {
 *Rename variables name
 rename poblacion_2020 population_2020
 rename sdg1_1_ee sdg1_1_eepr
@@ -196,5 +236,45 @@ rename sdg7_1_cep_abs sdg7_1_rec_abs
 rename sdg7_1_elc_abs sdg7_1_cec_abs
 rename sdg7_3_ecep_abs sdg7_3_tee_abs
 rename sdg8_4_mcc_abs sdg8_4_rem_abs
+rename sdg8_5_ph_abs sdg8_5_ompr_abs
+rename sdg8_5_pm_abs sdg8_5_ofpr_abs
+rename sdg8_6_hnn_abs sdg8_6_mlm_abs
+rename sdg8_6_mnn_abs sdg8_6_wlm_abs
+rename sdg8_10_b_abs sdg8_10_dbb_abs
+rename sdg9_1_rutas_~s sdg9_1_rmun_abs
+rename sdg9_5_c_abs sdg9_5_kcd_abs
+rename sdg9_5_pt_abs sdg9_5_eutf_abs
+rename sdg9_c_crdm_abs sdg9_c_hf_abs
+rename sdg9_c_rb_abs sdg9_c_tr_abs
+rename sdg10_2_nhe_abs sdg10_2_dss_abs 
+rename sdg11_1_h_abs sdg11_1_ho_abs
+rename sdg11_1_sss_abs sdg11_1_wos_abs
+rename sdg11_2_atc_abs sdg11_2_mtv_abs
+rename sdg13_2_ectp_~s sdg13_2_tco2_abs
+rename sdg13_2_td_abs sdg13_2_ad_abs
+rename sdg15_1_ap_abs sdg15_1_pa_abs
+rename sdg15_5_pb_abs sdg15_5_rl_abs
+rename sdg16_1_vh_abs sdg16_1_rh_abs 
+rename sdg16_6_ce_abs sdg16_6_aob_abs
+rename sdg16_9_nrc_abs sdg16_9_ncr_abs
+rename sdg17_5_ip_abs sdg17_5_tpi_abs
+*
+rename sdg1_1_ee_norm sdg1_1_eepr_norm
+rename sdg1_1_nbi_norm sdg1_1_ubn_norm
+rename sdg1_2_pm_norm sdg1_2_mpi_norm
+rename sdg1_4_ssb_norm sdg1_4_abs_norm
+rename sdg2_2_dm_norm sdg2_2_cmc_norm
+rename sdg2_2_smu_norm sdg2_2_oww_norm
+rename sdg2_4_su_norm sdg2_4_pual_norm
+rename sdg2_4_t_norm sdg2_4_td_norm
+rename sdg3_1_p_norm sdg3_1_idca_norm
+rename sdg3_2_mi_norm sdg3_2_imr_norm
+rename sdg3_2_mn_norm sdg3_2_mrc_norm
+rename sdg3_3_c_norm sdg3_3_cdir_norm
+rename sdg3_3_d_norm sdg3_3_di_norm
+rename sdg3_3_m_norm sdg3_3_imr_norm
+rename sdg3_3_t_norm sdg3_3_ti_norm
+rename sdg3_3_vih_norm sdg3_3_hivi_norm
+rename sdg3_7_fa_norm sdg3_7_afr_norm
 }
 save GeoDS4Bolivia, replace
