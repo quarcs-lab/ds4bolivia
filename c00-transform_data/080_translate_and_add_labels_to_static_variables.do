@@ -129,19 +129,78 @@ label variable sdg1_2_pm_norm "Normalized (0-100): sdg1_2_mpi"
 label variable sdg1_4_ssb_norm "Normalized (0-100): sdg1_4_abs"
 label variable sdg2_2_dm_norm "Normalized (0-100): sdg2_2_cmc"
 label variable sdg2_2_smu_norm "Normalized (0-100): sdg2_2_oww"
-label variable sdg2_4_su_norm "Normalized (0-100): sdg_2_4_pual"
-label variable sdg2_4_t_norm "Normalized (0-100): sdg_2_2_td"
-label variable sdg3_1_p_norm "Normalized (0-100): sdg_3_1_idca"
-label variable sdg3_2_mi_norm "Normalized (0-100): sdg_3_2_imr"
-label variable sdg3_2_mn_norm "Normalized (0-100): sdg_3_2_mrc"
-label variable sdg3_3_c_norm "Normalized (0-100): sdg_3_3_cdir"
-label variable sdg3_3_d_norm "Normalized (0-100): sdg_3_3_di"
-label variable sdg3_3_m_norm "Normalized (0-100): sdg_3_3_imr"
-label variable sdg3_3_t_norm "Normalized (0-100): sdg_3_3_ti"
-label variable sdg3_3_vih_norm "Normalized (0-100): sdg_3_3_hivi"
+label variable sdg2_4_su_norm "Normalized (0-100): sdg2_4_pual"
+label variable sdg2_4_t_norm "Normalized (0-100): sdg2_2_td"
+label variable sdg3_1_p_norm "Normalized (0-100): sdg3_1_idca"
+label variable sdg3_2_mi_norm "Normalized (0-100): sdg3_2_imr"
+label variable sdg3_2_mn_norm "Normalized (0-100): sdg3_2_mrc"
+label variable sdg3_3_c_norm "Normalized (0-100): sdg3_3_cdir"
+label variable sdg3_3_d_norm "Normalized (0-100): sdg3_3_di"
+label variable sdg3_3_m_norm "Normalized (0-100): sdg3_3_imr"
+label variable sdg3_3_t_norm "Normalized (0-100): sdg3_3_ti"
+label variable sdg3_3_vih_norm "Normalized (0-100): sdg3_3_hivi"
 label variable sdg3_7_fa_norm "Normalized (0-100): sdg3_7_afr"
-}
-quietly {
+label variable sdg4_1_ash_norm "Normalized (0-100): sdg4_1_ssdrm"
+label variable sdg4_1_asm_norm "Normalized (0-100): sdg4_1_ssdrf"
+label variable sdg4_4_es_norm "Normalized (0-100): sdg4_4_phe"
+label variable sdg4_6_alfab_~m "Normalized (0-100): sdg4_6_lr"
+label variable sdg4_c_pci_norm "Normalized (0-100): sdg4_c_qti"
+label variable sdg4_c_pcs_norm "Normalized (0-100): sdg4_c_qts"
+label variable sdg5_1_paes_n~m "Normalized (0-100): sdg5_1_gpsd"
+label variable sdg5_1_pej_norm "Normalized (0-100): sdg5_1_gpyp"
+label variable sdg5_1_ppm_norm "Normalized (0-100): sdg5_1_gpmpi"
+label variable sdg5_5_pp_norm "Normalized (0-100): sdg5_5_gpop"
+label variable sdg6_1_ca_norm "Normalized (0-100): sdg6_1_dwc"
+label variable sdg6_2_cs_norm "Normalized (0-100): sdg6_2_sc"
+label variable sdg6_3_tar_norm "Normalized (0-100): sdg6_3_wwt"
+label variable sdg7_1_cee_norm "Normalized (0-100): sdg7_1_ec"
+label variable sdg7_1_cep_norm "Normalized (0-100): sdg7_1_rec"
+label variable sdg7_1_elc_norm "Normalized (0-100): sdg7_1_cce"
+label variable sdg7_3_ecep_n~m "Normalized (0-100): sdg7_3_co2epc"  
+label variable sdg8_4_mcc_norm "Normalized (0-100): sdg8_4_rem"
+label variable sdg8_5_ph_norm "Normalized (0-100): sdg8_5_oprm"
+label variable sdg8_5_pm_norm "Normalized (0-100): sdg8_5_ofrm"
+label variable sdg8_6_hnn_norm "Normalized (0-100): sdg8_6_mlm"
+label variable sdg8_6_mnn_norm "Normalized (0-100): sdg8_6_mlw"
+label variable sdg8_10_b_norm "Normalized (0-100): sdg8_10_dbb"
+label variable sdg8_11_mm_norm "Normalized (0-100): sdg8_11_idi"
+label variable sdg9_1_rutas_~m "Normalized (0-100): sdg9_1_routes"
+label variable sdg9_5_c_norm "Normalized (0-100): sdg9_5_cd"
+label variable sdg9_5_pt_norm "Normalized (0-100): sdg9_5_eutf"
+label variable sdg9_c_crdm_n~m "Normalized (0-100): sdg9_5_mnc"
+label variable sdg9_c_rb_norm "Normalized (0-100): sdg9_c_drb"
+label variable sdg10_2_egini~m "Normalized (0-100): sdg10_2_gyce"
+label variable sdg10_2_ge_norm "Normalized (0-100): sdg10_2_iec"
+label variable sdg10_2_nhe_n~m "Normalized (0-100): sdg10_2_nssp" 
+label variable sdg11_1_h_norm "Normalized (0-100): sdg11_1_hocr"
+label variable sdg11_1_sss_n~m "Normalized (0-100): sdg11_1_hno"
+label variable sdg11_2_atc_n~m "Normalized (0-100): sdg11_2_samt"
+label variable sdg13_1_vcc_n~m "Normalized (0-100): sdg13_1_ccvi"
+label variable sdg13_2_ectp_~m "Normalized (0-100): sdg13_2_tco2e"
+label variable sdg13_2_td_norm "Normalized (0-100): sdg13_2_dra"
+label variable sdg15_1_ap_norm "Normalized (0-100): sdg15_1_pa"
+label variable sdg15_5_pb_norm "Normalized (0-100): sdg15_5_blr"
+label variable sdg16_1_vh_norm "Normalized (0-100): sdg16_1_rhr"
+label variable sdg16_6_ce_norm "Normalized (0-100): sdg16_6_pbec"
+label variable sdg16_9_nrc_n~m "Normalized (0-100): sdg16_9_cr"
+label variable sdg17_1_il_norm "Normalized (0-100): sdg17_1_pmtax"
+label variable sdg17_5_ip_norm "Normalized (0-100): sdg17_5_pipc"
+label variable indice_ods1 "SDG1 Index"
+label variable indice_ods2 "SDG2 Index"
+label variable indice_ods3 "SDG3 Index"
+label variable indice_ods4 "SDG4 Index"
+label variable indice_ods5 "SDG5 Index"
+label variable indice_ods6 "SDG6 Index"
+label variable indice_ods7 "SDG7 Index"
+label variable indice_ods8 "SDG8 Index"
+label variable indice_ods9 "SDG9 Index"
+label variable indice_ods10 "SDG10 Index"
+label variable indice_ods11 "SDG11 Index"
+label variable indice_ods13 "SDG13 Index"
+label variable indice_ods15 "SDG15 Index"
+label variable indice_ods16 "SDG16 Index"
+label variable indice_ods17 "SDG17 Index" 
+
 *Rename variables name
 rename poblacion_2020 population_2020
 rename sdg1_1_ee sdg1_1_eepr
@@ -160,7 +219,7 @@ rename sdg3_3_d sdg3_3_di
 rename sdg3_3_m sdg3_3_imr
 rename sdg3_3_t sdg3_3_ti 
 rename sdg3_3_vih sdg3_3_hivi
-rename sdg3_7_fa sdg3_7_afr
+rename sdg3_7_fa sdg3_7_afr 
 rename sdg4_1_ash sdg4_1_ssdrm
 rename sdg4_1_asm sdg4_1_ssdrf
 rename sdg4_4_es sdg4_4_phe
@@ -177,7 +236,7 @@ rename sdg6_3_tar sdg6_3_wwt
 rename sdg7_1_cee sdg7_1_ec
 rename sdg7_1_cep sdg7_1_rec
 rename sdg7_1_elc sdg7_1_cce
-rename sdg7_3_ecep sdg7_3_co2epc
+rename sdg7_3_ecep sdg7_3_co2epc 
 rename sdg8_4_mcc sdg8_4_rem
 rename sdg8_5_ph sdg8_5_oprm
 rename sdg8_5_pm sdg8_5_ofrm
@@ -192,7 +251,7 @@ rename sdg9_c_crdm sdg9_c_mnc
 rename sdg9_c_rb sdg9_c_drb
 rename sdg10_2_egini sdg10_2_gcye 
 rename sdg10_2_ge sdg10_2_iec
-rename sdg10_2_nhe sdg10_2_nssp
+rename sdg10_2_nhe sdg10_2_nssp 
 rename sdg11_1_h sdg11_1_hocr
 rename sdg11_1_sss sdg11_1_hno
 rename sdg11_2_atc sdg11_2_samt
@@ -258,7 +317,6 @@ rename sdg16_1_vh_abs sdg16_1_rh_abs
 rename sdg16_6_ce_abs sdg16_6_aob_abs
 rename sdg16_9_nrc_abs sdg16_9_ncr_abs
 rename sdg17_5_ip_abs sdg17_5_tpi_abs
-*
 rename sdg1_1_ee_norm sdg1_1_eepr_norm
 rename sdg1_1_nbi_norm sdg1_1_ubn_norm
 rename sdg1_2_pm_norm sdg1_2_mpi_norm
@@ -276,5 +334,64 @@ rename sdg3_3_m_norm sdg3_3_imr_norm
 rename sdg3_3_t_norm sdg3_3_ti_norm
 rename sdg3_3_vih_norm sdg3_3_hivi_norm
 rename sdg3_7_fa_norm sdg3_7_afr_norm
+rename sdg4_1_ash_norm sdg4_1_ssdrm_norm 
+rename sdg4_4_es_norm sdg4_4_ssdrf_norm
+rename sdg4_6_alfab_~m sdg4_6_lr_norm
+rename sdg4_c_pci_norm sdg4_c_qti_norm
+rename sdg4_c_pcs_norm sdg4_c_qts_norm
+rename sdg5_1_paes_n~m sdg5_1_gpsd_norm
+rename sdg5_1_pej_norm sdg5_1_gpyd_norm
+rename sdg5_1_ppm_norm sdg5_1_gpmpi_norm
+rename sdg5_5_pp_norm sdg5_5_gpop_norm
+rename sdg6_1_ca_norm sdg6_1_dwc_norm
+rename sdg6_2_cs_norm sdg6_2_sc_norm
+rename sdg6_3_tar_norm sdg6_3_wwt_norm
+rename sdg7_1_cee_norm sdg7_1_ec_norm
+rename sdg7_1_cep_norm sdg7_1_rec_norm
+rename sdg7_1_elc_norm sdg7_1_cce_norm
+rename sdg7_3_ecep_n~m sdg7_3_co2epc_norm
+rename sdg8_4_mcc_norm sdg8_4_rem_norm
+rename sdg8_5_ph_norm sdg8_5_oprm_norm
+rename sdg8_5_pm_norm sdg8_5_ofrm_norm
+rename sdg8_6_hnn_norm sdg8_6_mlm_norm
+rename sdg8_6_mnn_norm sdg8_6_wlm_norm
+rename sdg8_10_b_norm sdg8_10_dbb_norm
+rename sdg8_11_mm_norm sdg8_11_idi_norm
+rename sdg9_1_rutas_norm sdg9_1_routes_norm 
+rename sdg9_5_c_norm sdg9_5_cd_norm
+rename sdg9_5_pt_norm sdg9_5_eutf_norm
+rename sdg9_c_crdm_n~m sdg9_c_mnc_norm
+rename sdg9_c_rb_norm sdg9_c_drb_norm
+rename sdg10_2_egini~m sdg10_2_gcye_norm
+rename sdg10_2_ge_norm sdg10_2_iec_norm
+rename sdg10_2_nhe_n~m sdg10_2_nssp_norm
+rename sdg11_1_h_norm sdg11_1_hocr_norm
+rename sdg11_1_sss_n~m sdg11_1_hno_norm
+rename sdg11_2_atc_n~m sdg11_2_samt_norm
+rename sdg13_1_vcc_n~m sdg13_1_ccvi_norm
+rename sdg13_2_ectp_~m sdg13_2_tco2e_norm
+rename sdg13_2_td_norm sdg13_2_dra_norm
+rename sdg15_1_ap_norm sdg15_1_pa_norm
+rename sdg15_5_pb_norm sdg15_5_blr_norm
+rename sdg16_1_vh_norm sdg16_1_rhr_norm
+rename sdg16_6_ce_norm sdg16_6_pbec_norm
+rename sdg16_9_nrc_n~m sdg16_9_cr_norm
+rename sdg17_1_il_norm sdg17_1_pmtax_norm
+rename sdg17_5_ip_norm sdg17_5_pipc_norm
+rename indice_ods1 index_sdg1
+rename indice_ods2 index_sdg2
+rename indice_ods3 index_sdg3
+rename indice_ods4 index_sdg4
+rename indice_ods5 index_sdg5
+rename indice_ods6 index_sdg6
+rename indice_ods7 index_sdg7
+rename indice_ods8 index_sdg8
+rename indice_ods9 index_sdg9
+rename indice_ods10 index_sdg10
+rename indice_ods11 index_sdg11
+rename indice_ods13 index_sdg13
+rename indice_ods15 index_sdg15
+rename indice_ods16 index_sdg16
+rename indice_ods17 index_sdg17
 }
 save GeoDS4Bolivia, replace
