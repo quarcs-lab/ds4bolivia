@@ -67,8 +67,8 @@ drop _merge
 
 
 ** X. Save dataset
-save             "../data/GeoDS4Bolivia.dta", replace
-export delimited "../data/GeoDS4Bolivia.csv", replace
+save             "../data/GeoDS4Bolivia_allVariables.dta", replace
+export delimited "../data/GeoDS4Bolivia_allVariables.csv", replace
 
 ** 99. Close log file
 log close

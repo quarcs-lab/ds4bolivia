@@ -1,8 +1,9 @@
------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combine_SDGs_lnNTLpc_POP_CO2.txt
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combin
+> e_SDGs_lnNTLpc_POP_CO2.txt
   log type:  text
- opened on:  27 Apr 2022, 15:02:51
+ opened on:  21 Aug 2022, 12:51:48
 
 . 
 . ** 3. Install modules
@@ -10,8 +11,8 @@
 . *ssc install outreg2, replace all
 . *ssc install reghdfe, replace all * INFO: http://scorreia.com/software/reghdfe/
 . *net install gr0009_1, from (http://www.stata-journal.com/software/sj10-1) replace all
-. *net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes/main/schemes/") replace al
-> l
+. *net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes
+> /main/schemes/") replace all
 . *set scheme white_tableau, permanently
 . *set scheme gg_tableau, permanently
 . 
@@ -25,10 +26,10 @@
 Contains data from ../data/regional_identifiers.dta
  Observations:           339                  
     Variables:             8                  26 Apr 2022 12:37
------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 Variable      Storage   Display    Value
     name         type    format    label      Variable label
------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 poly_id         int     %8.0g                 Polygon ID
 asdf_id         int     %8.0g                 ASDF ID
 mun             str24   %24s                  Municipality
@@ -37,7 +38,7 @@ dep             str10   %10s                  Department
 dep_id          float   %9.0g                 Department ID
 dep_mun         str35   %35s                  Department-municipality
 shapeID         str26   %26s                  Municipality Geoquery Polygon ID
------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
 Sorted by: asdf_id
 
 . summarize
@@ -107,17 +108,20 @@ Sorted by: asdf_id
 . 
 . 
 . ** X. Save dataset
-. save             "../data/GeoDS4Bolivia.dta", replace
-file ../data/GeoDS4Bolivia.dta saved
+. save             "../data/GeoDS4Bolivia_allVariables.dta", replace
+(file ../data/GeoDS4Bolivia_allVariables.dta not found)
+file ../data/GeoDS4Bolivia_allVariables.dta saved
 
-. export delimited "../data/GeoDS4Bolivia.csv", replace
-file ../data/GeoDS4Bolivia.csv saved
+. export delimited "../data/GeoDS4Bolivia_allVariables.csv", replace
+(file ../data/GeoDS4Bolivia_allVariables.csv not found)
+file ../data/GeoDS4Bolivia_allVariables.csv saved
 
 . 
 . ** 99. Close log file
 . log close
       name:  <unnamed>
-       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combine_SDGs_lnNTLpc_POP_CO2.txt
+       log:  /Users/carlosmendez/Documents/GitHub/project2021o/c00-transform_data/070_combin
+> e_SDGs_lnNTLpc_POP_CO2.txt
   log type:  text
- closed on:  27 Apr 2022, 15:02:51
------------------------------------------------------------------------------------------------------------------------
+ closed on:  21 Aug 2022, 12:51:48
+--------------------------------------------------------------------------------------------
