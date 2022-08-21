@@ -39,7 +39,7 @@ https://www.loom.com/share/07206f02b269485293ac7c8ad4df3c7f
 
 ## Manuscript
 
-- Overleaf link: Maybe not needed if we submit the manuscript as a jupyter notebook
+- Overleaf link: https://www.overleaf.com/project/62bc6c3bbf1d90f56b4f8d48
 
 
 ## Target Journal
