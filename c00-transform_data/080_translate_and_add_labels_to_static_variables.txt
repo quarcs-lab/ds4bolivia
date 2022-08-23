@@ -1998,3 +1998,336 @@ file ../data/GeoDS4Bolivia.csv saved
 . 
 end of do-file
 
+. use "/Users/carlosmendez/Documents/GitHub/project2021o/data/GeoDS4Bolivia.dta"
+
+. describe
+
+Contains data from /Users/carlosmendez/Documents/GitHub/project2021o/data/GeoDS4Bolivia.dta
+ Observations:           339                  
+    Variables:           139                  21 Aug 2022 13:40
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+poly_id         int     %8.0g                 Polygon ID
+asdf_id         int     %8.0g                 ASDF ID
+mun             str24   %24s                  Municipality
+mun_id          long    %8.0g                 Municipality ID
+dep             str10   %10s                  Department
+dep_id          float   %9.0g                 Department ID
+dep_mun         str35   %35s                  Department-municipality
+shapeID         str26   %26s                  Municipality Geoquery Polygon ID
+imds            float   %8.0g                 Municipal Sustainable Development Index
+rank_imds       int     %8.0g                 Bolivia Index Ranking
+population_2020 long    %8.0g                 Population 2020
+urbano_2012     float   %8.0g                 Urbanization rate, 2012 (% of population)
+sdg1_1_eepr     float   %8.0g                 Extreme energy poverty rate, 2016 (% of houses)
+sdg1_1_ubn      float   %8.0g                 Unsatisfied basic needs, 2012 (% of population)
+sdg1_2_mpi      float   %8.0g                 Multidimensional poverty index, 2012
+sdg1_4_abs      float   %8.0g                 Access to the 3 basic services, 2012 (% of households)
+sdg2_2_cmc      float   %8.0g                 Chronic malnutrition in children (< 5 years), 2016 (%)
+sdg2_2_oww      float   %8.0g                 Obesity in women (15-49 years), 2016 (%)
+sdg2_4_pual     float   %8.0g                 Average area per Production Unit Agriculture and Livestock, 2013 (ha)
+sdg2_4_td       float   %8.0g                 Tractor density, 2013 (per 1,000 UPAs)
+sdg3_1_idca     float   %8.0g                 Institutional childbirth coverage, average 2008-2012 (%)
+sdg3_2_imr      float   %8.0g                 Infant mortality rate (< 1 year), 2016 (per. 1,000 live births)
+sdg3_2_mrc      float   %8.0g                 Children mortality rate in (< 5 years), 2016 (per. 1,000 live births)
+sdg3_3_cdir     float   %8.0g                 Chagas disease infestation rate, 2017 (% of households)
+sdg3_3_di       float   %8.0g                 Dengue incidence, 2018 (per 10,000 population)
+sdg3_3_imr      float   %8.0g                 Malaria incidence, average 2014-17 (per 1,000 population)
+sdg3_3_ti       float   %8.0g                 Tuberculosis incidence, 2017 (per 100,000 population)
+sdg3_3_hivi     float   %8.0g                 HIV incidence, average 2014-17 (per 1,000,00 population)
+sdg3_7_afr      float   %8.0g                 Adolescent fertility rate (15-19 years), 2012 (births per 1,000 women)
+sdg4_1_ssdrm    float   %8.0g                 Secondary school dropout rate, male, 2017 (% of enrolled)
+sdg4_1_ssdrf    float   %8.0g                 Secondary school dropout rate, females, 2017 (% of enrolled)
+sdg4_4_phe      float   %8.0g                 Population with higher education (>= 19 years), 2012 (%)
+sdg4_6_lr       float   %8.0g                 Literacy rate for (>= 15 years), 2012 (%)
+sdg4_c_qti      float   %8.0g                 Qualified teachers at the initial level, 2016 (%)
+sdg4_c_qts      float   %8.0g                 Qualified teachers at the secondary level, 2016
+sdg5_1_gpsd     float   %8.0g                 Gender parity in school dropouts in secondary school, 2017
+sdg5_1_gpyp     float   %8.0g                 Gender parity in years of education of young people (25-35 years old), 2012. (25
+sdg5_1_gpmpi    float   %8.0g                 Gender Parity in the Multidimensional Poverty Index, 2012
+sdg5_5_gpop     float   %8.0g                 Gender parity in the overall participation rate (>=10 years), 2012
+sdg6_1_dwc      float   %8.0g                 Drinking water coverage, 2017 (% of population)
+sdg6_2_sc       float   %8.0g                 Sanitation coverage, 2017 (% of population)
+sdg6_3_wwt      float   %8.0g                 Wastewater treatment, 2017 (% of wastewater) wastewater)
+sdg7_1_ec       float   %8.0g                 Electricity coverage, 2012 (% of population) population)
+sdg7_1_rec      int     %8.0g                 Residential electricity consumption per capita, 2016 (kWh/person/year)
+sdg7_1_cce      float   %8.0g                 Clean cooking energy, 2012 (% of households)
+sdg7_3_co2epc   float   %8.0g                 CO2 emissions per capita by energy, 2016. (tCO2/person/year)
+sdg8_4_rem      float   %8.0g                 Residential electric meters with zero consumption, 2016 (%)
+sdg8_5_oprm     float   %8.0g                 Overall participation rate males (>= 10 years), 2012 (%)
+sdg8_5_ofrm     float   %8.0g                 Overall female participation rate (>= 10 years), 2012 (%)
+sdg8_6_mlm      float   %8.0g                 Men who do not study or participate in the labor market (15-24 years), 2012 (%)
+sdg8_6_wlm      float   %8.0g                 Women who do not study or participate in the labor market (15-24 years),2012 (%)
+sdg8_10_dbb     float   %8.0g                 Density of bank branches, 2018 (per 100,000 inhabitants)
+sdg8_11_idi     float   %8.0g                 Index of the degree of intermediation in migration, 2012
+sdg9_1_routes   byte    %8.0g                 Number of railways/primary roads entering/leaving the municipality, 2019
+sdg9_5_cd       float   %8.0g                 Kuaa computers delivered, 2016 (per 100 school-age population, 6-19 years)
+sdg9_5_eutf     float   %8.0g                 Educational units with technological floors, 2016 (%)
+sdg9_c_mnc      float   %8.0g                 Fixed and mobile network coverage, 2012 (% of households)
+sdg9_c_drb      float   %8.0g                 Density of radio bases, 2016 (number of radio bases per 1000 inhabitants)
+sdg10_2_gcye    float   %8.0g                 GINI coefficient of years of education, 2012
+sdg10_2_iec     int     %8.0g                 Inequality in electricity consumption, 2016
+sdg10_2_nssp    float   %8.0g                 Non-Spanish speaking population (>= 3 years), 2012 (%)
+sdg11_1_hocr    float   %8.0g                 Overcrowding rate, 2012 (% of households)
+sdg11_1_hno     float   %8.0g                 Households that do not have a toilet, bathroom or latrine, 2012 (%) latrine, 201
+sdg11_2_samt    float   %8.0g                 Seats available for mass transit, 2017 (per 1,000 inhabitants)
+sdg13_1_ccvi    float   %8.0g                 Climate change vulnerability Index, 2015
+sdg13_2_tco2e   float   %8.0g                 Total CO2 emissions per capita, 2016 (tCO2/person/year)
+sdg13_2_dra     float   %8.0g                 Deforestation rate, average 2016-2018 (% of forest area 2015)
+sdg15_1_pa      float   %8.0g                 Protected areas, 2019 (% of the municipality's land area) municipality)
+sdg15_5_blr     float   %8.0g                 Biodiversity loss rate due to deforestation deforestation, average 2016-2018
+sdg16_1_rhr     float   %8.0g                 Registered homicide rate, average 2015-2017. (per 100,000 inhabitants)
+sdg16_6_pbec    float   %8.0g                 Programmed budget execution capacity, 2017 (%)
+sdg16_9_cr      float   %8.0g                 Children registered in the civil registry (< 5 years), 2012 (%)
+sdg17_1_pmtax   float   %8.0g                 Proportion of municipal revenues that come from local taxes, 2017 (%)
+sdg17_5_pipc    int     %8.0g                 Public investment per capita, 2017 (Bs./person)
+index_sdg1      float   %8.0g                 SDG1 Index
+index_sdg2      float   %8.0g                 SDG2 Index
+index_sdg3      float   %8.0g                 SDG3 Index
+index_sdg4      float   %8.0g                 SDG4 Index
+index_sdg5      float   %8.0g                 SDG5 Index
+index_sdg6      float   %8.0g                 SDG6 Index
+index_sdg7      float   %8.0g                 SDG7 Index
+index_sdg8      float   %8.0g                 SDG8 Index
+index_sdg9      float   %8.0g                 SDG9 Index
+index_sdg10     float   %8.0g                 SDG10 Index
+index_sdg11     float   %8.0g                 SDG11 Index
+index_sdg13     float   %8.0g                 SDG13 Index
+index_sdg15     float   %8.0g                 SDG15 Index
+index_sdg16     float   %8.0g                 SDG16 Index
+index_sdg17     float   %8.0g                 SDG17 Index
+pop2001         float   %9.0g               * Estimated population in 2001
+pop2002         float   %9.0g               * Estimated population in 2002
+pop2003         float   %9.0g               * Estimated population in 2003
+pop2004         float   %9.0g               * Estimated population in 2004
+pop2005         float   %9.0g               * Estimated population in 2005
+pop2006         float   %9.0g               * Estimated population in 2006
+pop2007         float   %9.0g               * Estimated population in 2007
+pop2008         float   %9.0g               * Estimated population in 2008
+pop2009         float   %9.0g               * Estimated population in 2009
+pop2010         float   %9.0g               * Estimated population in 2010
+pop2011         float   %9.0g               * Estimated population in 2011
+pop2012         float   %9.0g               * Estimated population in 2012
+pop2013         float   %9.0g               * Estimated population in 2013
+pop2014         float   %9.0g               * Estimated population in 2014
+pop2015         float   %9.0g               * Estimated population in 2015
+pop2016         float   %9.0g               * Estimated population in 2016
+pop2017         float   %9.0g               * Estimated population in 2017
+pop2018         float   %9.0g               * Estimated population in 2018
+pop2019         float   %9.0g               * Estimated population in 2019
+pop2020         float   %9.0g               * Estimated population in 2020
+ln_NTLpc2012    float   %9.0g                 Log NTL per capita in 2012
+ln_NTLpc2013    float   %9.0g                 Log NTL per capita in 2013
+ln_NTLpc2014    float   %9.0g                 Log NTL per capita in 2014
+ln_NTLpc2015    float   %9.0g                 Log NTL per capita in 2015
+ln_NTLpc2016    float   %9.0g                 Log NTL per capita in 2016
+ln_NTLpc2017    float   %9.0g                 Log NTL per capita in 2017
+ln_NTLpc2018    float   %9.0g                 Log NTL per capita in 2018
+ln_NTLpc2019    float   %9.0g                 Log NTL per capita in 2019
+ln_NTLpc2020    float   %9.0g                 Log NTL per capita in 2020
+ln_t400NTL~2012 float   %9.0g                 Trend log NTL per capita in 2012
+ln_t400NTL~2013 float   %9.0g                 Trend log NTL per capita in 2013
+ln_t400NTL~2014 float   %9.0g                 Trend log NTL per capita in 2014
+ln_t400NTL~2015 float   %9.0g                 Trend log NTL per capita in 2015
+ln_t400NTL~2016 float   %9.0g                 Trend log NTL per capita in 2016
+ln_t400NTL~2017 float   %9.0g                 Trend log NTL per capita in 2017
+ln_t400NTL~2018 float   %9.0g                 Trend log NTL per capita in 2018
+ln_t400NTL~2019 float   %9.0g                 Trend log NTL per capita in 2019
+ln_t400NTL~2020 float   %9.0g                 Trend log NTL per capita in 2020
+co2015          float   %9.0g               * Estimated carbon dioxide in 2015
+co2016          float   %9.0g               * Estimated carbon dioxide in 2016
+co2017          float   %9.0g               * Estimated carbon dioxide in 2017
+co2018          float   %9.0g               * Estimated carbon dioxide in 2018
+co2019          float   %9.0g               * Estimated carbon dioxide in 2019
+co2020          float   %9.0g               * Estimated carbon dioxide in 2020
+tr400_co2015    float   %9.0g               * Trend estimated carbon dioxide in 2015
+tr400_co2016    float   %9.0g               * Trend estimated carbon dioxide in 2016
+tr400_co2017    float   %9.0g               * Trend estimated carbon dioxide in 2017
+tr400_co2018    float   %9.0g               * Trend estimated carbon dioxide in 2018
+tr400_co2019    float   %9.0g               * Trend estimated carbon dioxide in 2019
+tr400_co2020    float   %9.0g               * Trend estimated carbon dioxide in 2020
+                                            * indicated variables have notes
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: asdf_id
+
+. describe, replace
+
+. list
+
+     +-----------------------------------------------------------------------------------------------------------------------------------------------------+
+     | position               name    type   isnume~c   format   vallab                                                                             varlab |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+  1. |        1            poly_id     int          1    %8.0g                                                                                  Polygon ID |
+  2. |        2            asdf_id     int          1    %8.0g                                                                                     ASDF ID |
+  3. |        3                mun   str24          0     %24s                                                                                Municipality |
+  4. |        4             mun_id    long          1    %8.0g                                                                             Municipality ID |
+  5. |        5                dep   str10          0     %10s                                                                                  Department |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+  6. |        6             dep_id   float          1    %9.0g                                                                               Department ID |
+  7. |        7            dep_mun   str35          0     %35s                                                                     Department-municipality |
+  8. |        8            shapeID   str26          0     %26s                                                            Municipality Geoquery Polygon ID |
+  9. |        9               imds   float          1    %8.0g                                                     Municipal Sustainable Development Index |
+ 10. |       10          rank_imds     int          1    %8.0g                                                                       Bolivia Index Ranking |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 11. |       11    population_2020    long          1    %8.0g                                                                             Population 2020 |
+ 12. |       12        urbano_2012   float          1    %8.0g                                                   Urbanization rate, 2012 (% of population) |
+ 13. |       13        sdg1_1_eepr   float          1    %8.0g                                             Extreme energy poverty rate, 2016 (% of houses) |
+ 14. |       14         sdg1_1_ubn   float          1    %8.0g                                             Unsatisfied basic needs, 2012 (% of population) |
+ 15. |       15         sdg1_2_mpi   float          1    %8.0g                                                        Multidimensional poverty index, 2012 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 16. |       16         sdg1_4_abs   float          1    %8.0g                                      Access to the 3 basic services, 2012 (% of households) |
+ 17. |       17         sdg2_2_cmc   float          1    %8.0g                                      Chronic malnutrition in children (< 5 years), 2016 (%) |
+ 18. |       18         sdg2_2_oww   float          1    %8.0g                                                    Obesity in women (15-49 years), 2016 (%) |
+ 19. |       19        sdg2_4_pual   float          1    %8.0g                       Average area per Production Unit Agriculture and Livestock, 2013 (ha) |
+ 20. |       20          sdg2_4_td   float          1    %8.0g                                                      Tractor density, 2013 (per 1,000 UPAs) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 21. |       21        sdg3_1_idca   float          1    %8.0g                                    Institutional childbirth coverage, average 2008-2012 (%) |
+ 22. |       22         sdg3_2_imr   float          1    %8.0g                             Infant mortality rate (< 1 year), 2016 (per. 1,000 live births) |
+ 23. |       23         sdg3_2_mrc   float          1    %8.0g                       Children mortality rate in (< 5 years), 2016 (per. 1,000 live births) |
+ 24. |       24        sdg3_3_cdir   float          1    %8.0g                                     Chagas disease infestation rate, 2017 (% of households) |
+ 25. |       25          sdg3_3_di   float          1    %8.0g                                              Dengue incidence, 2018 (per 10,000 population) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 26. |       26         sdg3_3_imr   float          1    %8.0g                                   Malaria incidence, average 2014-17 (per 1,000 population) |
+ 27. |       27          sdg3_3_ti   float          1    %8.0g                                       Tuberculosis incidence, 2017 (per 100,000 population) |
+ 28. |       28        sdg3_3_hivi   float          1    %8.0g                                    HIV incidence, average 2014-17 (per 1,000,00 population) |
+ 29. |       29         sdg3_7_afr   float          1    %8.0g                      Adolescent fertility rate (15-19 years), 2012 (births per 1,000 women) |
+ 30. |       30       sdg4_1_ssdrm   float          1    %8.0g                                   Secondary school dropout rate, male, 2017 (% of enrolled) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 31. |       31       sdg4_1_ssdrf   float          1    %8.0g                                Secondary school dropout rate, females, 2017 (% of enrolled) |
+ 32. |       32         sdg4_4_phe   float          1    %8.0g                                    Population with higher education (>= 19 years), 2012 (%) |
+ 33. |       33          sdg4_6_lr   float          1    %8.0g                                                   Literacy rate for (>= 15 years), 2012 (%) |
+ 34. |       34         sdg4_c_qti   float          1    %8.0g                                           Qualified teachers at the initial level, 2016 (%) |
+ 35. |       35         sdg4_c_qts   float          1    %8.0g                                             Qualified teachers at the secondary level, 2016 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 36. |       36        sdg5_1_gpsd   float          1    %8.0g                                 Gender parity in school dropouts in  secondary school, 2017 |
+ 37. |       37        sdg5_1_gpyp   float          1    %8.0g            Gender parity in years of education of young people (25-35 years old), 2012. (25 |
+ 38. |       38       sdg5_1_gpmpi   float          1    %8.0g                                   Gender Parity in the Multidimensional Poverty Index, 2012 |
+ 39. |       39        sdg5_5_gpop   float          1    %8.0g                          Gender parity in the overall participation rate (>=10 years), 2012 |
+ 40. |       40         sdg6_1_dwc   float          1    %8.0g                                             Drinking water coverage, 2017 (% of population) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 41. |       41          sdg6_2_sc   float          1    %8.0g                                                 Sanitation coverage, 2017 (% of population) |
+ 42. |       42         sdg6_3_wwt   float          1    %8.0g                                    Wastewater treatment, 2017 (% of wastewater) wastewater) |
+ 43. |       43          sdg7_1_ec   float          1    %8.0g                                    Electricity coverage, 2012 (% of population) population) |
+ 44. |       44         sdg7_1_rec     int          1    %8.0g                      Residential electricity consumption per capita, 2016 (kWh/person/year) |
+ 45. |       45         sdg7_1_cce   float          1    %8.0g                                                Clean cooking energy, 2012 (% of households) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 46. |       46      sdg7_3_co2epc   float          1    %8.0g                                CO2 emissions per capita by energy, 2016. (tCO2/person/year) |
+ 47. |       47         sdg8_4_rem   float          1    %8.0g                                 Residential electric meters with zero consumption, 2016 (%) |
+ 48. |       48        sdg8_5_oprm   float          1    %8.0g                                    Overall participation rate males (>= 10 years), 2012 (%) |
+ 49. |       49        sdg8_5_ofrm   float          1    %8.0g                                   Overall female participation rate (>= 10 years), 2012 (%) |
+ 50. |       50         sdg8_6_mlm   float          1    %8.0g             Men who do not study or participate in the labor market (15-24 years), 2012 (%) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 51. |       51         sdg8_6_wlm   float          1    %8.0g            Women who do not study or participate in the labor market (15-24 years),2012 (%) |
+ 52. |       52        sdg8_10_dbb   float          1    %8.0g                                    Density of bank branches, 2018 (per 100,000 inhabitants) |
+ 53. |       53        sdg8_11_idi   float          1    %8.0g                                    Index of the degree of intermediation in migration, 2012 |
+ 54. |       54      sdg9_1_routes    byte          1    %8.0g                    Number of railways/primary roads entering/leaving the municipality, 2019 |
+ 55. |       55          sdg9_5_cd   float          1    %8.0g                  Kuaa computers delivered, 2016 (per 100 school-age population, 6-19 years) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 56. |       56        sdg9_5_eutf   float          1    %8.0g                                       Educational units with technological floors, 2016 (%) |
+ 57. |       57         sdg9_c_mnc   float          1    %8.0g                                   Fixed and mobile network coverage, 2012 (% of households) |
+ 58. |       58         sdg9_c_drb   float          1    %8.0g                   Density of radio bases, 2016 (number of radio bases per 1000 inhabitants) |
+ 59. |       59       sdg10_2_gcye   float          1    %8.0g                                                GINI coefficient of years of education, 2012 |
+ 60. |       60        sdg10_2_iec     int          1    %8.0g                                                 Inequality in electricity consumption, 2016 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 61. |       61       sdg10_2_nssp   float          1    %8.0g                                      Non-Spanish speaking population (>= 3 years), 2012 (%) |
+ 62. |       62       sdg11_1_hocr   float          1    %8.0g                                                   Overcrowding rate, 2012 (% of households) |
+ 63. |       63        sdg11_1_hno   float          1    %8.0g            Households that do not have a toilet, bathroom or latrine, 2012 (%) latrine, 201 |
+ 64. |       64       sdg11_2_samt   float          1    %8.0g                              Seats available for mass transit, 2017 (per 1,000 inhabitants) |
+ 65. |       65       sdg13_1_ccvi   float          1    %8.0g                                                    Climate change vulnerability Index, 2015 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 66. |       66      sdg13_2_tco2e   float          1    %8.0g                                     Total CO2 emissions per capita, 2016 (tCO2/person/year) |
+ 67. |       67        sdg13_2_dra   float          1    %8.0g                               Deforestation rate, average 2016-2018 (% of forest area 2015) |
+ 68. |       68         sdg15_1_pa   float          1    %8.0g                     Protected areas, 2019 (% of the municipality's land area) municipality) |
+ 69. |       69        sdg15_5_blr   float          1    %8.0g                Biodiversity loss rate due to deforestation deforestation, average 2016-2018 |
+ 70. |       70        sdg16_1_rhr   float          1    %8.0g                      Registered homicide rate, average 2015-2017. (per 100,000 inhabitants) |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 71. |       71       sdg16_6_pbec   float          1    %8.0g                                              Programmed budget execution capacity, 2017 (%) |
+ 72. |       72         sdg16_9_cr   float          1    %8.0g                             Children registered in the civil registry (< 5 years), 2012 (%) |
+ 73. |       73      sdg17_1_pmtax   float          1    %8.0g                       Proportion of municipal revenues that come from local taxes, 2017 (%) |
+ 74. |       74       sdg17_5_pipc     int          1    %8.0g                                             Public investment per capita, 2017 (Bs./person) |
+ 75. |       75         index_sdg1   float          1    %8.0g                                                                                  SDG1 Index |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 76. |       76         index_sdg2   float          1    %8.0g                                                                                  SDG2 Index |
+ 77. |       77         index_sdg3   float          1    %8.0g                                                                                  SDG3 Index |
+ 78. |       78         index_sdg4   float          1    %8.0g                                                                                  SDG4 Index |
+ 79. |       79         index_sdg5   float          1    %8.0g                                                                                  SDG5 Index |
+ 80. |       80         index_sdg6   float          1    %8.0g                                                                                  SDG6 Index |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 81. |       81         index_sdg7   float          1    %8.0g                                                                                  SDG7 Index |
+ 82. |       82         index_sdg8   float          1    %8.0g                                                                                  SDG8 Index |
+ 83. |       83         index_sdg9   float          1    %8.0g                                                                                  SDG9 Index |
+ 84. |       84        index_sdg10   float          1    %8.0g                                                                                 SDG10 Index |
+ 85. |       85        index_sdg11   float          1    %8.0g                                                                                 SDG11 Index |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 86. |       86        index_sdg13   float          1    %8.0g                                                                                 SDG13 Index |
+ 87. |       87        index_sdg15   float          1    %8.0g                                                                                 SDG15 Index |
+ 88. |       88        index_sdg16   float          1    %8.0g                                                                                 SDG16 Index |
+ 89. |       89        index_sdg17   float          1    %8.0g                                                                                 SDG17 Index |
+ 90. |       90            pop2001   float          1    %9.0g                                                                Estimated population in 2001 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 91. |       91            pop2002   float          1    %9.0g                                                                Estimated population in 2002 |
+ 92. |       92            pop2003   float          1    %9.0g                                                                Estimated population in 2003 |
+ 93. |       93            pop2004   float          1    %9.0g                                                                Estimated population in 2004 |
+ 94. |       94            pop2005   float          1    %9.0g                                                                Estimated population in 2005 |
+ 95. |       95            pop2006   float          1    %9.0g                                                                Estimated population in 2006 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+ 96. |       96            pop2007   float          1    %9.0g                                                                Estimated population in 2007 |
+ 97. |       97            pop2008   float          1    %9.0g                                                                Estimated population in 2008 |
+ 98. |       98            pop2009   float          1    %9.0g                                                                Estimated population in 2009 |
+ 99. |       99            pop2010   float          1    %9.0g                                                                Estimated population in 2010 |
+100. |      100            pop2011   float          1    %9.0g                                                                Estimated population in 2011 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+101. |      101            pop2012   float          1    %9.0g                                                                Estimated population in 2012 |
+102. |      102            pop2013   float          1    %9.0g                                                                Estimated population in 2013 |
+103. |      103            pop2014   float          1    %9.0g                                                                Estimated population in 2014 |
+104. |      104            pop2015   float          1    %9.0g                                                                Estimated population in 2015 |
+105. |      105            pop2016   float          1    %9.0g                                                                Estimated population in 2016 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+106. |      106            pop2017   float          1    %9.0g                                                                Estimated population in 2017 |
+107. |      107            pop2018   float          1    %9.0g                                                                Estimated population in 2018 |
+108. |      108            pop2019   float          1    %9.0g                                                                Estimated population in 2019 |
+109. |      109            pop2020   float          1    %9.0g                                                                Estimated population in 2020 |
+110. |      110       ln_NTLpc2012   float          1    %9.0g                                                                  Log NTL per capita in 2012 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+111. |      111       ln_NTLpc2013   float          1    %9.0g                                                                  Log NTL per capita in 2013 |
+112. |      112       ln_NTLpc2014   float          1    %9.0g                                                                  Log NTL per capita in 2014 |
+113. |      113       ln_NTLpc2015   float          1    %9.0g                                                                  Log NTL per capita in 2015 |
+114. |      114       ln_NTLpc2016   float          1    %9.0g                                                                  Log NTL per capita in 2016 |
+115. |      115       ln_NTLpc2017   float          1    %9.0g                                                                  Log NTL per capita in 2017 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+116. |      116       ln_NTLpc2018   float          1    %9.0g                                                                  Log NTL per capita in 2018 |
+117. |      117       ln_NTLpc2019   float          1    %9.0g                                                                  Log NTL per capita in 2019 |
+118. |      118       ln_NTLpc2020   float          1    %9.0g                                                                  Log NTL per capita in 2020 |
+119. |      119   ln_t400NTLpc2012   float          1    %9.0g                                                            Trend log NTL per capita in 2012 |
+120. |      120   ln_t400NTLpc2013   float          1    %9.0g                                                            Trend log NTL per capita in 2013 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+121. |      121   ln_t400NTLpc2014   float          1    %9.0g                                                            Trend log NTL per capita in 2014 |
+122. |      122   ln_t400NTLpc2015   float          1    %9.0g                                                            Trend log NTL per capita in 2015 |
+123. |      123   ln_t400NTLpc2016   float          1    %9.0g                                                            Trend log NTL per capita in 2016 |
+124. |      124   ln_t400NTLpc2017   float          1    %9.0g                                                            Trend log NTL per capita in 2017 |
+125. |      125   ln_t400NTLpc2018   float          1    %9.0g                                                            Trend log NTL per capita in 2018 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+126. |      126   ln_t400NTLpc2019   float          1    %9.0g                                                            Trend log NTL per capita in 2019 |
+127. |      127   ln_t400NTLpc2020   float          1    %9.0g                                                            Trend log NTL per capita in 2020 |
+128. |      128             co2015   float          1    %9.0g                                                            Estimated carbon dioxide in 2015 |
+129. |      129             co2016   float          1    %9.0g                                                            Estimated carbon dioxide in 2016 |
+130. |      130             co2017   float          1    %9.0g                                                            Estimated carbon dioxide in 2017 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+131. |      131             co2018   float          1    %9.0g                                                            Estimated carbon dioxide in 2018 |
+132. |      132             co2019   float          1    %9.0g                                                            Estimated carbon dioxide in 2019 |
+133. |      133             co2020   float          1    %9.0g                                                            Estimated carbon dioxide in 2020 |
+134. |      134       tr400_co2015   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2015 |
+135. |      135       tr400_co2016   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2016 |
+     |-----------------------------------------------------------------------------------------------------------------------------------------------------|
+136. |      136       tr400_co2017   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2017 |
+137. |      137       tr400_co2018   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2018 |
+138. |      138       tr400_co2019   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2019 |
+139. |      139       tr400_co2020   float          1    %9.0g                                                      Trend estimated carbon dioxide in 2020 |
+     +-----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+. export delimited using "/Users/carlosmendez/Downloads/DataDefinitions.csv", replace
+(file /Users/carlosmendez/Downloads/DataDefinitions.csv not found)
+file /Users/carlosmendez/Downloads/DataDefinitions.csv saved
+
