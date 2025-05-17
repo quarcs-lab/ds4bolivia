@@ -159,3 +159,6 @@
 157,distancedistanceCoast2017mean,Mean distance to coast in meters in 2017
 158,distancedistanceCoast2017max,Max distance to coast in meters in 2017
 159,distancedistanceCoast2017min,Min distance to coast in meters in 2017
+160,distanceDia2017min,Min distance to diamond deposits in meters in 2017
+161,distanceDia2017mean,Mean distance to diamond deposits in meters in 2017
+162,distanceDia2017max,Max distance to diamond deposits in meters in 2017

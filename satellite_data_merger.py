@@ -109,10 +109,34 @@ vLabel =["Mean distance to coast in meters in 2017",
 
 rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Coast Distance
 
+# %%
+# Coast Distance ===============================================================
+# =============================================================== Coast Distance
 
+# Coast Distance ===============================================================
+diaDistance_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/diamond_distance_2017.csv"
+
+diaDistance = pd.read_csv(diaDistance_url)
+
+db = db.merge(diaDistance, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %% 
+
+vName = diaDistance.columns[~diaDistance.columns.str.contains("id")].tolist()
+vLabel =["Min distance to diamond deposits in meters in 2017",
+         "Mean distance to diamond deposits in meters in 2017",
+         "Max distance to diamond deposits in meters in 2017"
+         ]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
 
 # =============================================================== Coast Distance
+
+
 # %%
 # Export ===============================================================
 # Exporting final version
