@@ -156,3 +156,6 @@
 154,airTemp2015.max,Maximum Air Temperature in Celcius in 2015
 155,airTemp2016.max,Maximum Air Temperature in Celcius in 2016
 156,airTemp2017.max,Maximum Air Temperature in Celcius in 2017
+157,distancedistanceCoast2017mean,Mean distance to coast in meters in 2017
+158,distancedistanceCoast2017max,Max distance to coast in meters in 2017
+159,distancedistanceCoast2017min,Min distance to coast in meters in 2017
