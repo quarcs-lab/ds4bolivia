@@ -134,9 +134,6 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Diamond Distance
 
 # %%
-# Coast Distance ===============================================================
-# =============================================================== Coast Distance
-
 # Drug cultivation  ===============================================================
 
 drugCult_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/drug_cultivation_2017.csv"
@@ -158,6 +155,26 @@ rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Drug Cultivation
 
+# %%
+# Drug Cult Distance ===============================================================
+drugDistance_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/drug_cultivation_distance_2017.csv"
+drugDistance = pd.read_csv(drugDistance_url)
+
+db = db.merge(drugDistance, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+# %%
+vName = drugDistance.columns[~drugDistance.columns.str.contains("id")].tolist()
+vLabel = ["Mean distance to drug cultivation sites in meters in 2017",
+         "Max distance to drug cultivation sites in meters in 2017",
+         "Min distance to drug cultivation sites in meters in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+
+# =============================================================== Drug Cult Distance
+
+# Coast Distance ===============================================================
+# =============================================================== Coast Distance
 
 # %%
 # Export ===============================================================
