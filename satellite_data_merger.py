@@ -112,10 +112,7 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Coast Distance
 
 # %%
-# Coast Distance ===============================================================
-# =============================================================== Coast Distance
-
-# Coast Distance ===============================================================
+# Diamond Distance ===============================================================
 diaDistance_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/diamond_distance_2017.csv"
 
 diaDistance = pd.read_csv(diaDistance_url)
@@ -134,7 +131,32 @@ vLabel =["Min distance to diamond deposits in meters in 2017",
 rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 
+# =============================================================== Diamond Distance
+
+# %%
+# Coast Distance ===============================================================
 # =============================================================== Coast Distance
+
+# Drug cultivation  ===============================================================
+
+drugCult_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/drug_cultivation_2017.csv"
+drugCult = pd.read_csv(drugCult_url)
+drugCult.drop(columns=['drugCult_cannabis2017',
+                       'drugCult_opium2017',
+                       'drugCult_mix2017'],
+              inplace=True)
+db = db.merge(drugCult, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = drugCult.columns[~drugCult.columns.str.contains("id")].to_list()
+vLabel = ["Total area in polygons in 2017",
+         "Area without drug cultivation in polygons in 2017",
+         "Area with coca bush cultivation in polygons in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Drug Cultivation
 
 
 # %%

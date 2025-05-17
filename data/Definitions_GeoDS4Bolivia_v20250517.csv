@@ -162,3 +162,6 @@
 160,distanceDia2017min,Min distance to diamond deposits in meters in 2017
 161,distanceDia2017mean,Mean distance to diamond deposits in meters in 2017
 162,distanceDia2017max,Max distance to diamond deposits in meters in 2017
+163,drugCult_count2017,Total area in polygons in 2017
+164,drugCult_none2017,Area without drug cultivation in polygons in 2017
+165,drugCult_coca_bush2017,Area with coca bush cultivation in polygons in 2017
