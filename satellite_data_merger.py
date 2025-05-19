@@ -173,6 +173,33 @@ desc = pd.concat([desc,rows], ignore_index=True)
 
 # =============================================================== Drug Cult Distance
 
+# %%
+# esa_landcover ===============================================================
+esa_landcover_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/esa_landcover_2012-2016.csv"
+
+esa_landcover = pd.read_csv(esa_landcover_url)
+
+db = db.merge(esa_landcover, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+
+vName = esa_landcover.columns[~esa_landcover.columns.str.contains("id")].to_list()
+
+vLabel = []
+for col in vName: 
+    year = col.split("esaLandCover",1)[1].split("_")[0]
+    category = col.split("_",1)[1].replace("_", " ")
+    
+    label = f"{category} ESA land cover classification in polygons in {year}"
+    vLabel.append(label)
+    print(label)
+
+rows = pd.DataFrame({"varname":vName,"varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== esa_landcover
+
+
 # Coast Distance ===============================================================
 # =============================================================== Coast Distance
 
