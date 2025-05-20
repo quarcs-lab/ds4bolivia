@@ -28,6 +28,7 @@ for year in years:
 
 rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc, rows], ignore_index=True)
+
 # %%
 
 airTempMin_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/air_temp_min_2012-2017.csv"
@@ -174,6 +175,7 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Drug Cult Distance
 
 # %%
+
 # esa_landcover ===============================================================
 esa_landcover_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/esa_landcover_2012-2016.csv"
 
@@ -193,12 +195,38 @@ for col in vName:
     
     label = f"{category} ESA land cover classification in polygons in {year}"
     vLabel.append(label)
-    print(label)
+    #print(label)
 
 rows = pd.DataFrame({"varname":vName,"varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== esa_landcover
 
+# %%
+
+# Modis Landcover ===============================================================
+modisLandcover_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/gee_modis_landcover_2012-2016.csv"
+
+modisLandcover = pd.read_csv(modisLandcover_url)
+db = db.merge(modisLandcover, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = modisLandcover.columns[~modisLandcover.columns.str.contains("id")].to_list()
+
+labels = ["agricultural land MODIS, total pixels divided by green Pixels",
+          "total pixels",
+          "urban land MODIS, total pixels divided by gray Pixels"]
+years = range(2012,2017)
+vLabel = []
+for year in years: 
+    for label in labels:
+        label = label +" in "+str(year)
+        print(label)
+        vLabel.append(label)
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Modis Landcover
 
 # Coast Distance ===============================================================
 # =============================================================== Coast Distance
