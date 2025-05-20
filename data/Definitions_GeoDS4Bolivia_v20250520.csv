@@ -238,3 +238,18 @@
 236,esaLandCover2016_irrigated_cropland,irrigated cropland ESA land cover classification in polygons in 2016
 237,esaLandCover2016_snow_ice,snow ice ESA land cover classification in polygons in 2016
 238,esaLandCover2016_urban,urban ESA land cover classification in polygons in 2016
+239,modis_agriculture_2012,"agricultural land MODIS, total pixels divided by green Pixels in 2012"
+240,modis_total_area_2012,total pixels in 2012
+241,modis_urban_2012,"urban land MODIS, total pixels divided by gray Pixels in 2012"
+242,modis_agriculture_2013,"agricultural land MODIS, total pixels divided by green Pixels in 2013"
+243,modis_total_area_2013,total pixels in 2013
+244,modis_urban_2013,"urban land MODIS, total pixels divided by gray Pixels in 2013"
+245,modis_agriculture_2014,"agricultural land MODIS, total pixels divided by green Pixels in 2014"
+246,modis_total_area_2014,total pixels in 2014
+247,modis_urban_2014,"urban land MODIS, total pixels divided by gray Pixels in 2014"
+248,modis_agriculture_2015,"agricultural land MODIS, total pixels divided by green Pixels in 2015"
+249,modis_total_area_2015,total pixels in 2015
+250,modis_urban_2015,"urban land MODIS, total pixels divided by gray Pixels in 2015"
+251,modis_agriculture_2016,"agricultural land MODIS, total pixels divided by green Pixels in 2016"
+252,modis_total_area_2016,total pixels in 2016
+253,modis_urban_2016,"urban land MODIS, total pixels divided by gray Pixels in 2016"
