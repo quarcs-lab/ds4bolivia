@@ -255,24 +255,40 @@ db.drop(columns="id", inplace=True)
 
 # %%
 
-vname = gisa.columns[~gisa.columns.str.contains("id")].tolist()
+vName = gisa.columns[~gisa.columns.str.contains("id")].tolist()
 
 vLabel = []
-for name in vname:
+for name in vName:
     year = name.split("gisa")[1]
     #print(year)
     vLabel.append(f"Global Impervious Surface area by pixel in {year}")
     print()
     
-rows = pd.DataFrame({"varname":vname, "varlabel":vLabel})
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== GISA
 
 # %%
 
-# GHSL ===============================================================
-# =============================================================== GHSL
+# time to city ===============================================================
+timeCity_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/distance_city_2016.csv"
 
+timeCity = pd.read_csv(timeCity_url)
+db = db.merge(timeCity, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = timeCity.columns[~timeCity.columns.str.contains("id")].tolist()
+
+vLabel = ["mean distance to major city in minutes in 2016",
+          "max distance to major city in minutes in 2016",
+          "min distance to major city in minutes in 2016"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== time to city 
+
+# %%
 
 # GHSL ===============================================================
 # =============================================================== GHSL

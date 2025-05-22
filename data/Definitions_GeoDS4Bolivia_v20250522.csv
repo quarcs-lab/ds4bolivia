@@ -262,3 +262,6 @@
 260,gisa2017,Global Impervious Surface area by pixel in 2017
 261,gisa2018,Global Impervious Surface area by pixel in 2018
 262,gisa2019,Global Impervious Surface area by pixel in 2019
+263,travelTimeCity2016mean,mean distance to major city in minutes in 2016
+264,travelTimeCity2016max,max distance to major city in minutes in 2016
+265,travelTimeCity2016min,min distance to major city in minutes in 2016
