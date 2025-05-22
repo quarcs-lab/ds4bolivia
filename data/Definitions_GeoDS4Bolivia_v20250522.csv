@@ -265,3 +265,27 @@
 263,travelTimeCity2016mean,mean distance to major city in minutes in 2016
 264,travelTimeCity2016max,max distance to major city in minutes in 2016
 265,travelTimeCity2016min,min distance to major city in minutes in 2016
+266,map_pf_incidence_rate.2012.max,max malaria rate per 1000 people in 2012
+267,map_pf_incidence_rate.2013.max,max malaria rate per 1000 people in 2013
+268,map_pf_incidence_rate.2014.max,max malaria rate per 1000 people in 2014
+269,map_pf_incidence_rate.2015.max,max malaria rate per 1000 people in 2015
+270,map_pf_incidence_rate.2016.max,max malaria rate per 1000 people in 2016
+271,map_pf_incidence_rate.2017.max,max malaria rate per 1000 people in 2017
+272,map_pf_incidence_rate.2018.max,max malaria rate per 1000 people in 2018
+273,map_pf_incidence_rate.2019.max,max malaria rate per 1000 people in 2019
+274,map_pf_incidence_rate.2012.mean,mean malaria rate per 1000 people in 2012
+275,map_pf_incidence_rate.2013.mean,mean malaria rate per 1000 people in 2013
+276,map_pf_incidence_rate.2014.mean,mean malaria rate per 1000 people in 2014
+277,map_pf_incidence_rate.2015.mean,mean malaria rate per 1000 people in 2015
+278,map_pf_incidence_rate.2016.mean,mean malaria rate per 1000 people in 2016
+279,map_pf_incidence_rate.2017.mean,mean malaria rate per 1000 people in 2017
+280,map_pf_incidence_rate.2018.mean,mean malaria rate per 1000 people in 2018
+281,map_pf_incidence_rate.2019.mean,mean malaria rate per 1000 people in 2019
+282,map_pf_incidence_rate.2012.min,min malaria rate per 1000 people in 2012
+283,map_pf_incidence_rate.2013.min,min malaria rate per 1000 people in 2013
+284,map_pf_incidence_rate.2014.min,min malaria rate per 1000 people in 2014
+285,map_pf_incidence_rate.2015.min,min malaria rate per 1000 people in 2015
+286,map_pf_incidence_rate.2016.min,min malaria rate per 1000 people in 2016
+287,map_pf_incidence_rate.2017.min,min malaria rate per 1000 people in 2017
+288,map_pf_incidence_rate.2018.min,min malaria rate per 1000 people in 2018
+289,map_pf_incidence_rate.2019.min,min malaria rate per 1000 people in 2019

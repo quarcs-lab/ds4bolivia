@@ -290,10 +290,77 @@ desc = pd.concat([desc,rows], ignore_index=True)
 
 # %%
 
+# Malaria ===============================================================
+malaria_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/malaria_max_incidence_rate_2012-2019.csv"
+
+malaria = pd.read_csv(malaria_url)
+db = db.merge(malaria, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = [col for col in malaria.columns if col != "id"]
+vLabel = []
+
+for col in vName: 
+    year = col.split(".",2)[1]
+    type = col.split(".",2)[2]
+    vLabel.append(f"{type} malaria rate per 1000 people in {year}")
+
+vLabel
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# ***************************************************************************
+# %%
+
+malariaMean_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/malaria_mean_incidence_rate_2012-2019.csv"
+
+malariaMean = pd.read_csv(malariaMean_url)
+db = db.merge(malariaMean, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = [col for col in malariaMean.columns if col != "id"]
+vLabel = []
+
+for col in vName: 
+    year = col.split(".",2)[1]
+    type = col.split(".",2)[2]
+    vLabel.append(f"{type} malaria rate per 1000 people in {year}")
+
+vLabel
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+
+# %%
+
+malariaMin_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/malaria_min_incidence_rate_2012-2019.csv"
+
+malariaMin = pd.read_csv(malariaMin_url)
+db = db.merge(malariaMin, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = [col for col in malariaMin.columns if col != "id"]
+vLabel = []
+
+for col in vName: 
+    year = col.split(".",2)[1]
+    type = col.split(".",2)[2]
+    vLabel.append(f"{type} malaria rate per 1000 people in {year}")
+
+vLabel
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+
+
+# =============================================================== Malaria
+# %%
+
 # GHSL ===============================================================
 # =============================================================== GHSL
-
-
 # %%
 # Export ===============================================================
 # Exporting final version
