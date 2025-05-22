@@ -254,3 +254,11 @@
 252,modis_total_area_2016,total pixels in 2016
 253,modis_urban_2016,"urban land MODIS, total pixels divided by gray Pixels in 2016"
 254,ghsl2015,pixel sum of the Global Human Settlement Layer population count in 2015
+255,gisa2012,Global Impervious Surface area by pixel in 2012
+256,gisa2013,Global Impervious Surface area by pixel in 2013
+257,gisa2014,Global Impervious Surface area by pixel in 2014
+258,gisa2015,Global Impervious Surface area by pixel in 2015
+259,gisa2016,Global Impervious Surface area by pixel in 2016
+260,gisa2017,Global Impervious Surface area by pixel in 2017
+261,gisa2018,Global Impervious Surface area by pixel in 2018
+262,gisa2019,Global Impervious Surface area by pixel in 2019

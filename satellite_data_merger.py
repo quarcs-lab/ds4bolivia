@@ -245,6 +245,40 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== GHSL
 
 # %%
+# GISA ===============================================================
+
+gisa_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/gisa_2012-2019.csv"
+
+gisa = pd.read_csv(gisa_url)
+db = db.merge(gisa, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+
+vname = gisa.columns[~gisa.columns.str.contains("id")].tolist()
+
+vLabel = []
+for name in vname:
+    year = name.split("gisa")[1]
+    #print(year)
+    vLabel.append(f"Global Impervious Surface area by pixel in {year}")
+    print()
+    
+rows = pd.DataFrame({"varname":vname, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== GISA
+
+# %%
+
+# GHSL ===============================================================
+# =============================================================== GHSL
+
+
+# GHSL ===============================================================
+# =============================================================== GHSL
+
+
+# %%
 # Export ===============================================================
 # Exporting final version
 today = datetime.now().strftime("%Y%m%d")
