@@ -227,9 +227,22 @@ for year in years:
 rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Modis Landcover
+# %%
 
-# Coast Distance ===============================================================
-# =============================================================== Coast Distance
+# GHSL ===============================================================
+ghsl_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/ghsl_2015.csv"
+
+ghsl = pd.read_csv(ghsl_url)
+db = db.merge(ghsl, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = ghsl.columns[~ghsl.columns.str.contains("id")].tolist()
+vLabel = ["pixel sum of the Global Human Settlement Layer population count in 2015"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== GHSL
 
 # %%
 # Export ===============================================================
