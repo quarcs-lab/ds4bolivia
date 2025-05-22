@@ -289,3 +289,30 @@
 287,map_pf_incidence_rate.2017.min,min malaria rate per 1000 people in 2017
 288,map_pf_incidence_rate.2018.min,min malaria rate per 1000 people in 2018
 289,map_pf_incidence_rate.2019.min,min malaria rate per 1000 people in 2019
+290,cru_ts_405_pre_yearly_mean.2012.min,min precipitation in millimeters in 2012
+291,cru_ts_405_pre_yearly_mean.2012.mean,mean precipitation in millimeters in 2012
+292,cru_ts_405_pre_yearly_mean.2012.max,max precipitation in millimeters in 2012
+293,cru_ts_405_pre_yearly_mean.2013.min,min precipitation in millimeters in 2013
+294,cru_ts_405_pre_yearly_mean.2013.mean,mean precipitation in millimeters in 2013
+295,cru_ts_405_pre_yearly_mean.2013.max,max precipitation in millimeters in 2013
+296,cru_ts_405_pre_yearly_mean.2014.min,min precipitation in millimeters in 2014
+297,cru_ts_405_pre_yearly_mean.2014.mean,mean precipitation in millimeters in 2014
+298,cru_ts_405_pre_yearly_mean.2014.max,max precipitation in millimeters in 2014
+299,cru_ts_405_pre_yearly_mean.2015.min,min precipitation in millimeters in 2015
+300,cru_ts_405_pre_yearly_mean.2015.mean,mean precipitation in millimeters in 2015
+301,cru_ts_405_pre_yearly_mean.2015.max,max precipitation in millimeters in 2015
+302,cru_ts_405_pre_yearly_mean.2016.min,min precipitation in millimeters in 2016
+303,cru_ts_405_pre_yearly_mean.2016.mean,mean precipitation in millimeters in 2016
+304,cru_ts_405_pre_yearly_mean.2016.max,max precipitation in millimeters in 2016
+305,cru_ts_405_pre_yearly_mean.2017.min,min precipitation in millimeters in 2017
+306,cru_ts_405_pre_yearly_mean.2017.mean,mean precipitation in millimeters in 2017
+307,cru_ts_405_pre_yearly_mean.2017.max,max precipitation in millimeters in 2017
+308,cru_ts_405_pre_yearly_mean.2018.min,min precipitation in millimeters in 2018
+309,cru_ts_405_pre_yearly_mean.2018.mean,mean precipitation in millimeters in 2018
+310,cru_ts_405_pre_yearly_mean.2018.max,max precipitation in millimeters in 2018
+311,cru_ts_405_pre_yearly_mean.2019.min,min precipitation in millimeters in 2019
+312,cru_ts_405_pre_yearly_mean.2019.mean,mean precipitation in millimeters in 2019
+313,cru_ts_405_pre_yearly_mean.2019.max,max precipitation in millimeters in 2019
+314,cru_ts_405_pre_yearly_mean.2020.min,min precipitation in millimeters in 2020
+315,cru_ts_405_pre_yearly_mean.2020.mean,mean precipitation in millimeters in 2020
+316,cru_ts_405_pre_yearly_mean.2020.max,max precipitation in millimeters in 2020

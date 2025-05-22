@@ -359,6 +359,36 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Malaria
 # %%
 
+# Precipitation ===============================================================
+pre_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/mean_precipitation_cru_ts_2012-2020.csv"
+
+pre = pd.read_csv(pre_url)
+db = db.merge(pre, left_on="asdf_id", right_on="id").drop(columns="id")
+
+# %%
+
+vName = pre.columns[~pre.columns.str.contains("id")].tolist()
+vLabel = []
+
+for col in vName:
+    year = col.split(".",2)[1]
+    type = col.split(".",2)[2]
+    vLabel.append(f"{type} precipitation in millimeters in {year}")
+
+rows = pd.DataFrame({"varname": vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Precipitation
+# %%
+
+# modis ===============================================================
+modis_url = "https://github.com/HendrixPeralta/bol_hdi_prediction/blob/main/data/satellite/collab_satellite_data/modis_landcover_2012.csv"
+
+modis = pd.read_csv(modis_url)
+# =============================================================== modis
+
+
+# GHSL ===============================================================
+# =============================================================== GHSL
 # GHSL ===============================================================
 # =============================================================== GHSL
 # %%
