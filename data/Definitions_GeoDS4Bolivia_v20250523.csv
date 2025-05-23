@@ -337,3 +337,6 @@
 335,photov2019mean,mean photovoltaic potential in kWh/kWp in 2019
 336,photov2019max,max photovoltaic potential in kWh/kWp in 2019
 337,photov2019min,min photovoltaic potential in kWh/kWp in 2019
+338,elev2017mean,Mean elevation in meters in 2017
+339,elev2017max,Max elevation in meters in 2017
+340,elev2017min,Min elevation in meters in 2017

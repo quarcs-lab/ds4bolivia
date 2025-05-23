@@ -429,11 +429,19 @@ desc = pd.concat([desc,rows], ignore_index=True)
 elevation_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/physical_elevation_2017.csv"
 
 elevation = pd.read_csv(elevation_url)
-db
+db = db.merge(elevation, left_on="asdf_id", right_on="id").drop(columns="id")
 
+#%%
+vName = elevation.columns[~elevation.columns.str.contains("id")].tolist()
 
+vLabel = ["Mean elevation in meters in 2017",
+          "Max elevation in meters in 2017",
+          "Min elevation in meters in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc= pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Elevation
-
+# %%
 
 
 
