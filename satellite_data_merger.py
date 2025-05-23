@@ -458,10 +458,47 @@ vLabel = ["mean distance to road in meters in 2017",
 rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Distance road
+# %%
+# Slope ===============================================================
+slope_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/slope_2017.csv"
+
+slope = pd.read_csv(slope_url)
+
+db = db.merge(slope, left_on="asdf_id", right_on="id").drop(columns="id")
+
+# %%
+vName = slope.columns[~slope.columns.str.contains("id")].tolist()
+vLabel = ["mean slope in degrees in 2017",
+          "max slope in degrees in 2017",
+          "min slope in degrees in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Slope
+# %%
+
+#  Water distance ===============================================================
+distanceWater_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/water_distance_2017.csv"
+
+distanceWater = pd.read_csv(distanceWater_url)
+
+db = db.merge(distanceWater, left_on="asdf_id", right_on="id").drop(columns="id")
+
+# %%
+vName = distanceWater.columns[~distanceWater.columns.str.contains("id")].tolist()
+
+vLabel = ["mean distance to water in meters in 2017",
+          "max distance to water in meters in 2017",
+          "min distance to water in meters in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Water Distance
 
 
+# GHSL ===============================================================
 
-
+# =============================================================== GHSL
 # GHSL ===============================================================
 # =============================================================== GHSL
 

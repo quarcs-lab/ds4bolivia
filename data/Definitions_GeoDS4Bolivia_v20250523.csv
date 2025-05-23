@@ -343,3 +343,6 @@
 341,distanceRoad2017mean,mean distance to road in meters in 2017
 342,distanceRoad2017max,max distance to road in meters in 2017
 343,distanceRoad2017min,min distance to road in meters in 2017
+344,slope500m2017mean,mean slope in degrees in 2017
+345,slope500m2017max,max slope in degrees in 2017
+346,slope500m2017min,min slope in degrees in 2017
