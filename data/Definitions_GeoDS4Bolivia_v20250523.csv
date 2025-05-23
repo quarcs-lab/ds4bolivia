@@ -346,3 +346,6 @@
 344,slope500m2017mean,mean slope in degrees in 2017
 345,slope500m2017max,max slope in degrees in 2017
 346,slope500m2017min,min slope in degrees in 2017
+347,dist_water2017mean,mean distance to water in meters in 2017
+348,dist_water2017max,max distance to water in meters in 2017
+349,dist_water2017min,min distance to water in meters in 2017
