@@ -381,14 +381,45 @@ desc = pd.concat([desc,rows], ignore_index=True)
 # %%
 
 # modis ===============================================================
-modis_url = "https://github.com/HendrixPeralta/bol_hdi_prediction/blob/main/data/satellite/collab_satellite_data/modis_landcover_2012.csv"
+modis_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/modis_landcover_2012.csv"
 
 modis = pd.read_csv(modis_url)
+# modis.reset_index(inplace=True)
+# modis.rename(columns={"index":"id"})
+db = db.merge(modis, left_on="asdf_id", right_on="id")
+db.drop(columns="id", inplace=True)
+
+# %%
+vName = [col for col in modis.columns if col != "id"]
+
+vLabel = []
+
+for col in vName:
+    year = col.split(".",2)[1]
+    type = col.split("_",3)[3].replace("_", " ")
+    # print(year, type)
+    
+    vLabel.append(f"{type} categorical MODIS in {year}")
+    
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc, rows], ignore_index=True)
 # =============================================================== modis
+# %%
+
+# Photovoltaic Potential ===============================================================
+photovoltaic_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/photovoltaic_potential.csv"
+
+photovoltaic = pd.read_csv(photovoltaic_url)
+
+db = db.merge(photovoltaic, left_on="asdf_id", right_on="id").drop(columns="id")
+
+# %%
+
+vName = photovoltaic.columns[~photovoltaic.columns.str.contains("id")].tolist()
+# =============================================================== Photovoltaic Potential
 
 
-# GHSL ===============================================================
-# =============================================================== GHSL
+
 # GHSL ===============================================================
 # =============================================================== GHSL
 # %%
