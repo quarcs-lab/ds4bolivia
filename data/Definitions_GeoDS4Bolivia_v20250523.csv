@@ -334,3 +334,6 @@
 332,modis_landcover_51.2012.categorical_urban_and_builtup,urban and builtup categorical MODIS in 2012
 333,modis_landcover_51.2012.categorical_cropland_natural_vegetation_mosaic,cropland natural vegetation mosaic categorical MODIS in 2012
 334,modis_landcover_51.2012.categorical_snow_and_ice,snow and ice categorical MODIS in 2012
+335,photov2019mean,mean photovoltaic potential in kWh/kWp in 2019
+336,photov2019max,max photovoltaic potential in kWh/kWp in 2019
+337,photov2019min,min photovoltaic potential in kWh/kWp in 2019

@@ -416,9 +416,33 @@ db = db.merge(photovoltaic, left_on="asdf_id", right_on="id").drop(columns="id")
 # %%
 
 vName = photovoltaic.columns[~photovoltaic.columns.str.contains("id")].tolist()
+
+vLabel = ["mean photovoltaic potential in kWh/kWp in 2019",
+          "max photovoltaic potential in kWh/kWp in 2019",
+          "min photovoltaic potential in kWh/kWp in 2019"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Photovoltaic Potential
+# %%
+# Elevation ===============================================================
+elevation_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/physical_elevation_2017.csv"
+
+elevation = pd.read_csv(elevation_url)
+db
 
 
+# =============================================================== Elevation
+
+
+
+
+
+# GHSL ===============================================================
+
+# =============================================================== GHSL
+# GHSL ===============================================================
+# =============================================================== GHSL
 
 # GHSL ===============================================================
 # =============================================================== GHSL
