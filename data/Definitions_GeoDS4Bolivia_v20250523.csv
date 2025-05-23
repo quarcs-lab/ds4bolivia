@@ -340,3 +340,6 @@
 338,elev2017mean,Mean elevation in meters in 2017
 339,elev2017max,Max elevation in meters in 2017
 340,elev2017min,Min elevation in meters in 2017
+341,distanceRoad2017mean,mean distance to road in meters in 2017
+342,distanceRoad2017max,max distance to road in meters in 2017
+343,distanceRoad2017min,min distance to road in meters in 2017

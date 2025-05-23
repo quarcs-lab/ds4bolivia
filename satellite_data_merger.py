@@ -442,13 +442,26 @@ rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
 desc= pd.concat([desc,rows], ignore_index=True)
 # =============================================================== Elevation
 # %%
+# Distance road ===============================================================
+
+distanceRoad_url = "https://raw.githubusercontent.com/HendrixPeralta/bol_hdi_prediction/refs/heads/main/data/satellite/collab_satellite_data/road_distance_2017.csv"
+distanceRoad = pd.read_csv(distanceRoad_url)
+db = db.merge(distanceRoad, left_on="asdf_id", right_on="id").drop(columns="id")
+
+# %%
+
+vName = distanceRoad.columns[~distanceRoad.columns.str.contains("id")].tolist()
+vLabel = ["mean distance to road in meters in 2017",
+          "max distance to road in meters in 2017",
+          "min distance to road in meters in 2017"]
+
+rows = pd.DataFrame({"varname":vName, "varlabel":vLabel})
+desc = pd.concat([desc,rows], ignore_index=True)
+# =============================================================== Distance road
 
 
 
 
-# GHSL ===============================================================
-
-# =============================================================== GHSL
 # GHSL ===============================================================
 # =============================================================== GHSL
 
