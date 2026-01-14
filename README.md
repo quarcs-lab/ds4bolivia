@@ -130,17 +130,17 @@ plt.show()
 If you use this repository in your research, please cite it using the following metadata.
 
 ### APA Format
-Mendez, C., Gonzales, E., & Leoni, P. (2024). *DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia* [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P., He, D., Xiaomeng, L., & Prieto Granados, L. (2024). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
 
 ### BibTeX Format
 ```bibtex
-@misc{ds4bolivia2024,
-  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro},
+@misc{ds4bolivia2026,
+  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Hendrix, Peralta and He, Du and Xiaomeng, Li and Prieto Granados, Laura},
   title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
-  year = {2024},
+  year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{[https://github.com/quarcs-lab/ds4bolivia](https://github.com/quarcs-lab/ds4bolivia)}}
+  howpublished = {\url{https://github.com/quarcs-lab/ds4bolivia}}
 }
 ```
 
@@ -149,8 +149,13 @@ Mendez, C., Gonzales, E., & Leoni, P. (2024). *DS4Bolivia: A Data Science Reposi
 - Carlos Mendez  (carlos@gsid.nagoya-u.ac.jp, Nagoya University)
 - Erick Gonzales (erick.gonzalesrocha@un.org, United Nations Office for Disaster Risk Reduction)
 - Pedro Leoni (pedroleoni1605@gmail.com)
+- Lykke Andersen, SDSN Bolivia
+- Peralta Hendrix
+- Du He, Nagoya University
+- Li Xiaomeng, Nagoya University
+- Prieto Granados Laura, Nagoya University
 
-## Original data source
+## Original data source 
 
 - [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
 
