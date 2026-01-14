@@ -2,11 +2,26 @@
 
 # DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 
-This repository hosts a curated collection of spatial and socio-economic datasets for the 339 municipalities of Bolivia. It is designed to facilitate research in spatial econometrics, sustainable development (SDGs), and satellite-based machine learning.
+This project is a collection of spatial and socio-economic datasets, web applications, and computational notebooks for the 339 municipalities of Bolivia. It is designed to facilitate research in spatial econometrics, spatial machine learning, and sustainable development.
 
-## 📊 Dataset Overview
 
-The data is organized into three main categories, all linked by a unique identifier (`asdf_id`).
+## 📊 Web applications
+
+- Space-time dynamics of population, luminosity, land cover and GDP (2013-2019)
+
+## 📊 Computational notebooks
+
+- [Introduction to exploratory spatial data analysis](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)
+
+## 📊 Datasets
+
+- Sustainable development goals and satellite embeddings in 2017
+
+
+
+## 🚀 Construct your dataset: 
+
+The datasets are organized into modules, all linked by a unique identifier (`asdf_id`).
 
 | Dataset Category | File Path | Description | Join Key |
 | :--- | :--- | :--- | :--- |
@@ -20,9 +35,7 @@ The data is organized into three main categories, all linked by a unique identif
 
 ---
 
-## 🚀 Quick Start: Run in Google Colab
-
-You can run the examples below immediately in the cloud without installing anything locally.
+You can run the examples below immediately in [Google Colab](https://colab.research.google.com/notebooks/empty.ipynb).
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/notebooks/empty.ipynb)
 
@@ -127,12 +140,12 @@ plt.show()
 If you use this repository in your research, please cite it using the following metadata.
 
 ### APA Format
-Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P., He, D., Xiaomeng, L., & Prieto Granados, L. (2024). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P. (2024). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
 
 ### BibTeX Format
 ```bibtex
 @misc{ds4bolivia2026,
-  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Hendrix, Peralta and He, Du and Xiaomeng, Li and Prieto Granados, Laura},
+  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Hendrix, Peralta},
   title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
   year = {2026},
   publisher = {GitHub},
@@ -148,11 +161,9 @@ Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P., He, D., Xiaomeng
 - Pedro Leoni (pedroleoni1605@gmail.com)
 - Lykke Andersen, SDSN Bolivia
 - Peralta Hendrix
-- Du He, Nagoya University
-- Li Xiaomeng, Nagoya University
-- Prieto Granados Laura, Nagoya University
 
-## Original data source 
 
-- [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
+## Data sources 
+
+- SDG indicators are originally contructed by [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
 
