@@ -1,25 +1,70 @@
+
 ![](https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover.jpg?raw=true)
 
 # DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 
-This project is a collection of spatial and socio-economic datasets, web applications, and computational notebooks for the 339 municipalities of Bolivia. It is designed to facilitate research in spatial econometrics, spatial machine learning, and sustainable development.
 
+Welcome to **DS4Bolivia**! This project aggregates spatial and socio-economic datasets, interactive dashboards, and computational workflows focused on  **339 municipalities** of Bolivia. It is designed to bridge the gap between spatial analysis and sustainable development goals (SDGs).
 
-## 📊 Web applications
+This repository is organized for researchers and data scientists interested in:
 
-- Space-time dynamics of population, luminosity, land cover and GDP (2013-2019)
+* **Spatial Econometrics:** Understanding regional disparities, growth, and clustering.
+* **Spatial Machine Learning:** Utilizing satellite imagery (Earth Observation) for predictive modeling.
+* **Sustainable Development:** Tracking SDG indicators at a granular local level.
 
-## 📊 Computational notebooks
+---
 
-- [Introduction to exploratory spatial data analysis](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)
+## 🖥️ Interactive Geospatial Dashboards
 
-## 📊 Datasets
+Explore the data without writing code. These applications visualize the space-time dynamics of key development indicators.
 
-- Sustainable development goals and satellite embeddings in 2017
+* [Space-time dynamics of population, luminosity, land cover and GDP (2013-2019)](https://carlos-mendez.org): Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities in 2013 and 2019.
 
+---
 
+## 🐍 Computational Notebooks
 
-## 🚀 Construct your dataset: 
+Step-by-step tutorials to help you reproduce our analysis. These notebooks utilize Python libraries such as `GeoPandas` and `PySAL`.
+
+* **[Introduction to Exploratory Spatial Data Analysis (ESDA)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)**
+* *Focus:* Learn how to detect spatial clusters and outliers using Global and Local Moran's I.
+* *Key Concepts:* Spatial Autocorrelation, LISA Statistics, Choropleth Mapping.
+
+---
+
+## 💾 Spatially-Explicit Datasets
+
+Curated datasets ready for analysis. These files are pre-processed to align with Bolivian municipal boundaries.
+
+* **[SDGs & Satellite Embeddings (2017)](https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv)**
+* *Description:* A merged dataset combining socio-economic indicators (SDGs) with high-dimensional feature vectors extracted from satellite imagery.
+* *Use Case:*　Training machine learning models to predict poverty or development indices based on visual patterns from space.
+
+---
+
+## 📜 Citation
+
+If you use this repository in your research, please cite it using the following metadata.
+
+### APA Format
+Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P. (2024). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+
+### BibTeX Format
+
+```bibtex
+@misc{ds4bolivia2026,
+  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Hendrix, Peralta},
+  title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
+  year = {2026},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/quarcs-lab/ds4bolivia}}
+}
+```
+
+---
+
+## 🚀 Construct your own dataset
 
 The datasets are organized into modules, all linked by a unique identifier (`asdf_id`).
 
@@ -135,35 +180,20 @@ ax.set_axis_off()           # Turn off lat/lon axis numbers for cleaner look
 plt.show()
 ```
 
-## 📜 Citation
-
-If you use this repository in your research, please cite it using the following metadata.
-
-### APA Format
-Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P. (2024). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
-
-### BibTeX Format
-```bibtex
-@misc{ds4bolivia2026,
-  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Hendrix, Peralta},
-  title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
-  year = {2026},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/quarcs-lab/ds4bolivia}}
-}
-```
-
-## Collaborators
-
-- Carlos Mendez  (carlos@gsid.nagoya-u.ac.jp, Nagoya University)
-- Erick Gonzales (erick.gonzalesrocha@un.org, United Nations Office for Disaster Risk Reduction)
-- Pedro Leoni (pedroleoni1605@gmail.com)
-- Lykke Andersen, SDSN Bolivia
-- Peralta Hendrix
 
 
-## Data sources 
+---
+
+## Data sources
 
 - SDG indicators are originally contructed by [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
+
+
+
+
+## 🤝 Contributing
+
+We welcome contributions! If you are fixing a Coordinate Reference System (CRS) issue, adding a new spatial model, or uploading fresh data, please [submit a Pull Request](https://github.com/quarcs-lab/ds4bolivia/pulls).
+
+
 
