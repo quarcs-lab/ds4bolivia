@@ -1,4 +1,4 @@
-# DS4Bolivia: Spatial Data Science Repository
+# DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 
 This repository hosts a curated collection of spatial and socio-economic datasets for the 339 municipalities of Bolivia. It is designed to facilitate research in spatial econometrics, sustainable development (SDGs), and satellite-based machine learning.
 
@@ -71,6 +71,8 @@ print(f"Total Columns:           {len(df_final.columns)}")
 df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head()
 
 ```
+
+### Example 2: Integrating Spatial and Attribute Data
 
 ```python
 # !pip install geopandas matplotlib  # Uncomment if running locally
