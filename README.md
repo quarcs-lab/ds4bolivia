@@ -14,7 +14,7 @@ The data is organized into three main categories, all linked by a unique identif
 | **Spatial Vector** | `/maps/bolivia339geoqueryOpt.geojson` | Geometric boundaries (Polygons) for all municipalities. | `asdf_id` |
 
 > **⚠️ Important Note on Identifiers:** > The primary key for joining all datasets in this repository is **`asdf_id`**.  
-> While `mun_id` (standard government code) is present in the administrative data, `asdf_id` ensures consistency across the satellite embeddings and optimized map files provided here.
+> While `mun_id` (standard government code) is present in the administrative data, `asdf_id` ensures consistency across the satellite embeddings and optimized map files provided here. Always ensure this column is treated as an `int` or `string` consistently across both dataframes before merging.
 
 ---
 
@@ -51,7 +51,7 @@ df_embeddings = pd.read_csv(url_emb)
 # -----------------------------------------------------------------------------
 # 3. MERGE: Combine Dataframes
 # Methodology: We use an 'inner' merge on 'asdf_id'. This ensures we only
-# keep rows that exist in all datasets.
+# keep rows that exist in all datasets (ensuring data integrity).
 # -----------------------------------------------------------------------------
 # Step A: Attach SDG data to Names
 df_merged_step1 = pd.merge(df_names, df_sdg, on='asdf_id', how='inner')
@@ -68,15 +68,14 @@ print(f"Final Merged Rows:       {len(df_final)}")
 print(f"Total Columns:           {len(df_final.columns)}")
 
 # Display the first few rows (names + first few embedding columns)
-df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head()
+# Note: Embedding columns usually serve as 'X' features in ML models.
+display(df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head())
 ```
 
 ### Example 2: Integrating Spatial and Attribute Data
 This script takes the merged data from Example 1 and attaches it to the municipality geometries (GeoJSON) for spatial analysis and plotting.
 
-
 ```python
-# !pip install geopandas matplotlib  # Uncomment if running locally
 
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -84,31 +83,36 @@ import matplotlib.pyplot as plt
 # -----------------------------------------------------------------------------
 # 1. LOAD SPATIAL DATA
 # We load the optimized GeoJSON file containing municipality boundaries.
+# Note: This relies on REPO_URL defined in Example 1.
 # -----------------------------------------------------------------------------
 geojson_url = f"{REPO_URL}/maps/bolivia339geoqueryOpt.geojson"
 print("Loading GeoJSON map...")
 gdf_boundaries = gpd.read_file(geojson_url)
 
 # -----------------------------------------------------------------------------
-# 2. SPATIAL JOIN
-# Merge the spatial dataframe (gdf) with the attribute dataframe (df_final).
-# 'asdf_id' must represent the same concept in both files.
+# 2. SPATIAL DATA PREPARATION
+# Common Pitfall: Data types must match for a merge to work.
+# GeoJSON often loads IDs as objects/strings, while CSVs load as integers.
 # -----------------------------------------------------------------------------
-# Ensure the key is an integer in the GeoDataFrame to match the CSVs
+# Force 'asdf_id' to integer to match the pandas dataframe
 gdf_boundaries['asdf_id'] = gdf_boundaries['asdf_id'].astype(int)
 
-# Merge
+# -----------------------------------------------------------------------------
+# 3. ATTRIBUTE JOIN
+# Merge the spatial dataframe (gdf) with the attribute dataframe (df_final).
+# This creates a 'GeoDataFrame' capable of spatial operations.
+# -----------------------------------------------------------------------------
 gdf_bolivia = gdf_boundaries.merge(df_final, on='asdf_id', how='inner')
 
 # -----------------------------------------------------------------------------
-# 3. VISUALIZATION
+# 4. VISUALIZATION (Choropleth Map)
 # Plot the "No Poverty" SDG Index (SDG 1)
 # -----------------------------------------------------------------------------
 fig, ax = plt.subplots(1, 1, figsize=(12, 10))
 
 gdf_bolivia.plot(
     column='index_sdg1',    # Variable to map
-    cmap='viridis',         # Color palette
+    cmap='viridis',         # Color palette (perceptually uniform)
     linewidth=0.1,          # Border width
     edgecolor='white',      # Border color
     legend=True,
@@ -117,7 +121,7 @@ gdf_bolivia.plot(
 )
 
 ax.set_title("Bolivia: SDG 1 Index by Municipality", fontsize=15)
-ax.set_axis_off()           # Turn off lat/lon axis numbers
+ax.set_axis_off()           # Turn off lat/lon axis numbers for cleaner look
 plt.show()
 ```
 
