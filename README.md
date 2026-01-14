@@ -34,7 +34,7 @@ import pandas as pd
 # 1. SETUP: Define Source URLs
 # We use the raw GitHub URL to stream data directly into Colab/Pandas.
 # -----------------------------------------------------------------------------
-REPO_URL = "[https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master](https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master)"
+REPO_URL = "https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master"
 
 url_names = f"{REPO_URL}/regionNames/regionNames.csv"
 url_sdg = f"{REPO_URL}/sdg/sdg.csv"
@@ -44,14 +44,12 @@ url_emb = f"{REPO_URL}/satelliteEmbeddings/satelliteEmbeddings2017.csv"
 # 2. LOAD: Read CSVs
 # -----------------------------------------------------------------------------
 print("Loading datasets...")
-df_names = pd.read_csv(url_names)
-df_sdg = pd.read_csv(url_sdg)
+df_names      = pd.read_csv(url_names)
+df_sdg        = pd.read_csv(url_sdg)
 df_embeddings = pd.read_csv(url_emb)
 
 # -----------------------------------------------------------------------------
 # 3. MERGE: Combine Dataframes
-# Methodology: We use an 'inner' merge on 'asdf_id'. This ensures we only
-# keep rows that exist in all datasets (ensuring data integrity).
 # -----------------------------------------------------------------------------
 # Step A: Attach SDG data to Names
 df_merged_step1 = pd.merge(df_names, df_sdg, on='asdf_id', how='inner')
@@ -68,7 +66,6 @@ print(f"Final Merged Rows:       {len(df_final)}")
 print(f"Total Columns:           {len(df_final.columns)}")
 
 # Display the first few rows (names + first few embedding columns)
-# Note: Embedding columns usually serve as 'X' features in ML models.
 display(df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head())
 ```
 
@@ -83,7 +80,6 @@ import matplotlib.pyplot as plt
 # -----------------------------------------------------------------------------
 # 1. LOAD SPATIAL DATA
 # We load the optimized GeoJSON file containing municipality boundaries.
-# Note: This relies on REPO_URL defined in Example 1.
 # -----------------------------------------------------------------------------
 geojson_url = f"{REPO_URL}/maps/bolivia339geoqueryOpt.geojson"
 print("Loading GeoJSON map...")
@@ -91,7 +87,6 @@ gdf_boundaries = gpd.read_file(geojson_url)
 
 # -----------------------------------------------------------------------------
 # 2. SPATIAL DATA PREPARATION
-# Common Pitfall: Data types must match for a merge to work.
 # GeoJSON often loads IDs as objects/strings, while CSVs load as integers.
 # -----------------------------------------------------------------------------
 # Force 'asdf_id' to integer to match the pandas dataframe
