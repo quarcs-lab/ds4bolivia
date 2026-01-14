@@ -66,7 +66,7 @@ print(f"Final Merged Rows:       {len(df_final)}")
 print(f"Total Columns:           {len(df_final.columns)}")
 
 # Display the first few rows (names + first few embedding columns)
-display(df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head())
+display(df_final[['mun', 'dep', 'index_sdg1', 'A00', 'A01', 'A02']].head())
 ```
 
 ### Example 2: Integrating Spatial and Attribute Data
