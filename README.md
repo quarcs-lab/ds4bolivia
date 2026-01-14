@@ -1,3 +1,5 @@
+![](https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover.jpg?raw=true)
+
 # DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 
 This repository hosts a curated collection of spatial and socio-economic datasets for the 339 municipalities of Bolivia. It is designed to facilitate research in spatial econometrics, sustainable development (SDGs), and satellite-based machine learning.
