@@ -49,8 +49,8 @@ mapRight.style().set({cursor: 'crosshair'});
 
 var linker = ui.Map.Linker([mapLeft, mapRight]);
 
-// STARTUP: Focus on Phnom Penh
-mapLeft.setCenter(104.92, 11.55, 11);
+// STARTUP: Focus on Bolivia
+mapLeft.setCenter(-64.25, -16.50, 6);
 
 var splitMap = ui.SplitPanel({
   firstPanel: mapLeft,
@@ -104,7 +104,7 @@ sidebar.add(ui.Label({
   value: '1. SELECT A LAYER: Use the dropdown to visualize Population, Lights, Land, GDP, or "None" to see the base map.\n' +
           '2. COMPARE YEARS: Drag the central slider left or right to see changes from 2013 to 2019.\n' +
           '3. INSPECT DATA: Click anywhere on the LEFT map to generate a detailed change report.\n\n' +
-          'NOTE: The app initializes centered on Phnom Penh, Cambodia, but you can pan and zoom to ANY location in the world to perform this analysis.',
+          'NOTE: The app initializes centered on Bolivia, but you can pan and zoom to ANY location in the world to perform this analysis.',
   style: {fontSize: '13px', color: '#555', whiteSpace: 'pre-wrap', margin: '0 0 15px 0'}
 }));
 
@@ -254,7 +254,7 @@ var dataEnd = getLayerStack(2019);
 // =======================================================
 
 var vizParams = {
-  'pop': {min: 0, max: 50, palette: ['24123c','4d186e','822681','b73779','eb5760','fbb45d','fcfdbf']},
+  'pop': {min: 0, max: 3, palette: ['24123c','4d186e','822681','b73779','eb5760','fbb45d','fcfdbf']},
   'ntl': {min: 0, max: 60, palette: ['black', 'blue', 'purple', 'cyan', 'white']},
   'lc': {min: 1, max: 17, palette: ['05450a','086a10','54a708','78d203','009900','c6b044','dcd159','dade48','fbff13','b6ff05','27ff87','c24f44','a5a5a5','ff6d4c','69fff8','f9ffa4','1c0dff']},
   'gdp': {min: 0, max: 100, palette: ['0d0887','6a00a8','b12a90','e16462','fca636','f0f921']}
