@@ -34,7 +34,7 @@ import pandas as pd
 # 1. SETUP: Define Source URLs
 # We use the raw GitHub URL to stream data directly into Colab/Pandas.
 # -----------------------------------------------------------------------------
-REPO_URL = "[https://raw.githubusercontent.com/ds4bolivia/ds4bolivia/master](https://raw.githubusercontent.com/ds4bolivia/ds4bolivia/master)"
+REPO_URL = "[https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master](https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master)"
 
 url_names = f"{REPO_URL}/regionNames/regionNames.csv"
 url_sdg = f"{REPO_URL}/sdg/sdg.csv"
@@ -69,10 +69,11 @@ print(f"Total Columns:           {len(df_final.columns)}")
 
 # Display the first few rows (names + first few embedding columns)
 df_final[['mun', 'dep', 'index_sdg1', '0', '1', '2']].head()
-
 ```
 
 ### Example 2: Integrating Spatial and Attribute Data
+This script takes the merged data from Example 1 and attaches it to the municipality geometries (GeoJSON) for spatial analysis and plotting.
+
 
 ```python
 # !pip install geopandas matplotlib  # Uncomment if running locally
@@ -118,7 +119,25 @@ gdf_bolivia.plot(
 ax.set_title("Bolivia: SDG 1 Index by Municipality", fontsize=15)
 ax.set_axis_off()           # Turn off lat/lon axis numbers
 plt.show()
+```
 
+## 📜 Citation
+
+If you use this repository in your research, please cite it using the following metadata.
+
+### APA Format
+Mendez, C., Gonzales, E., & Leoni, P. (2024). *DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia* [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+
+### BibTeX Format
+```bibtex
+@misc{ds4bolivia2024,
+  author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro},
+  title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
+  year = {2024},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{[https://github.com/quarcs-lab/ds4bolivia](https://github.com/quarcs-lab/ds4bolivia)}}
+}
 ```
 
 ## Collaborators
@@ -127,7 +146,7 @@ plt.show()
 - Erick Gonzales (erick.gonzalesrocha@un.org, United Nations Office for Disaster Risk Reduction)
 - Pedro Leoni (pedroleoni1605@gmail.com)
 
-## Original data
+## Original data source
 
 - [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
 
