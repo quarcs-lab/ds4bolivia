@@ -18,11 +18,11 @@ This repository is organized for researchers and data scientists interested in:
 
 Explore the data without writing code. These applications visualize the space-time dynamics of key development indicators.
 
-* [Space-time dynamics of population, luminosity, land cover and GDP (2013-2019)](https://carlos-mendez.org): Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities in 2013 and 2019.
+* [Space-time dynamics of population, luminosity, land cover and GDP (2013-2019)](https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia): Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities in 2013 and 2019.
 
 ---
 
-## 🐍 Computational Notebooks
+## 🐍 Cloud-based Computational Notebooks
 
 Step-by-step tutorials to help you reproduce our analysis. These notebooks utilize Python libraries such as `GeoPandas` and `PySAL`.
 
