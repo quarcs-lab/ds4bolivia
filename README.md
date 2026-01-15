@@ -32,6 +32,10 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
   * *Focus:* Learn how to detect spatial clusters and outliers using Global and Local Moran's I.
   * *Key Concepts:* Spatial Autocorrelation, LISA Statistics, Choropleth Mapping.
 
+* **[Extended Exploratory Data Analysis and Spatial Analysis](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb)**
+  * *Focus:* Comprehensive analysis combining traditional EDA with advanced spatial methods.
+  * *Key Concepts:* Statistical summaries, visualizations, spatial clustering, bivariate analysis.
+
 ### Machine Learning & Poverty Prediction Notebooks
 
 * **[Predicting General Poverty (SDG 1)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_poverty_rf.ipynb)**
