@@ -24,11 +24,29 @@ Explore the data without writing code. These applications visualize the space-ti
 
 ## 🐍 Cloud-based Computational Notebooks
 
-Step-by-step tutorials to help you reproduce our analysis. These notebooks utilize Python libraries such as `GeoPandas` and `PySAL`.
+Step-by-step tutorials to help you reproduce our analysis. These notebooks utilize Python libraries such as `GeoPandas`, `PySAL`, and `scikit-learn`.
+
+### Spatial Analysis Notebooks
 
 * **[Introduction to Exploratory Spatial Data Analysis (ESDA)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)**
-* *Focus:* Learn how to detect spatial clusters and outliers using Global and Local Moran's I.
-* *Key Concepts:* Spatial Autocorrelation, LISA Statistics, Choropleth Mapping.
+  * *Focus:* Learn how to detect spatial clusters and outliers using Global and Local Moran's I.
+  * *Key Concepts:* Spatial Autocorrelation, LISA Statistics, Choropleth Mapping.
+
+### Machine Learning & Poverty Prediction Notebooks
+
+* **[Predicting General Poverty (SDG 1)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_poverty_rf.ipynb)**
+  * *Focus:* Random Forest model predicting poverty index using satellite embeddings.
+  * *Key Features:* Feature importance analysis, spatial visualization, model evaluation.
+
+* **[Predicting Energy Poverty (SDG 7)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_energy_rf.ipynb)**
+  * *Focus:* Predict energy access using satellite imagery features.
+  * *Key Features:* Comparison with general poverty, urban vs rural analysis.
+
+* **[Predicting Extreme Energy Poverty Rate](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_extreme_energy_poverty_rf.ipynb)** ⭐ *Recommended*
+  * *Focus:* Direct measurement of energy poverty (% of houses in extreme energy poverty).
+  * *Key Features:* Best cross-validation performance, policy-relevant indicators.
+
+See [notebooks/README.md](notebooks/README.md) for complete documentation and learning paths.
 
 ---
 
@@ -59,8 +77,8 @@ Curated datasets ready for analysis. These files are pre-processed to align with
 
 | Resource | Description | Documentation |
 | :--- | :--- | :--- |
-| **[code](code/)** | Data processing scripts (Stata, Python, JavaScript/GEE) | [README](code/README.md) |
-| **[notebooks](notebooks/)** | Jupyter tutorials for ESDA and spatial analysis | [README](notebooks/README.md) |
+| **[code](code/)** | Data processing scripts (Stata, Python, JavaScript/GEE) + ML prediction models | [README](code/README.md) |
+| **[notebooks](notebooks/)** | Jupyter tutorials for ESDA, spatial analysis, and poverty prediction ML | [README](notebooks/README.md) |
 | **[apps](apps/)** | Interactive GeoExplorer web application code | [README](apps/README.md) |
 
 ---
