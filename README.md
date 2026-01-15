@@ -34,11 +34,34 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
 
 ## 💾 Spatially-Explicit Datasets
 
-Curated datasets ready for analysis. These files are pre-processed to align with Bolivian municipal boundaries.
+Curated datasets ready for analysis. These files are pre-processed to align with Bolivian municipal boundaries. All datasets use **`asdf_id`** as the primary join key.
 
-* **[SDGs & Satellite Embeddings (2017)](https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv)**
-* *Description:* A merged dataset combining socio-economic indicators (SDGs) with high-dimensional feature vectors extracted from satellite imagery.
-* *Use Case:*　Training machine learning models to predict poverty or development indices based on visual patterns from space.
+### Core Datasets
+
+| Dataset | Description | Variables | Documentation |
+| :--- | :--- | :--- | :--- |
+| **[regionNames](regionNames/)** | Administrative metadata for 339 municipalities | Municipality names, department names, IDs | [README](regionNames/README.md) |
+| **[sdg](sdg/)** | Aggregated SDG indices (0-100 scale) | 15 composite SDG indices + overall development index | [README](sdg/README.md) |
+| **[sdgVariables](sdgVariables/)** | Detailed SDG indicators | 64 granular variables underlying the SDG indices | [README](sdgVariables/README.md) |
+| **[pop](pop/)** | Population time series | Annual population (2001-2020) | [README](pop/README.md) |
+| **[ntl](ntl/)** | Night-time lights data | Log NTL per capita + trend components (2012-2020) | [README](ntl/README.md) |
+| **[satelliteEmbeddings](satelliteEmbeddings/)** | Satellite imagery features | 64-dimensional embeddings from Google Earth Engine (2017) | [README](satelliteEmbeddings/README.md) |
+| **[datasets](datasets/)** | Pre-merged datasets | **SDGs + Satellite Embeddings** - Ready for machine learning | [README](datasets/README.md) |
+
+### Spatial Data
+
+| Resource | Description | Documentation |
+| :--- | :--- | :--- |
+| **[maps](maps/)** | Optimized & full-resolution municipal boundaries (GeoJSON) | Directory |
+| **[geoDatasets](geoDatasets/)** | Placeholder for additional raster/vector spatial data | [README](geoDatasets/README.md) |
+
+### Code & Applications
+
+| Resource | Description | Documentation |
+| :--- | :--- | :--- |
+| **[code](code/)** | Data processing scripts (Stata, Python, JavaScript/GEE) | [README](code/README.md) |
+| **[notebooks](notebooks/)** | Jupyter tutorials for ESDA and spatial analysis | [README](notebooks/README.md) |
+| **[apps](apps/)** | Interactive GeoExplorer web application code | [README](apps/README.md) |
 
 ---
 
@@ -64,18 +87,37 @@ Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Hendrix, P. (2024). DS4Bolivi
 
 ---
 
-## 🚀 Construct your own dataset
+## 🚀 Getting Started
 
-The datasets are organized into modules, all linked by a unique identifier (`asdf_id`).
+### Quick Links to Dataset Documentation
+
+Each dataset has comprehensive documentation with variable dictionaries, usage examples, and Python code snippets:
+
+* **[regionNames/README.md](regionNames/README.md)** - Administrative identifiers and municipality names
+* **[sdg/README.md](sdg/README.md)** - SDG composite indices with descriptions of all 15+ goals
+* **[sdgVariables/README.md](sdgVariables/README.md)** - Detailed SDG indicators (64 variables) organized by goal
+* **[pop/README.md](pop/README.md)** - Population data (2001-2020) with growth analysis examples
+* **[ntl/README.md](ntl/README.md)** - Night-time lights data with HP-filter trend components
+* **[satelliteEmbeddings/README.md](satelliteEmbeddings/README.md)** - Deep learning features from satellite imagery
+* **[datasets/README.md](datasets/README.md)** - Pre-merged SDG + satellite data ready for ML
+
+### Construct Your Own Dataset
+
+The datasets are organized into modules, all linked by a unique identifier (`asdf_id`). You can combine any datasets to create custom analytical files.
 
 | Dataset Category | File Path | Description | Join Key |
 | :--- | :--- | :--- | :--- |
-| **Region Names** | `/regionNames/regionNames.csv` | Administrative metadata (Municipality names, Department names). | `asdf_id` |
-| **Socio-Economic** | `/sdg/sdg.csv` | Sustainable Development Goal (SDG) indices and poverty metrics. | `asdf_id` |
-| **Satellite Features** | `/satelliteEmbeddings/satelliteEmbeddings2017.csv` | Feature vectors (embeddings) extracted from daytime satellite imagery. | `asdf_id` |
-| **Spatial Vector** | `/maps/bolivia339geoqueryOpt.geojson` | Geometric boundaries (Polygons) for all municipalities. | `asdf_id` |
+| **Region Names** | `/regionNames/regionNames.csv` | Administrative metadata (Municipality names, Department names) | `asdf_id` |
+| **Socio-Economic** | `/sdg/sdg.csv` | Sustainable Development Goal (SDG) indices and poverty metrics | `asdf_id` |
+| **Detailed SDG** | `/sdgVariables/sdgVariables.csv` | 64 granular SDG indicators underlying the composite indices | `asdf_id` |
+| **Population** | `/pop/pop.csv` | Annual population estimates (2001-2020) | `asdf_id` |
+| **Night-time Lights** | `/ntl/ln_NTLpc.csv` | Log NTL per capita + HP-filtered trends (2012-2020) | `asdf_id` |
+| **Satellite Features** | `/satelliteEmbeddings/satelliteEmbeddings2017.csv` | 64-dimensional embeddings from satellite imagery | `asdf_id` |
+| **Spatial Vector** | `/maps/bolivia339geoqueryOpt.geojson` | Geometric boundaries (Polygons) for all municipalities | `asdf_id` |
+| **Pre-merged** | `/datasets/sdgs_satelliteEmbeddings2017.csv` | SDGs + Satellite Embeddings combined | `asdf_id` |
 
-> **⚠️ Important Note on Identifiers:** > The primary key for joining all datasets in this repository is **`asdf_id`**.  
+> **⚠️ Important Note on Identifiers:**
+> The primary key for joining all datasets in this repository is **`asdf_id`**.
 > While `mun_id` (standard government code) is present in the administrative data, `asdf_id` ensures consistency across the satellite embeddings and optimized map files provided here. Always ensure this column is treated as an `int` or `string` consistently across both dataframes before merging.
 
 ---
