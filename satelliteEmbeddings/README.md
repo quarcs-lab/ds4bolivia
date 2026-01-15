@@ -7,7 +7,11 @@
 
 ## 1. Context & Overview
 
-This dataset contains spatially aggregated "embedding" vectors derived from high-resolution satellite imagery for administrative units in Bolivia for the year 2017. 
+This dataset contains spatially aggregated "embedding" vectors derived from high-resolution satellite imagery for administrative units in Bolivia for the year 2017.
+
+### Files
+
+**satelliteEmbeddings2017.csv** - Contains 65 columns: one identifier (asdf_id) and 64 embedding dimensions (A00-A63) for all 339 municipalities.
 
 ### What are Satellite Embeddings?
 Unlike traditional satellite data that provides physical values (e.g., surface reflectance, temperature), these embeddings are the output of a deep learning model (a self-supervised Convolutional Neural Network). 
@@ -61,13 +65,48 @@ The dataset contains **65 columns**.
 
 ---
 
-## 5. Citation
+## 5. Example Code
+
+You can run the examples below in [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/notebooks/empty.ipynb)
+
+```python
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.ensemble import RandomForestRegressor
+
+# Load satellite embeddings
+url = "https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master/satelliteEmbeddings/satelliteEmbeddings2017.csv"
+df_emb = pd.read_csv(url)
+
+# Select the 64 embedding dimensions
+embedding_cols = [f'A{str(i).zfill(2)}' for i in range(64)]
+X = df_emb[embedding_cols]
+
+# Option 1: Use all 64 dimensions directly
+# Load SDG target variable
+df_sdg = pd.read_csv("../sdg/sdg.csv")
+df_merged = df_emb.merge(df_sdg, on='asdf_id')
+y = df_merged['index_sdg1']  # Poverty index
+
+# Train a model
+rf = RandomForestRegressor(n_estimators=100, random_state=42)
+rf.fit(X, y)
+
+# Option 2: Dimensionality reduction with PCA
+pca = PCA(n_components=5)
+X_pca = pca.fit_transform(X)
+print(f"Variance explained by 5 components: {pca.explained_variance_ratio_.sum():.2%}")
+```
+
+---
+
+## 6. Citation
 
 If using this data, please cite the source model:
 
 > Google Earth Engine. (2020). *Satellite Embeddings V1*. Available at: https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL
 
-## 6. Code
+## 7. Google Earth Engine Processing Code
 
 ```
 /**
