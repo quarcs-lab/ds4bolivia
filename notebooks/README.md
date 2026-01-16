@@ -150,6 +150,33 @@ Random Forest model to predict the IMDS - a composite index aggregating all SDG 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb)
 
+#### predict_imds_rf_optuna.ipynb
+
+**Predicting IMDS with Optuna Hyperparameter Tuning**
+
+Advanced notebook extending the baseline IMDS prediction model using Optuna for automated hyperparameter optimization.
+
+**Key Features:**
+
+- Optuna framework for Bayesian hyperparameter optimization
+- TPE (Tree-structured Parzen Estimator) sampler
+- 100 trials with 5-fold cross-validation
+- Optimization history and parameter importance visualization
+- Comparison between baseline and tuned models
+- Rich pedagogical explanations for ML education
+
+**Topics Covered:**
+
+- Hyperparameter optimization fundamentals
+- Search space design for Random Forest
+- Optuna study creation and optimization
+- Interpreting optimization results
+- Avoiding overfitting during hyperparameter search
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb)
+
 ---
 
 ### Supporting Documentation
