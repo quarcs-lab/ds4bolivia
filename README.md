@@ -50,6 +50,10 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
   * *Focus:* Direct measurement of energy poverty (% of houses in extreme energy poverty).
   * *Key Features:* Best cross-validation performance, policy-relevant indicators.
 
+* **[Predicting Municipal Sustainable Development Index (IMDS)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb)**
+  * *Focus:* Composite index aggregating all SDG indicators into a single development score.
+  * *Key Features:* Urban-rural prediction patterns, distributed feature importance, student exercises.
+
 See [notebooks/README.md](notebooks/README.md) for complete documentation and learning paths.
 
 ---

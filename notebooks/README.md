@@ -121,6 +121,35 @@ Random Forest model to predict `sdg1_1_eepr` - the percentage of houses in extre
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_extreme_energy_poverty_rf.ipynb)
 
+#### predict_imds_rf.ipynb
+
+**Predicting Municipal Sustainable Development Index (IMDS) Using Satellite Embeddings**
+
+Random Forest model to predict the IMDS - a composite index aggregating all SDG indicators into a single municipal development score.
+
+**Key Features:**
+- Prediction of overall sustainable development (IMDS)
+- Analysis of all 339 municipalities
+- 5-fold cross-validation
+- Feature importance across 64 satellite embeddings
+- Urban-rural prediction pattern analysis
+- Exercises for students
+
+**Performance:**
+- Cross-validation R²: 0.23 (±0.03)
+- Test R²: 0.23
+- Test MAE: ±4.75 IMDS points
+
+**Critical Findings:**
+- Urban centers systematically underpredicted (La Paz: 29 point error)
+- Rural highlands overpredicted (development outcomes below satellite-suggested levels)
+- 44/64 features (69%) needed for 80% importance
+- Composite indices harder to predict than specific indicators
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb)
+
 ---
 
 ### Supporting Documentation
@@ -245,6 +274,8 @@ DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 ## Companion Scripts
 
 Python scripts for running these analyses from the command line are available in [code/](../code/):
+
 - `run_poverty_prediction.py`
 - `run_energy_prediction.py`
 - `run_extreme_energy_poverty.py`
+- `run_imds_prediction.py`

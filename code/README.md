@@ -126,6 +126,43 @@ python code/run_extreme_energy_poverty.py
 
 ---
 
+#### run_imds_prediction.py
+
+**Predicting Municipal Sustainable Development Index (IMDS) Using Random Forest**
+
+Predicts the IMDS - a composite index aggregating all SDG indicators into a single municipal development score.
+
+**Key Features:**
+- Analysis of 339 municipalities (no missing IMDS data)
+- 5-fold cross-validation
+- Feature importance analysis across 64 satellite embeddings
+- Identifies urban-rural prediction patterns
+
+**Performance:**
+- Cross-validation R²: 0.2288 (±0.0292)
+- Test R²: 0.2284
+- Test RMSE: 6.53 IMDS points
+- Test MAE: 4.75 IMDS points
+
+**Top 5 Features:** A30, A59, A57, A13, A26
+
+**Critical Findings:**
+- Urban centers systematically underpredicted (La Paz: 29 point error)
+- Rural highlands overpredicted (Tinguipaya: 12 point error)
+- 44/64 features (68.8%) needed for 80% importance
+- Composite indices harder to predict than specific indicators
+
+**Usage:**
+```bash
+python code/run_imds_prediction.py
+```
+
+**Documentation:** [run_imds_prediction.md](run_imds_prediction.md)
+
+**Companion Notebook:** [predict_imds_rf.ipynb](../notebooks/predict_imds_rf.ipynb)
+
+---
+
 ### Stata Scripts (.do files)
 
 Data cleaning and transformation scripts written in Stata for processing socio-economic indicators and satellite-derived variables.
