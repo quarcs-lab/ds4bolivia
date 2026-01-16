@@ -1,0 +1,26 @@
+================================================================================
+PREDICTING MUNICIPAL SUSTAINABLE DEVELOPMENT INDEX (IMDS)
+Using Satellite Embeddings from Google Earth Engine
+================================================================================
+
+[1/7] Loading datasets...
+  ✓ SDG data loaded: 339 municipalities
+  ✓ Satellite embeddings loaded: 339 municipalities
+  ✓ Region names loaded: 339 municipalities
+
+[2/7] Preparing data...
+  • Missing IMDS values: 0
+  • Valid municipalities for analysis: 339
+  • Feature matrix shape: (339, 64)
+  • Target variable shape: (339,)
+  • IMDS range: [35.70, 80.20]
+  • IMDS mean: 51.05 ± 6.76
+
+[3/7] Splitting data into train and test sets...
+  • Training set: 271 municipalities
+  • Test set: 68 municipalities
+
+[4/7] Hyperparameter tuning with RandomizedSearchCV...
+  Testing 20 parameter combinations...
+
+Fitting 5 folds for each of 20 candidates, totalling 100 fits
