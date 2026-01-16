@@ -177,6 +177,39 @@ Advanced notebook extending the baseline IMDS prediction model using Optuna for 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb)
 
+#### predict_imds_rf_optuna_cv.ipynb
+
+**Predicting IMDS with Optuna and Nested Cross-Validation**
+
+Advanced notebook implementing **nested cross-validation** (double CV) for rigorous, unbiased model evaluation. This is the gold standard approach when dataset size is limited.
+
+**What is Nested CV?**
+
+- **Outer loop**: K-fold CV for unbiased performance estimation
+- **Inner loop**: K-fold CV within Optuna for hyperparameter tuning
+- Every data point is used for both training and testing
+- Provides a distribution of scores with confidence intervals
+
+**Key Features:**
+
+- 5-fold outer CV × 5-fold inner CV × 50 Optuna trials
+- Performance estimates with standard deviations and 95% CIs
+- Hyperparameter stability analysis across folds
+- Complete predictions for all municipalities
+- Comparison of nested CV vs simple train-test split
+
+**Topics Covered:**
+
+- Why nested CV eliminates "lucky split" bias
+- Implementing nested loops with Optuna
+- Analyzing parameter stability across folds
+- Interpreting fold-by-fold results
+- When to use nested CV vs train-test split
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb)
+
 ---
 
 ### Supporting Documentation
