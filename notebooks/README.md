@@ -210,6 +210,48 @@ Advanced notebook implementing **nested cross-validation** (double CV) for rigor
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb)
 
+#### predict_all_sdgs_xgb_optuna_cv.ipynb
+
+**Comparative SDG Prediction with XGBoost (GPU-Accelerated)** ⭐ **Advanced**
+
+Comprehensive notebook that predicts **all 16 SDG indicators** using satellite embeddings with XGBoost and rigorous nested cross-validation. This notebook answers the research question: *Which SDG dimensions are most predictable from satellite imagery?*
+
+**Why This Notebook?**
+
+- **Comparative analysis**: Predict all SDGs in a single workflow
+- **GPU acceleration**: XGBoost with `gpu_hist` for 10-50x speedup
+- **Rigorous evaluation**: Nested CV with 95% confidence intervals
+- **Research-ready**: Publication-quality tables and visualizations
+
+**Key Features:**
+
+- 16 target variables (IMDS + 15 individual SDG indices)
+- XGBoost with GPU acceleration (A100/T4 compatible)
+- Optuna hyperparameter tuning (100 trials per fold)
+- 5-fold outer CV × 5-fold inner CV
+- Feature importance analysis across all SDGs
+- SDG category comparison (Economic, Social, Environmental, Governance)
+- Hyperparameter stability analysis
+- Export to CSV, JSON, and Markdown formats
+
+**Topics Covered:**
+
+- XGBoost vs Random Forest for tabular data
+- GPU-accelerated machine learning
+- Comparative model evaluation
+- Feature importance aggregation
+- Policy implications of predictability patterns
+
+**Computational Requirements:**
+
+- **Recommended**: A100 GPU (~30-60 minutes)
+- **Alternative**: T4 GPU (~2-4 hours)
+- **CPU**: Not recommended (~8-12 hours)
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_all_sdgs_xgb_optuna_cv.ipynb)
+
 ---
 
 ### Supporting Documentation
@@ -269,16 +311,25 @@ You can run these notebooks in three ways:
 
 For best results, follow this sequence:
 
-### For Spatial Analysis:
+### For Spatial Analysis
+
 1. Start with [esda.ipynb](esda.ipynb) to learn basic spatial analysis
 2. Review the main [README](../README.md) for data integration examples
 3. Explore [eda_esda.ipynb](eda_esda.ipynb) for advanced techniques
 
-### For Machine Learning & Poverty Prediction:
+### For Machine Learning & Poverty Prediction
+
 1. Start with [predict_extreme_energy_poverty_rf.ipynb](predict_extreme_energy_poverty_rf.ipynb) (best performance, clearest interpretation)
 2. Compare with [predict_poverty_rf.ipynb](predict_poverty_rf.ipynb) for general poverty patterns
 3. Review [predict_energy_rf.ipynb](predict_energy_rf.ipynb) for energy-specific analysis
-4. Read [ANALYSIS_COMPARISON.md](ANALYSIS_COMPARISON.md) for comprehensive insights
+
+
+### For Advanced ML & Comparative Analysis
+
+1. Start with [predict_imds_rf.ipynb](predict_imds_rf.ipynb) for baseline IMDS prediction
+2. Learn hyperparameter tuning with [predict_imds_rf_optuna.ipynb](predict_imds_rf_optuna.ipynb)
+3. Understand nested CV with [predict_imds_rf_optuna_cv.ipynb](predict_imds_rf_optuna_cv.ipynb)
+4. Run the full comparative analysis with [predict_all_sdgs_xgb_optuna_cv.ipynb](predict_all_sdgs_xgb_optuna_cv.ipynb) (requires GPU)
 
 ## Data Used
 

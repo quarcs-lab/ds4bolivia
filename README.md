@@ -54,6 +54,21 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
   * *Focus:* Composite index aggregating all SDG indicators into a single development score.
   * *Key Features:* Urban-rural prediction patterns, distributed feature importance, student exercises.
 
+### Advanced ML & Comparative Analysis Notebooks
+
+* **[IMDS with Optuna Hyperparameter Tuning](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb)**
+  * *Focus:* Bayesian hyperparameter optimization using Optuna.
+  * *Key Features:* TPE sampler, 100 trials, optimization visualization, comparison with baseline.
+
+* **[IMDS with Nested Cross-Validation](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb)**
+  * *Focus:* Rigorous evaluation using nested CV (double cross-validation).
+  * *Key Features:* 5-fold outer × 5-fold inner CV, confidence intervals, hyperparameter stability analysis.
+
+* **[Comparative SDG Prediction with XGBoost (GPU)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_all_sdgs_xgb_optuna_cv.ipynb)** ⭐ *Advanced*
+  * *Focus:* Predict ALL 16 SDG indicators to compare predictability from satellite imagery.
+  * *Key Features:* XGBoost with GPU acceleration (A100/T4), Optuna tuning, nested CV, feature importance heatmaps, publication-ready results.
+  * *Research Question:* Which SDGs are most predictable from satellite data?
+
 See [notebooks/README.md](notebooks/README.md) for complete documentation and learning paths.
 
 ---
