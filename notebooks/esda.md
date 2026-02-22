@@ -8,36 +8,36 @@ jupytext:
     jupytext_version: 1.19.1
 kernelspec:
   display_name: Python 3
+  language: python
   name: python3
 ---
 
-+++ {"id": "Kgo7hRPv77Xk"}
++++ {"_sphinx_cell_id": "25604e54-c8d5-4982-92e4-ec6626c8ecc1", "id": "Kgo7hRPv77Xk"}
 
 ![](https://carlos-mendez.org/project/python_esda/featured_hud6e0c467148e45bb03790018c3cab111_119535_720x0_resize_q75_lanczos.jpg)
 
-+++ {"id": "cuY-BTGn71uk"}
++++ {"_sphinx_cell_id": "e2000b3b-c67c-47ca-9323-9f2eae0fde05", "id": "cuY-BTGn71uk"}
 
 # Setup
 
 ```{code-cell}
 ---
-id: vdg4h6On7PWp
+_sphinx_cell_id: f69ff61d-0d8c-4201-b36d-f920a559a4e2
 colab:
   base_uri: https://localhost:8080/
+id: vdg4h6On7PWp
 outputId: d39947e7-1457-455e-82d2-6dd163388ab1
 ---
-# Adding necessary libraries to Google Colab environment
-
-# Installing the 'contextily' library for adding basemaps to plots
-!pip install contextily -q
-
-# Installing the 'splot' library for spatial data visualization
-!pip install splot -q
+# Install packages not included in Google Colab's default environment.
+# When running locally with UV, these are already installed and this cell is harmless.
+!pip install geopandas contextily libpysal esda splot mapclassify -q
 ```
 
 ```{code-cell}
-:id: pQ_lhJmV7hxz
-
+---
+_sphinx_cell_id: d854d716-455b-439c-b878-7297f09b89b6
+id: pQ_lhJmV7hxz
+---
 # Importing necessary libraries for data analysis and visualization
 import numpy as np
 import pandas as pd
@@ -80,13 +80,15 @@ import warnings
 warnings.filterwarnings('ignore')
 ```
 
-+++ {"id": "0TWKLHW58I3Y"}
++++ {"_sphinx_cell_id": "f78dbf09-c3ec-43c2-81c3-0804ae459d08", "id": "0TWKLHW58I3Y"}
 
 # Import data
 
 ```{code-cell}
-:id: bmoI2m747tcg
-
+---
+_sphinx_cell_id: 539cb325-af73-4444-a3a9-ca4471d7d009
+id: bmoI2m747tcg
+---
 # Define the URL where the GeoJSON data is located
 dataURL = 'https://github.com/quarcs-lab/project2021o-notebook/raw/main/map_and_data.geojson'
 
@@ -100,6 +102,7 @@ geojson_dict = data.__geo_interface__
 
 ```{code-cell}
 ---
+_sphinx_cell_id: fafad243-5754-4ac1-9b8e-95fb13ada4a0
 colab:
   base_uri: https://localhost:8080/
   height: 320
@@ -111,6 +114,7 @@ data.head(3)
 
 ```{code-cell}
 ---
+_sphinx_cell_id: b18d5765-6763-42f8-adf8-a3f69128b7aa
 colab:
   base_uri: https://localhost:8080/
   height: 424
@@ -122,13 +126,16 @@ dataDefinitions
 ```
 
 ```{code-cell}
-:id: 06j92q3L8qu-
-
+---
+_sphinx_cell_id: b6faed44-5f1b-490c-8b9d-dc9538e7b7a0
+id: 06j92q3L8qu-
+---
 data_dict = dict(zip(dataDefinitions['Variable'], dataDefinitions['Label']))
 ```
 
 ```{code-cell}
 ---
+_sphinx_cell_id: ee733df5-197b-4bb3-ac4d-31a216e55f80
 colab:
   base_uri: https://localhost:8080/
   height: 597
@@ -139,12 +146,13 @@ gdf = data[['id', 'mun', 'rank_imds', 'imds', 'geometry']]
 gdf
 ```
 
-+++ {"id": "dCztsu9vU8EH"}
++++ {"_sphinx_cell_id": "d4f3d8ae-3787-45b7-a31d-8ba2f6003c2c", "id": "dCztsu9vU8EH"}
 
 # Plot map
 
 ```{code-cell}
 ---
+_sphinx_cell_id: fc051056-469f-4c19-a469-82b35e621265
 colab:
   base_uri: https://localhost:8080/
   height: 637
@@ -172,17 +180,20 @@ outputId: 30f414e5-a418-4174-ef5d-08392cb766ce
 ```
 
 ```{code-cell}
-:id: qhAZQafO9hnT
-
+---
+_sphinx_cell_id: 6b94d7a2-45ba-477c-bc5e-8a261ecf4be5
+id: qhAZQafO9hnT
+---
 fig.write_html("mapBolivia339imds.html", include_plotlyjs='cdn')
 ```
 
 ```{code-cell}
 ---
-id: zEkFCRIXKfsu
+_sphinx_cell_id: 1303993b-a141-4b6c-b28d-de6ba3dbd38b
 colab:
   base_uri: https://localhost:8080/
   height: 394
+id: zEkFCRIXKfsu
 outputId: c1b599fd-6751-42a1-e85b-21e2c00ceeb0
 ---
 # Visualize spatial data using the explore() method of a GeoDataFrame
@@ -208,13 +219,15 @@ gdf.explore(
 )
 ```
 
-+++ {"id": "F0s4u89iVBP_"}
++++ {"_sphinx_cell_id": "716b45a3-9586-4713-872c-6304455954e6", "id": "F0s4u89iVBP_"}
 
 # Spatial weights and lags
 
 ```{code-cell}
-:id: xgpN0wUsVFM9
-
+---
+_sphinx_cell_id: 67f2d2ea-14c0-4be1-8160-42f01cea6ec2
+id: xgpN0wUsVFM9
+---
 # Create K-nearest neighbors (KNN) spatial weights from the GeoDataFrame gdf
 # k=6 specifies the number of nearest neighbors to consider for each observation
 W = weights.KNN.from_dataframe(gdf, k=6)
@@ -224,14 +237,17 @@ W.transform = 'r'
 ```
 
 ```{code-cell}
-:id: ZfTGXtnO7hwD
-
+---
+_sphinx_cell_id: e2c7466a-d611-4835-aa5e-944d698420cf
+id: ZfTGXtnO7hwD
+---
 # Reproject to use contextily
 gdf = gdf.to_crs(epsg=3857)
 ```
 
 ```{code-cell}
 ---
+_sphinx_cell_id: 78947977-9529-484f-866f-0aa4358a830c
 colab:
   base_uri: https://localhost:8080/
   height: 728
@@ -248,39 +264,45 @@ plt.show()
 ```
 
 ```{code-cell}
-:id: LZ4QV-dFcM0R
-
+---
+_sphinx_cell_id: 771bba67-4158-4cac-9cf4-89ae89edc3aa
+id: LZ4QV-dFcM0R
+---
 # Calculate spatial lag of INDICATOR1 using the specified weights
 gdf['Wimds'] = weights.lag_spatial(W, gdf['imds'])
 ```
 
 ```{code-cell}
-:id: YobX7Sp5fNCz
-
+---
+_sphinx_cell_id: 45b5ccbc-a69e-4d75-96ad-d01cc1859f82
+id: YobX7Sp5fNCz
+---
 data_dict.update({'Wimds': 'Development index in neighboring municipalities'})
 ```
 
 ```{code-cell}
 ---
-id: byQ_8Yr2dsFJ
+_sphinx_cell_id: 50cfbc67-32da-4316-a3f5-f1264bcbe931
 colab:
   base_uri: https://localhost:8080/
   height: 424
+id: byQ_8Yr2dsFJ
 outputId: ce889634-a5b3-4186-f7db-ea80ebddd647
 ---
 gdf[['mun', 'imds', 'Wimds']]
 ```
 
-+++ {"id": "4U9O4ZE0eE-V"}
++++ {"_sphinx_cell_id": "b9b4e2e5-cd82-431a-b56d-d4fc5118953a", "id": "4U9O4ZE0eE-V"}
 
 # Global spatial dependence
 
 ```{code-cell}
 ---
-id: E_9dy96Kd9bm
+_sphinx_cell_id: 1be2c2a2-3d99-4977-96ac-03cc54a22d95
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: E_9dy96Kd9bm
 outputId: 2a4e7db1-6e9f-47d6-de57-ccf153aa57a7
 ---
 # Create a scatter plot using Plotly Express
@@ -299,10 +321,11 @@ px.scatter(
 
 ```{code-cell}
 ---
-id: zaxhVHSdgdAn
+_sphinx_cell_id: 59bbf7b5-dd2f-41ff-8f39-f018568dface
 colab:
   base_uri: https://localhost:8080/
   height: 35
+id: zaxhVHSdgdAn
 outputId: 3b3dcfad-d275-476e-d3fe-d1e727d75ab8
 ---
 # Compute Global Moran's I statistic for the 'imds' variable using the spatial weights matrix W
@@ -317,21 +340,24 @@ moranI
 
 ```{code-cell}
 ---
-id: iH8bkJPfgid4
+_sphinx_cell_id: 17e617b8-7296-4b7a-a8e8-64d3350fb012
 colab:
   base_uri: https://localhost:8080/
+id: iH8bkJPfgid4
 outputId: 6b035c22-b9d7-40f0-e556-f8b509432c67
 ---
 print(globalMoran.p_sim)
 ```
 
-+++ {"id": "wJwarq5qgLvJ"}
++++ {"_sphinx_cell_id": "b1f03232-904f-4d32-b6db-81661fbfa367", "id": "wJwarq5qgLvJ"}
 
 # Local spatial dependence
 
 ```{code-cell}
-:id: tytMegIbqujy
-
+---
+_sphinx_cell_id: 7c46a4a8-9a83-4fe2-8fa4-652b2e12a45f
+id: tytMegIbqujy
+---
 # Read GeoJSON file from GitHub using GeoPandas
 # gdf2 is assigned the GeoDataFrame containing the data from the provided URL
 gdf2 = gpd.read_file('https://github.com/wmgeolab/geoBoundaries/raw/905b0ba/releaseData/gbOpen/BOL/ADM1/geoBoundaries-BOL-ADM1_simplified.geojson')
@@ -348,8 +374,10 @@ gdf2['coords'] = [coords[0] for coords in gdf2['coords']]
 ```
 
 ```{code-cell}
-:id: pwlIWOE8gLWT
-
+---
+_sphinx_cell_id: eb99e60c-5b9e-489b-94f9-cadeb6e0575c
+id: pwlIWOE8gLWT
+---
 # Calculate Local Moran's I statistics
 # gdf['imds'] is the variable for which local spatial autocorrelation is computed
 # W is the spatial weights matrix defining the spatial relationships between observations
@@ -360,6 +388,7 @@ moranLocal = Moran_Local(gdf['imds'], W, permutations=999, seed=12345)
 
 ```{code-cell}
 ---
+_sphinx_cell_id: 7a6ad1c7-1c81-4fe2-91ff-64bb5e68469a
 colab:
   base_uri: https://localhost:8080/
   height: 506
@@ -404,8 +433,10 @@ plt.show()
 ```
 
 ```{code-cell}
-:id: __tGfLtZhhwj
-
+---
+_sphinx_cell_id: f83b5914-9c23-4a5c-9cc6-bb471dcc5ac1
+id: __tGfLtZhhwj
+---
 # Add local Moran's I p-values to the GeoDataFrame
 gdf['lisa'] = moranLocal.p_sim
 
@@ -428,10 +459,11 @@ gdf["cluster"] = gdf["cluster"].map({
 
 ```{code-cell}
 ---
-id: oNIvFLLWiG36
+_sphinx_cell_id: 69e9f2f3-9efa-4795-b4df-0eb61e9ce7f2
 colab:
   base_uri: https://localhost:8080/
   height: 964
+id: oNIvFLLWiG36
 outputId: e2432f5f-6fc2-4bf3-9eeb-44401a167de6
 ---
 gdf = gdf.sort_values(by='cluster')
@@ -440,9 +472,10 @@ gdf
 
 ```{code-cell}
 ---
-id: pO9ZvNJxluAz
+_sphinx_cell_id: 0e3102ea-9001-460a-8243-ce3bafe8ccc6
 colab:
   base_uri: https://localhost:8080/
+id: pO9ZvNJxluAz
 outputId: b8a2fdc6-b5e5-4e8c-c461-5883d7062708
 ---
 gdf['cluster'].unique()
@@ -450,6 +483,7 @@ gdf['cluster'].unique()
 
 ```{code-cell}
 ---
+_sphinx_cell_id: fa700a8f-1081-468e-8dea-a67a54bf9a2a
 colab:
   base_uri: https://localhost:8080/
   height: 394
@@ -470,10 +504,11 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: BY9Kth5Iou1z
+_sphinx_cell_id: 93d31239-0e14-46db-8e41-1c7e9e641e9d
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: BY9Kth5Iou1z
 outputId: 4cc4db3d-c27c-48bc-d0de-70f4eed541c2
 ---
 # Create a scatter plot using Plotly Express
@@ -530,6 +565,7 @@ fig.show()
 
 ```{code-cell}
 ---
+_sphinx_cell_id: 036658ca-52fe-481f-8d9a-c985ea00fa38
 colab:
   base_uri: https://localhost:8080/
   height: 463
@@ -599,12 +635,13 @@ plt.savefig('lisaSC.png', dpi=300, bbox_inches='tight')
 plt.show()
 ```
 
-+++ {"id": "B16SUhL_sXW5"}
++++ {"_sphinx_cell_id": "0ab7b232-2851-444e-b9d8-58460792f845", "id": "B16SUhL_sXW5"}
 
 # Combined figures
 
 ```{code-cell}
 ---
+_sphinx_cell_id: 8f48529a-8225-4551-8fba-11108fd8cc38
 colab:
   base_uri: https://localhost:8080/
   height: 282

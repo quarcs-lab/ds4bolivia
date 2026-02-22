@@ -8,6 +8,16 @@ This directory contains Jupyter notebooks with step-by-step tutorials for explor
 
 ### Spatial Analysis Notebooks
 
+#### eda.ipynb
+
+**Exploratory Data Analysis (EDA)**
+
+Descriptive statistics, regional comparisons, population treemaps, and the relationship between nighttime lights and development across 339 municipalities.
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb)
+
 #### esda.ipynb
 
 **Exploratory Spatial Data Analysis (ESDA)**
@@ -21,19 +31,43 @@ An interactive tutorial demonstrating spatial analysis techniques using Bolivia'
 - Choropleth mapping
 - Spatial weights matrices
 
-**Key Concepts:**
-- Spatial dependence and autocorrelation
-- Hot spots and cold spots identification
-- Spatial lag and spatial error models
-- GeoPandas and PySAL libraries
-
 **Run in Google Colab:**
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)
 
+#### esda_dependence.ipynb
+
+**Spatial Distribution & Dependence**
+
+Map classification schemes (BoxPlot, Fisher-Jenks), spatial weights matrices, Global Moran's I, and LISA cluster analysis for detecting spatial autocorrelation patterns.
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb)
+
+#### esda_inequality.ipynb
+
+**Spatial Inequality**
+
+Theil index with between/within decomposition by department, Gini coefficient, and Spatial Gini index for measuring how much inequality is spatially structured.
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb)
+
+#### esda_heterogeneity.ipynb
+
+**Spatial Heterogeneity (GWR & MGWR)**
+
+Geographically Weighted Regression and Multiscale GWR to detect spatially varying relationships between nighttime lights and regional development.
+
+**Run in Google Colab:**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb)
+
 #### eda_esda.ipynb
 
-**Extended Exploratory Data Analysis and Spatial Analysis**
+**Extended EDA + Spatial Analysis**
 
 A comprehensive notebook combining traditional exploratory data analysis with spatial methods. Includes additional visualizations, statistical summaries, and advanced spatial analysis techniques.
 
@@ -102,15 +136,20 @@ You can run these notebooks in three ways:
 2. **Local Jupyter**: Clone the repository and run `uv run jupyter notebook` in this directory
 3. **Deepnote/Other Cloud Platforms**: Import the notebook files
 
+**Note:** All notebooks include `!pip install` cells that install required spatial analysis packages. In Google Colab, these install packages not in Colab's default environment. When running locally with UV (`uv run jupyter notebook`), these commands are harmless since all packages are already installed via `pyproject.toml`.
+
 ## Learning Path
 
 For best results, follow this sequence:
 
 ### For Spatial Analysis
 
-1. Start with [esda.ipynb](esda.ipynb) to learn basic spatial analysis
-2. Review the main [README](../README.md) for data integration examples
-3. Explore [eda_esda.ipynb](eda_esda.ipynb) for advanced techniques
+1. Start with [eda.ipynb](eda.ipynb) for exploratory data analysis
+2. Continue with [esda_dependence.ipynb](esda_dependence.ipynb) for spatial distribution and autocorrelation
+3. Explore [esda_inequality.ipynb](esda_inequality.ipynb) for Theil and Gini inequality measures
+4. Advance to [esda_heterogeneity.ipynb](esda_heterogeneity.ipynb) for GWR and MGWR
+5. See [esda.ipynb](esda.ipynb) for an alternative ESDA tutorial
+6. Review [eda_esda.ipynb](eda_esda.ipynb) for the comprehensive combined notebook
 
 ## Data Used
 

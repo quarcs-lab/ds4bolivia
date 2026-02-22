@@ -7,20 +7,20 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.19.1
 kernelspec:
-  name: python3
   display_name: Python 3
+  name: python3
 ---
 
 +++ {"cell_id": "ce8e4aaee08f459f9db2136f41fe3ff7", "deepnote_app_coordinates": {"h": 24, "w": 12, "x": 0, "y": 234}, "deepnote_cell_type": "markdown", "id": "MTgK8ssKIv32"}
 
 ![](https://github.com/quarcs-lab/project2021o-notebook/blob/main/figs/cover.png?raw=true)
 
-+++ {"cell_id": "752cd2fc884c4633a1c809546625c333", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": null}, "deepnote_cell_type": "text-cell-h1", "id": "tPbPpRITIv3z"}
++++ {"cell_id": "752cd2fc884c4633a1c809546625c333", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": null}, "deepnote_cell_type": "text-cell-h1", "formattedRanges": [], "id": "tPbPpRITIv3z", "is_collapsed": false}
 
 ```
 https://shorturl.at/evEFS
 ```
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/project2021o-notebook/blob/main/notebookColab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb)
 
 # **A geocomputational notebook to monitor regional development in Bolivia**
 
@@ -34,26 +34,16 @@ Mendez, C., Gonzales, E., & Andersen, L. (2023). A geocomputational notebook to 
 ```
 Github repository: https://github.com/quarcs-lab/project2021o-notebook
 
-+++ {"cell_id": "d1fdbacb61374efdaad452451a748a64", "is_collapsed": false, "formattedRanges": [], "deepnote_cell_type": "text-cell-h2", "id": "op7BfWwqIv32"}
++++ {"cell_id": "d1fdbacb61374efdaad452451a748a64", "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "op7BfWwqIv32", "is_collapsed": false}
 
 ## 1) Setup
 
 ```{code-cell}
 :id: T4mxke3PJL03
 
-# Adding necessary libraries to Google Colab environment
-
-# Installing the 'contextily' library for adding basemaps to plots
-!pip install contextily -q
-
-# Installing the 'splot' library for spatial data visualization
-!pip install splot -q
-
-# Installing the 'inequality' library for inequality analysis
-!pip install inequality -q
-
-# Installing the 'mgwr' library for performing geographically weighted regression
-!pip install mgwr -q
+# Install packages not included in Google Colab's default environment.
+# When running locally with UV, these are already installed and this cell is harmless.
+!pip install geopandas contextily libpysal esda splot mapclassify inequality mgwr -q
 ```
 
 ```{code-cell}
@@ -112,19 +102,19 @@ warnings.filterwarnings('ignore')
 ```{code-cell}
 ---
 cell_id: bb7d32248f4c40079e3dd52a75e8bfe9
-source_hash: 50df4634
-is_code_hidden: false
-execution_start: 1667529252998
-execution_millis: 361
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 24
-deepnote_to_be_reexecuted: false
 deepnote_app_is_code_hidden: true
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 361
+execution_start: 1667529252998
 id: sseQMjQJIv34
+is_code_hidden: false
+source_hash: 50df4634
 ---
 dataURL = 'https://github.com/quarcs-lab/project2021o-notebook/raw/main/map_and_data.geojson'
 gdf = gpd.read_file(dataURL)
@@ -132,11 +122,11 @@ gdf = gpd.read_file(dataURL)
 
 ```{code-cell}
 ---
-id: UPRV-lqJUmPz
-outputId: 8e460145-b4e2-4d7d-a4f5-621f3333abae
 colab:
   base_uri: https://localhost:8080/
   height: 277
+id: UPRV-lqJUmPz
+outputId: 8e460145-b4e2-4d7d-a4f5-621f3333abae
 ---
 gdf.head(3)
 ```
@@ -144,29 +134,29 @@ gdf.head(3)
 ```{code-cell}
 ---
 cell_id: 66dc1e05e2394672ab0f1011af92fa9c
-source_hash: 819d7ded
-is_code_hidden: false
-execution_start: 1667529253366
-execution_millis: 111
-deepnote_table_state:
-  sortBy: []
-  filters: []
-  pageSize: 25
-  pageIndex: 0
-deepnote_table_loading: false
+colab:
+  base_uri: https://localhost:8080/
+  height: 424
 deepnote_app_coordinates:
   h: 28
   w: 12
   x: 0
   y: 196
-deepnote_to_be_reexecuted: false
 deepnote_app_is_code_hidden: true
 deepnote_cell_type: code
+deepnote_table_loading: false
+deepnote_table_state:
+  filters: []
+  pageIndex: 0
+  pageSize: 25
+  sortBy: []
+deepnote_to_be_reexecuted: false
+execution_millis: 111
+execution_start: 1667529253366
 id: LMgM9N8MIv35
+is_code_hidden: false
 outputId: a4ec3b6e-62fe-4752-ead4-3ef784b4bad5
-colab:
-  base_uri: https://localhost:8080/
-  height: 424
+source_hash: 819d7ded
 ---
 dataDefinitions = pd.read_csv('https://raw.githubusercontent.com/quarcs-lab/project2021o-notebook/main/dataDefinitions.csv')
 dataDefinitions
@@ -178,25 +168,22 @@ dataDefinitions
 data_dict = dict(zip(dataDefinitions['Variable'], dataDefinitions['Label']))
 ```
 
-+++ {"cell_id": "4d4826e2d633481bb417bcdf8f012c7d", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 3, "w": 12, "x": 0, "y": 192}, "deepnote_cell_type": "text-cell-h2", "id": "JgE-EaLeIv34"}
++++ {"cell_id": "4d4826e2d633481bb417bcdf8f012c7d", "deepnote_app_coordinates": {"h": 3, "w": 12, "x": 0, "y": 192}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "JgE-EaLeIv34", "is_collapsed": false}
 
 ## 3) Define key parameters
 
 ```{code-cell}
 ---
 cell_id: 01f37b9657a14552af4519489f69caa9
-source_hash: ae5c3e6d
-owner_user_id: 3e428fbe-be88-4851-af0f-3aa6c027cd24
-execution_start: 1667529253487
-execution_millis: 14
-deepnote_variable_name: INDICATOR1
-deepnote_variable_value: imds
 deepnote_app_coordinates:
   h: 4
   w: 8
   x: 0
   y: 0
+deepnote_cell_type: input-select
 deepnote_to_be_reexecuted: false
+deepnote_variable_custom_options: [Option 1, Option 2, sdg10_2_ge, imds]
+deepnote_variable_name: INDICATOR1
 deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun, shapeID,
   imds, rank_imds, population_2020, urbano_2012, sdg1_1_eepr, sdg1_1_ubn, sdg1_2_mpi,
   sdg1_4_abs, sdg2_2_cmc, sdg2_2_oww, sdg2_4_pual, sdg2_4_td, sdg3_1_idca, sdg3_2_imr,
@@ -218,10 +205,13 @@ deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun,
   ln_t400NTLpc2019, ln_t400NTLpc2020, co2015, co2016, co2017, co2018, co2019, co2020,
   tr400_co2015, tr400_co2016, tr400_co2017, tr400_co2018, tr400_co2019, tr400_co2020]
 deepnote_variable_select_type: from-variable
-deepnote_variable_custom_options: [Option 1, Option 2, sdg10_2_ge, imds]
 deepnote_variable_selected_variable: variables
-deepnote_cell_type: input-select
+deepnote_variable_value: imds
+execution_millis: 14
+execution_start: 1667529253487
 id: JWcURAH_Iv36
+owner_user_id: 3e428fbe-be88-4851-af0f-3aa6c027cd24
+source_hash: ae5c3e6d
 ---
 INDICATOR1 = 'imds'
 ```
@@ -229,17 +219,15 @@ INDICATOR1 = 'imds'
 ```{code-cell}
 ---
 cell_id: 6f08602f403e4dfeb1de6d27d18851ca
-source_hash: 82e60105
-execution_start: 1667529253501
-execution_millis: 1
-deepnote_variable_name: INDICATOR2
-deepnote_variable_value: pop2017
 deepnote_app_coordinates:
   h: 4
   w: 8
   x: 0
   y: 0
+deepnote_cell_type: input-select
 deepnote_to_be_reexecuted: false
+deepnote_variable_custom_options: [Option 1, Option 2]
+deepnote_variable_name: INDICATOR2
 deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun, shapeID,
   imds, rank_imds, population_2020, urbano_2012, sdg1_1_eepr, sdg1_1_ubn, sdg1_2_mpi,
   sdg1_4_abs, sdg2_2_cmc, sdg2_2_oww, sdg2_4_pual, sdg2_4_td, sdg3_1_idca, sdg3_2_imr,
@@ -261,10 +249,12 @@ deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun,
   ln_t400NTLpc2019, ln_t400NTLpc2020, co2015, co2016, co2017, co2018, co2019, co2020,
   tr400_co2015, tr400_co2016, tr400_co2017, tr400_co2018, tr400_co2019, tr400_co2020]
 deepnote_variable_select_type: from-variable
-deepnote_variable_custom_options: [Option 1, Option 2]
 deepnote_variable_selected_variable: variables
-deepnote_cell_type: input-select
+deepnote_variable_value: pop2017
+execution_millis: 1
+execution_start: 1667529253501
 id: Y_Z6lnBBIv36
+source_hash: 82e60105
 ---
 INDICATOR2 = 'pop2017'
 ```
@@ -272,17 +262,15 @@ INDICATOR2 = 'pop2017'
 ```{code-cell}
 ---
 cell_id: 30a335eb3efd4e9b85f43c6f7c900cdf
-source_hash: 2f304ee2
-execution_start: 1667529253502
-execution_millis: 0
-deepnote_variable_name: INDICATOR3
-deepnote_variable_value: ln_t400NTLpc2017
 deepnote_app_coordinates:
   h: 4
   w: 8
   x: 0
   y: 0
+deepnote_cell_type: input-select
 deepnote_to_be_reexecuted: false
+deepnote_variable_custom_options: [Option 1, Option 2]
+deepnote_variable_name: INDICATOR3
 deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun, shapeID,
   imds, rank_imds, population_2020, urbano_2012, sdg1_1_eepr, sdg1_1_ubn, sdg1_2_mpi,
   sdg1_4_abs, sdg2_2_cmc, sdg2_2_oww, sdg2_4_pual, sdg2_4_td, sdg3_1_idca, sdg3_2_imr,
@@ -304,10 +292,12 @@ deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun,
   ln_t400NTLpc2019, ln_t400NTLpc2020, co2015, co2016, co2017, co2018, co2019, co2020,
   tr400_co2015, tr400_co2016, tr400_co2017, tr400_co2018, tr400_co2019, tr400_co2020]
 deepnote_variable_select_type: from-variable
-deepnote_variable_custom_options: [Option 1, Option 2]
 deepnote_variable_selected_variable: variables
-deepnote_cell_type: input-select
+deepnote_variable_value: ln_t400NTLpc2017
+execution_millis: 0
+execution_start: 1667529253502
 id: m-1Sh5dtIv36
+source_hash: 2f304ee2
 ---
 INDICATOR3 = 'ln_t400NTLpc2017'
 ```
@@ -315,17 +305,15 @@ INDICATOR3 = 'ln_t400NTLpc2017'
 ```{code-cell}
 ---
 cell_id: 034e744fd0264570b6c7064c6ab8a86e
-source_hash: 8e0a9f65
-execution_start: 1667529253503
-execution_millis: 0
-deepnote_variable_name: INDICATOR4
-deepnote_variable_value: co2017
 deepnote_app_coordinates:
   h: 4
   w: 8
   x: 0
   y: 0
+deepnote_cell_type: input-select
 deepnote_to_be_reexecuted: false
+deepnote_variable_custom_options: [Option 1, Option 2]
+deepnote_variable_name: INDICATOR4
 deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun, shapeID,
   imds, rank_imds, population_2020, urbano_2012, sdg1_1_eepr, sdg1_1_ubn, sdg1_2_mpi,
   sdg1_4_abs, sdg2_2_cmc, sdg2_2_oww, sdg2_4_pual, sdg2_4_td, sdg3_1_idca, sdg3_2_imr,
@@ -347,10 +335,12 @@ deepnote_variable_options: [poly_id, asdf_id, mun, mun_id, dep, dep_id, dep_mun,
   ln_t400NTLpc2019, ln_t400NTLpc2020, co2015, co2016, co2017, co2018, co2019, co2020,
   tr400_co2015, tr400_co2016, tr400_co2017, tr400_co2018, tr400_co2019, tr400_co2020]
 deepnote_variable_select_type: from-variable
-deepnote_variable_custom_options: [Option 1, Option 2]
 deepnote_variable_selected_variable: variables
-deepnote_cell_type: input-select
+deepnote_variable_value: co2017
+execution_millis: 0
+execution_start: 1667529253503
 id: OtsxnR7AIv37
+source_hash: 8e0a9f65
 ---
 INDICATOR4 = 'rank_imds'
 ```
@@ -385,11 +375,11 @@ ADM3 = 'mun'
 
 ```{code-cell}
 ---
-id: XnDc2E3nS7en
-outputId: 44aabc59-ead7-4cca-9e08-11985e0318d0
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: XnDc2E3nS7en
+outputId: 44aabc59-ead7-4cca-9e08-11985e0318d0
 ---
 # Exploring data using the explore() function on the GeoDataFrame
 gdf.explore(
@@ -405,16 +395,16 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: l1byH1g-VDCO
-outputId: 636f512c-9f83-45f5-9b22-912b72c36b7c
 colab:
   base_uri: https://localhost:8080/
   height: 424
+id: l1byH1g-VDCO
+outputId: 636f512c-9f83-45f5-9b22-912b72c36b7c
 ---
 gdf[[ADM3, ADM1, INDICATOR1, INDICATOR2, INDICATOR3, INDICATOR4]].sort_values(by=INDICATOR1, ascending=False).reset_index(drop=True)
 ```
 
-+++ {"cell_id": "436762013f774808ad960d72f5ca6a4d", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 3, "w": 12, "x": 0, "y": 230}, "deepnote_cell_type": "text-cell-h2", "id": "OoI5bX2NIv37"}
++++ {"cell_id": "436762013f774808ad960d72f5ca6a4d", "deepnote_app_coordinates": {"h": 3, "w": 12, "x": 0, "y": 230}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "OoI5bX2NIv37", "is_collapsed": false}
 
 ### 4.1) Descriptive statistics
 
@@ -425,30 +415,30 @@ gdf[[ADM3, ADM1, INDICATOR1, INDICATOR2, INDICATOR3, INDICATOR4]].sort_values(by
 ```{code-cell}
 ---
 cell_id: da8e081c88d244dfa56282e1121c240f
-source_hash: 118d1ff5
-is_code_hidden: false
-execution_start: 1667529253510
-execution_millis: 22
-deepnote_table_state:
-  sortBy:
-  - id: imds
-    type: desc
-  filters: []
-  pageSize: 10
-  pageIndex: 0
-deepnote_table_loading: false
+colab:
+  base_uri: https://localhost:8080/
+  height: 300
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 30
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_table_loading: false
+deepnote_table_state:
+  filters: []
+  pageIndex: 0
+  pageSize: 10
+  sortBy:
+  - id: imds
+    type: desc
+deepnote_to_be_reexecuted: false
+execution_millis: 22
+execution_start: 1667529253510
 id: davYPzluIv37
+is_code_hidden: false
 outputId: 79c8346c-df6c-4546-881d-a9ccfea90866
-colab:
-  base_uri: https://localhost:8080/
-  height: 300
+source_hash: 118d1ff5
 ---
 gdf[[INDICATOR1, INDICATOR2, INDICATOR3, INDICATOR4]].describe().round(2)
 ```
@@ -464,7 +454,7 @@ outputId: e74e5bc1-1d12-4df5-a05b-2123f9af6698
 gdf[[ADM1, INDICATOR1]].groupby('dep').describe().round(2)
 ```
 
-+++ {"cell_id": "f13548b3db814695ba3e78d625079ee2", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 54}, "deepnote_cell_type": "text-cell-h2", "id": "_PPHUHiCIv37"}
++++ {"cell_id": "f13548b3db814695ba3e78d625079ee2", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 54}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "_PPHUHiCIv37", "is_collapsed": false}
 
 ### 4.2) Regional development differences
 
@@ -474,11 +464,11 @@ gdf[[ADM1, INDICATOR1]].groupby('dep').describe().round(2)
 
 ```{code-cell}
 ---
-id: kTSO1Bo6YIjs
-outputId: 02ad8224-f4c7-4365-de00-d9aebf16cd00
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: kTSO1Bo6YIjs
+outputId: 02ad8224-f4c7-4365-de00-d9aebf16cd00
 ---
 # Creating a strip plot using Plotly Express
 px.strip(
@@ -494,11 +484,11 @@ px.strip(
 
 ```{code-cell}
 ---
-id: RiiR51x2YvTo
-outputId: 5188f157-2763-4020-b92a-99dfb1ae60ab
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: RiiR51x2YvTo
+outputId: 5188f157-2763-4020-b92a-99dfb1ae60ab
 ---
 # Creating a histogram using Plotly Express
 px.histogram(
@@ -514,11 +504,11 @@ px.histogram(
 
 ```{code-cell}
 ---
-id: 7A36wjpJYdvj
-outputId: b08df7c0-1a15-4a97-9904-941bf63b3ce9
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: 7A36wjpJYdvj
+outputId: b08df7c0-1a15-4a97-9904-941bf63b3ce9
 ---
 # Creating a box plot using Plotly Express
 px.box(
@@ -532,7 +522,7 @@ px.box(
 )
 ```
 
-+++ {"cell_id": "18480afe6d2640ef8f1dd51b1222e21d", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 96}, "deepnote_cell_type": "text-cell-h2", "id": "lB7-mMhMIv38"}
++++ {"cell_id": "18480afe6d2640ef8f1dd51b1222e21d", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 96}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "lB7-mMhMIv38", "is_collapsed": false}
 
 ### 4.3) Population and development
 
@@ -542,11 +532,11 @@ px.box(
 
 ```{code-cell}
 ---
-id: cEDK7PJxX_aY
-outputId: 538bbb74-c9d8-402f-a0e9-c551bb499c82
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: cEDK7PJxX_aY
+outputId: 538bbb74-c9d8-402f-a0e9-c551bb499c82
 ---
 px.bar(
     gdf.sort_values(by=INDICATOR2, ascending=True),
@@ -560,11 +550,11 @@ px.bar(
 
 ```{code-cell}
 ---
-id: uwKiNfdOY5bg
-outputId: f5f2717a-2740-4f27-dc60-ff8fdcecba71
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: uwKiNfdOY5bg
+outputId: f5f2717a-2740-4f27-dc60-ff8fdcecba71
 ---
 # Creating a treemap using Plotly Express
 px.treemap(
@@ -581,22 +571,22 @@ px.treemap(
 ```{code-cell}
 ---
 cell_id: 0ecdfecb1ae64b2a99dc19628ca8d4d5
-source_hash: beb9bee6
-is_code_hidden: false
-execution_start: 1667529254670
-execution_millis: 1015
+colab:
+  base_uri: https://localhost:8080/
+  height: 542
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 90
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1015
+execution_start: 1667529254670
 id: xgY_0neZIv38
+is_code_hidden: false
 outputId: b064b5f5-2277-44a2-f2d4-0072c34b77c3
-colab:
-  base_uri: https://localhost:8080/
-  height: 542
+source_hash: beb9bee6
 ---
 # Creating a sunburst plot using Plotly Express
 px.sunburst(
@@ -612,11 +602,11 @@ px.sunburst(
 
 ```{code-cell}
 ---
-id: glN7NntEYMv2
-outputId: 78c41ea3-583d-4560-885c-494d87d8515a
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: glN7NntEYMv2
+outputId: 78c41ea3-583d-4560-885c-494d87d8515a
 ---
 px.scatter(
     gdf,
@@ -632,7 +622,7 @@ px.scatter(
 )
 ```
 
-+++ {"cell_id": "88396a06123545659ba24ea22f6e7e30", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 66}, "deepnote_cell_type": "text-cell-h2", "id": "z_WQiUi7Iv39"}
++++ {"cell_id": "88396a06123545659ba24ea22f6e7e30", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 66}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "z_WQiUi7Iv39", "is_collapsed": false}
 
 ### 4.4) Nighttime lights and development
 
@@ -642,11 +632,11 @@ px.scatter(
 
 ```{code-cell}
 ---
-id: 3CXPOu0gOoHm
-outputId: 7afcc885-c1f1-4b75-9355-a98cbaf9b785
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: 3CXPOu0gOoHm
+outputId: 7afcc885-c1f1-4b75-9355-a98cbaf9b785
 ---
 # Exploring data using the explore() function on the GeoDataFrame
 gdf.explore(
@@ -664,11 +654,11 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: soZuQzH7ZT8P
-outputId: 15cf1b75-d1bd-45bc-b6f3-c580dece50d6
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: soZuQzH7ZT8P
+outputId: 15cf1b75-d1bd-45bc-b6f3-c580dece50d6
 ---
 # Creating a scatter plot with Plotly Express
 px.scatter(
@@ -691,11 +681,11 @@ How heterogeneious is the relatinship between regional development and nighttime
 
 ```{code-cell}
 ---
-id: IOr8wdbbZfRa
-outputId: adb2a1da-13d0-48a2-90a9-61e714c0927a
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: IOr8wdbbZfRa
+outputId: adb2a1da-13d0-48a2-90a9-61e714c0927a
 ---
 # Creating a scatter plot with marginal box plots using Plotly Express
 px.scatter(
@@ -717,7 +707,7 @@ px.scatter(
 
 ## 5) Exploratory spatial data analysis (ESDA)
 
-+++ {"cell_id": "7fdc498fca2b43468d91dfae42f38823", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "id": "3ASeA2tfIv39"}
++++ {"cell_id": "7fdc498fca2b43468d91dfae42f38823", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "3ASeA2tfIv39", "is_collapsed": false}
 
 ### 5.1) Spatial distribution
 
@@ -727,11 +717,11 @@ px.scatter(
 
 ```{code-cell}
 ---
-id: TDtX-JFIEViU
-outputId: db5e3011-82f6-4ed3-e798-02541e2fbaa0
 colab:
   base_uri: https://localhost:8080/
   height: 542
+id: TDtX-JFIEViU
+outputId: db5e3011-82f6-4ed3-e798-02541e2fbaa0
 ---
 # Creating a box plot using Plotly Express
 px.box(
@@ -747,11 +737,11 @@ px.box(
 
 ```{code-cell}
 ---
-id: eJGYcIzhDKjV
-outputId: 5fd68f3c-ecd8-4807-c745-47dbf1352089
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: eJGYcIzhDKjV
+outputId: 5fd68f3c-ecd8-4807-c745-47dbf1352089
 ---
 # Exploring data using the explore() function on the GeoDataFrame
 gdf.explore(
@@ -769,21 +759,21 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: _tNG1MrRJppD
-outputId: d6929f83-7faf-4543-eddf-8bbde28a92e7
 colab:
   base_uri: https://localhost:8080/
+id: _tNG1MrRJppD
+outputId: d6929f83-7faf-4543-eddf-8bbde28a92e7
 ---
 mc.BoxPlot(gdf[INDICATOR1])
 ```
 
 ```{code-cell}
 ---
-id: ug71fbIiKAFr
-outputId: b348ba76-000e-4b68-db80-a5a543a37736
 colab:
   base_uri: https://localhost:8080/
   height: 583
+id: ug71fbIiKAFr
+outputId: b348ba76-000e-4b68-db80-a5a543a37736
 ---
 import contextily as cx
 
@@ -828,11 +818,11 @@ plt.show()
 
 ```{code-cell}
 ---
-id: ProSA9MXZpy5
-outputId: 54d9b567-eaa4-4022-a6db-d3d438890cd7
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: ProSA9MXZpy5
+outputId: 54d9b567-eaa4-4022-a6db-d3d438890cd7
 ---
 # Exploring data using the explore() function on the GeoDataFrame
 gdf.explore(
@@ -850,10 +840,10 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: qevIRWERJspo
-outputId: f883c856-91ab-492c-a768-fedd2773f15a
 colab:
   base_uri: https://localhost:8080/
+id: qevIRWERJspo
+outputId: f883c856-91ab-492c-a768-fedd2773f15a
 ---
 mc.FisherJenks(gdf[INDICATOR1], k=3)
 ```
@@ -861,21 +851,21 @@ mc.FisherJenks(gdf[INDICATOR1], k=3)
 ```{code-cell}
 ---
 cell_id: 65d18ddb3d4f46c2a0460538198755ad
-source_hash: 3bd74f24
-execution_start: 1667529255250
-execution_millis: 2124
+colab:
+  base_uri: https://localhost:8080/
+  height: 583
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 2124
+execution_start: 1667529255250
 id: mP-LAGS9Iv39
 outputId: 52210d8c-b299-44a1-ac96-afce50c82884
-colab:
-  base_uri: https://localhost:8080/
-  height: 583
+source_hash: 3bd74f24
 ---
 import contextily as cx
 
@@ -915,7 +905,7 @@ ax.axis("off")
 plt.show()
 ```
 
-+++ {"cell_id": "81b451cebffe4a76a04205c7c7d3af56", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 126}, "deepnote_cell_type": "text-cell-h2", "id": "ILWNZyUkIv3-"}
++++ {"cell_id": "81b451cebffe4a76a04205c7c7d3af56", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 126}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "ILWNZyUkIv3-", "is_collapsed": false}
 
 ### 5.2) Spatial dependence
 
@@ -932,11 +922,11 @@ plt.show()
 
 ```{code-cell}
 ---
-id: Txiy8di4aLhR
-outputId: 266b0761-552f-4c3a-fb50-6de901715e19
 colab:
   base_uri: https://localhost:8080/
   height: 824
+id: Txiy8di4aLhR
+outputId: 266b0761-552f-4c3a-fb50-6de901715e19
 ---
 # Create K-nearest neighbors spatial weights
 W = weights.KNN.from_dataframe(gdf, k=6)
@@ -966,23 +956,23 @@ df_MORAN["WxINDICATOR1"] = weights.lag_spatial(W, df_MORAN.iloc[: , -1])
 ```{code-cell}
 ---
 cell_id: da1dc902980a4c7ab3424ebd8e60a1e6
-source_hash: ae2af11d
-is_code_hidden: false
-execution_start: 1667529258604
-execution_millis: 802
+colab:
+  base_uri: https://localhost:8080/
+  height: 542
 deepnote_app_coordinates:
   h: 24
   w: 12
   x: 0
   y: 284
-deepnote_to_be_reexecuted: false
 deepnote_app_is_code_hidden: true
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 802
+execution_start: 1667529258604
 id: X9fduQ3wIv3-
+is_code_hidden: false
 outputId: 9972c442-ed5e-499b-bf0f-fda239bed3c3
-colab:
-  base_uri: https://localhost:8080/
-  height: 542
+source_hash: ae2af11d
 ---
 # Creating a scatter plot with Plotly Express
 px.scatter(
@@ -1005,18 +995,18 @@ px.scatter(
 ```{code-cell}
 ---
 cell_id: c68683a216af4a149740251dbd20e26f
-source_hash: 7f6be6b1
-is_code_hidden: false
-execution_start: 1667529258685
-execution_millis: 1995
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 120
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1995
+execution_start: 1667529258685
 id: Z5AjodNsIv3_
+is_code_hidden: false
+source_hash: 7f6be6b1
 ---
 # Calculate global Moran's I
 globalMoran = Moran(gdf[INDICATOR1], W)
@@ -1029,11 +1019,11 @@ localMoran = Moran_Local(gdf[INDICATOR1], W, permutations = 999, seed=12345)
 
 ```{code-cell}
 ---
-id: FYglb4nkaxoP
-outputId: 4d4156f7-fd86-44f3-ec70-2cb87d77e3fc
 colab:
   base_uri: https://localhost:8080/
   height: 506
+id: FYglb4nkaxoP
+outputId: 4d4156f7-fd86-44f3-ec70-2cb87d77e3fc
 ---
 # Create subplots for visualizations
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 5))
@@ -1054,28 +1044,28 @@ axes[1].set_title("(b) Spatial clusters and outliers (p < 0.10)")
 plt.show()
 ```
 
-+++ {"cell_id": "e8394c0c7e144a6b9f9272d088e2b633", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "id": "cuDT3DJPIv3_"}
++++ {"cell_id": "e8394c0c7e144a6b9f9272d088e2b633", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "cuDT3DJPIv3_", "is_collapsed": false}
 
 ### 5.3) Spatial inequality
 
 ```{code-cell}
 ---
 cell_id: c447e3be52484134bdb5f85d102c17cf
-source_hash: 8ec252f5
-execution_start: 1667529261092
-execution_millis: 1109
+colab:
+  base_uri: https://localhost:8080/
+  height: 449
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1109
+execution_start: 1667529261092
 id: rm1VwT9TIv3_
 outputId: a5e4e42d-376e-4f3e-bae8-eb7832c3a23f
-colab:
-  base_uri: https://localhost:8080/
-  height: 449
+source_hash: 8ec252f5
 ---
 # Create a histogram plot using Seaborn
 sns.histplot(x=gdf[INDICATOR1], kde=True);
@@ -1084,21 +1074,21 @@ sns.histplot(x=gdf[INDICATOR1], kde=True);
 ```{code-cell}
 ---
 cell_id: a72395fa9d72448fb2ff9cd31081c480
-source_hash: '26726851'
-execution_start: 1667529261297
-execution_millis: 932
+colab:
+  base_uri: https://localhost:8080/
+  height: 450
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 932
+execution_start: 1667529261297
 id: X8FiY7XDIv3_
 outputId: 40bfb71f-ad04-4874-c728-6c5c291391e5
-colab:
-  base_uri: https://localhost:8080/
-  height: 450
+source_hash: '26726851'
 ---
 # Create a histogram plot using Seaborn
 sns.histplot(x=gdf[INDICATOR3], kde=True);
@@ -1110,10 +1100,10 @@ sns.histplot(x=gdf[INDICATOR3], kde=True);
 
 ```{code-cell}
 ---
-id: 0uhEZiu63HjV
-outputId: bbc7ce80-9f65-4243-c9ec-2504c219dc20
 colab:
   base_uri: https://localhost:8080/
+id: 0uhEZiu63HjV
+outputId: bbc7ce80-9f65-4243-c9ec-2504c219dc20
 ---
 theil_INDICATOR1 = inequality.theil.Theil(gdf[INDICATOR1].values).T
 theil_INDICATOR1
@@ -1121,10 +1111,10 @@ theil_INDICATOR1
 
 ```{code-cell}
 ---
-id: i3ANqN_w49fp
-outputId: b0517f5e-2572-467e-d7a2-958228668ef9
 colab:
   base_uri: https://localhost:8080/
+id: i3ANqN_w49fp
+outputId: b0517f5e-2572-467e-d7a2-958228668ef9
 ---
 theil_INDICATOR3 = inequality.theil.Theil(gdf[INDICATOR3].values).T
 theil_INDICATOR3
@@ -1136,11 +1126,11 @@ Theil index decomposition
 
 ```{code-cell}
 ---
-id: hhvNFPTMWFjt
-outputId: 133a645c-129c-4eea-babd-d74657b7752c
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: hhvNFPTMWFjt
+outputId: 133a645c-129c-4eea-babd-d74657b7752c
 ---
 # Exploring data using the explore() function on the GeoDataFrame
 gdf.explore(
@@ -1170,20 +1160,20 @@ theil_W_INDICATOR1 = theil_BW_INDICATOR1.wg
 
 ```{code-cell}
 ---
-id: QCc7z-EyCZnL
-outputId: 385c4aaf-0f1f-4726-89bd-ffacef72dcd5
 colab:
   base_uri: https://localhost:8080/
+id: QCc7z-EyCZnL
+outputId: 385c4aaf-0f1f-4726-89bd-ffacef72dcd5
 ---
 theil_B_INDICATOR1/theil_INDICATOR1
 ```
 
 ```{code-cell}
 ---
-id: MFtwgQjkVnK6
-outputId: b77be129-4870-4c7c-d852-e704e9cafab7
 colab:
   base_uri: https://localhost:8080/
+id: MFtwgQjkVnK6
+outputId: b77be129-4870-4c7c-d852-e704e9cafab7
 ---
 theil_W_INDICATOR1/theil_INDICATOR1
 ```
@@ -1203,20 +1193,20 @@ theil_W_INDICATOR3 = theil_BW_INDICATOR3.wg
 
 ```{code-cell}
 ---
-id: 6-seSgbMV1r5
-outputId: dc32b793-de17-490d-c16a-5043aa087dc4
 colab:
   base_uri: https://localhost:8080/
+id: 6-seSgbMV1r5
+outputId: dc32b793-de17-490d-c16a-5043aa087dc4
 ---
 theil_B_INDICATOR3/theil_INDICATOR3
 ```
 
 ```{code-cell}
 ---
-id: 2y6wYhFQV1i_
-outputId: 9c9a0e06-7d0c-40f1-d969-2cf88d1cd64f
 colab:
   base_uri: https://localhost:8080/
+id: 2y6wYhFQV1i_
+outputId: 9c9a0e06-7d0c-40f1-d969-2cf88d1cd64f
 ---
 theil_W_INDICATOR3/theil_INDICATOR3
 ```
@@ -1228,20 +1218,20 @@ theil_W_INDICATOR3/theil_INDICATOR3
 ```{code-cell}
 ---
 cell_id: f6775501998441f98967afd069b6963a
-source_hash: 7c1e9574
-execution_start: 1667529261520
-execution_millis: 711
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 711
+execution_start: 1667529261520
 id: sjQ9a_qtIv4A
 outputId: 66e5a5ae-91ad-4c77-b355-2c01c5dc0f3d
-colab:
-  base_uri: https://localhost:8080/
+source_hash: 7c1e9574
 ---
 inequality.gini.Gini(gdf[INDICATOR1].values).g
 ```
@@ -1249,20 +1239,20 @@ inequality.gini.Gini(gdf[INDICATOR1].values).g
 ```{code-cell}
 ---
 cell_id: 8b06891b47c04766b3c7d5123906794d
-source_hash: c96a6679
-execution_start: 1667529261521
-execution_millis: 711
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 711
+execution_start: 1667529261521
 id: 3wLgkJ1tIv4A
 outputId: 12d2f347-1132-4617-b1fe-a81404c36c89
-colab:
-  base_uri: https://localhost:8080/
+source_hash: c96a6679
 ---
 inequality.gini.Gini(gdf[INDICATOR3].values).g
 ```
@@ -1274,20 +1264,20 @@ Let's compute the spatial gini index
 ```{code-cell}
 ---
 cell_id: 2e6bc07e513748f79534bd7e328e7099
-source_hash: 1d9a5f5a
-execution_start: 1667529261522
-execution_millis: 710
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 710
+execution_start: 1667529261522
 id: BWAp9HQ1Iv4B
 outputId: 4979a6fe-826d-4c43-a7bd-0dc3fb4187c3
-colab:
-  base_uri: https://localhost:8080/
+source_hash: 1d9a5f5a
 ---
 Gini_Spatial(gdf[INDICATOR1], W).wcg_share
 ```
@@ -1295,20 +1285,20 @@ Gini_Spatial(gdf[INDICATOR1], W).wcg_share
 ```{code-cell}
 ---
 cell_id: 92f3601b982646c2b86c8fc39cab5b00
-source_hash: f1d31cc7
-execution_start: 1667529261679
-execution_millis: 136
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 136
+execution_start: 1667529261679
 id: RHrfIvMVIv4B
 outputId: b285e5eb-2e8e-4e87-ec4e-a3a915a8acae
-colab:
-  base_uri: https://localhost:8080/
+source_hash: f1d31cc7
 ---
 Gini_Spatial(gdf[INDICATOR1], W).p_sim
 ```
@@ -1316,20 +1306,20 @@ Gini_Spatial(gdf[INDICATOR1], W).p_sim
 ```{code-cell}
 ---
 cell_id: 0a9132de7e914c15924042fc568a73ac
-source_hash: 96941f72
-execution_start: 1667529261816
-execution_millis: 418
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 418
+execution_start: 1667529261816
 id: hoZe9bO_Iv4B
 outputId: 214904ea-405b-4c84-f8e1-cbbf91df2afc
-colab:
-  base_uri: https://localhost:8080/
+source_hash: 96941f72
 ---
 Gini_Spatial(gdf[INDICATOR3], W).wcg_share
 ```
@@ -1337,45 +1327,45 @@ Gini_Spatial(gdf[INDICATOR3], W).wcg_share
 ```{code-cell}
 ---
 cell_id: a3799e521dc3411a80fe7cedf15072ce
-source_hash: e805a86e
-execution_start: 1667529261962
-execution_millis: 318
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 318
+execution_start: 1667529261962
 id: 1scGEBiNIv4B
 outputId: 9f77d3f8-5c0e-4e29-e5fc-e106cf38add5
-colab:
-  base_uri: https://localhost:8080/
+source_hash: e805a86e
 ---
 Gini_Spatial(gdf[INDICATOR3], W).p_sim
 ```
 
-+++ {"cell_id": "47746d95724a4663960ef2bb2437054c", "is_collapsed": false, "formattedRanges": [], "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "id": "oOCDUdF2Iv4B"}
++++ {"cell_id": "47746d95724a4663960ef2bb2437054c", "deepnote_app_coordinates": {"h": 5, "w": 12, "x": 0, "y": 0}, "deepnote_cell_type": "text-cell-h2", "formattedRanges": [], "id": "oOCDUdF2Iv4B", "is_collapsed": false}
 
 ### 5.4) Spatial heterogeneity
 
 ```{code-cell}
 ---
 cell_id: 09e0bd034d274fc09d1507e7be435e04
-source_hash: a7ec47df
-execution_start: 1667529262097
-execution_millis: 1
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1
+execution_start: 1667529262097
 id: SAHicvQ4Iv4B
 outputId: f01ae975-2e2b-492f-ba6e-368e90209252
-colab:
-  base_uri: https://localhost:8080/
+source_hash: a7ec47df
 ---
 # Reshape the data for GWR regression
 y = gdf[INDICATOR1].values.reshape((-1,1))
@@ -1384,10 +1374,10 @@ y.shape
 
 ```{code-cell}
 ---
-id: CqjFNTaj-NwM
-outputId: 7746c912-3804-41bc-c986-278687717fb5
 colab:
   base_uri: https://localhost:8080/
+id: CqjFNTaj-NwM
+outputId: 7746c912-3804-41bc-c986-278687717fb5
 ---
 # Reshape the data for GWR regression
 X = gdf[INDICATOR3].values.reshape((-1,1))
@@ -1397,17 +1387,17 @@ X.shape
 ```{code-cell}
 ---
 cell_id: 17a6b9dc932947028d56fc8790a1b918
-source_hash: 3f725c09
-execution_start: 1667529262098
-execution_millis: 1
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1
+execution_start: 1667529262098
 id: Fv97y1C4Iv4C
+source_hash: 3f725c09
 ---
 # Create coordinate pairs
 u = gdf['COORD_X']
@@ -1422,17 +1412,17 @@ coords = list(zip(u,v))
 ```{code-cell}
 ---
 cell_id: 8647143988ef42f392b75859bb551ef4
-source_hash: b56eb5ba
-execution_start: 1667529262099
-execution_millis: 9227
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 9227
+execution_start: 1667529262099
 id: 2d6DujsMIv4C
+source_hash: b56eb5ba
 ---
 # Perform bandwidth selection for Geographically Weighted Regression (GWR)
 gwr_selector = Sel_BW(coords, y, X, spherical = True)
@@ -1442,20 +1432,20 @@ gwr_bw = gwr_selector.search(criterion='AICc')
 ```{code-cell}
 ---
 cell_id: d97c6428871d4fb685f09111490d2a92
-source_hash: 621037c3
-execution_start: 1667529271420
-execution_millis: 150
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 150
+execution_start: 1667529271420
 id: UyzEZFeaIv4C
 outputId: 9fee98fe-0fdf-44e0-d4c9-2996873a6627
-colab:
-  base_uri: https://localhost:8080/
+source_hash: 621037c3
 ---
 # Print bandwidth interval
 print('GWR bandwidth =', gwr_bw)
@@ -1464,20 +1454,20 @@ print('GWR bandwidth =', gwr_bw)
 ```{code-cell}
 ---
 cell_id: 95fc86b4fa82405eaff241e32f388a1e
-source_hash: c37c31a3
-execution_start: 1667529271423
-execution_millis: 602
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 602
+execution_start: 1667529271423
 id: wjfmukamIv4C
 outputId: a08a1ec2-13c8-4801-f331-1519a4effe3c
-colab:
-  base_uri: https://localhost:8080/
+source_hash: c37c31a3
 ---
 # Perform Geographically Weighted Regression (GWR) and get results
 gwr_results = GWR(coords, y, X, gwr_bw).fit()
@@ -1488,10 +1478,10 @@ gwr_results.summary()
 
 ```{code-cell}
 ---
-id: oMQ2wlQ6_Wkb
-outputId: 6c459882-618f-4795-d49d-0117de4b4427
 colab:
   base_uri: https://localhost:8080/
+id: oMQ2wlQ6_Wkb
+outputId: 6c459882-618f-4795-d49d-0117de4b4427
 ---
 # Print bandwidth interval
 gwr_bw_ci = gwr_results.get_bws_intervals(gwr_selector)
@@ -1501,20 +1491,20 @@ print(gwr_bw_ci)
 ```{code-cell}
 ---
 cell_id: ffb9a0d3532a4b249a86d976fe14c3d5
-source_hash: 797207d5
-execution_start: 1667529272027
-execution_millis: 5
+colab:
+  base_uri: https://localhost:8080/
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 5
+execution_start: 1667529272027
 id: 7o9sThoAIv4C
 outputId: 71c6146b-7040-4134-938e-16167953aa5d
-colab:
-  base_uri: https://localhost:8080/
+source_hash: 797207d5
 ---
 # As reference, here is the (mean) R2, AIC, and AICc
 print('Mean R2 =', gwr_results.R2)
@@ -1525,17 +1515,17 @@ print('AICc =',    gwr_results.aicc)
 ```{code-cell}
 ---
 cell_id: 4a544771f59c4658b7598f54f8b7fdd9
-source_hash: e55f639c
-execution_start: 1667529272033
-execution_millis: 35
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 35
+execution_start: 1667529272033
 id: u3jDIyvzIv4C
+source_hash: e55f639c
 ---
 # Add R2 to GeoDataframe
 gdf['gwr_R2'] = gwr_results.localR2
@@ -1544,21 +1534,21 @@ gdf['gwr_R2'] = gwr_results.localR2
 ```{code-cell}
 ---
 cell_id: ad0d7fbdf6df447492715848d03b79c7
-source_hash: e7d3c632
-execution_start: 1667529272071
-execution_millis: 802
+colab:
+  base_uri: https://localhost:8080/
+  height: 1000
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 802
+execution_start: 1667529272071
 id: qrKs4h-zIv4C
 outputId: a8ccfdcb-15a6-4785-fd73-16957312c718
-colab:
-  base_uri: https://localhost:8080/
-  height: 1000
+source_hash: e7d3c632
 ---
 # Visualizing local R-squared using the explore() function
 gdf.explore(
@@ -1578,17 +1568,17 @@ gdf.explore(
 ```{code-cell}
 ---
 cell_id: e4db1a1b9a364ac7b0cfa82244b1eba2
-source_hash: 501b46d0
-execution_start: 1667529272495
-execution_millis: 43898147
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 43898147
+execution_start: 1667529272495
 id: 4DheZFweIv4C
+source_hash: 501b46d0
 ---
 # Add coefficients to data frame
 gdf['gwr_intercept'] = gwr_results.params[:,0]
@@ -1598,17 +1588,17 @@ gdf['gwr_slope1']     = gwr_results.params[:,1]
 ```{code-cell}
 ---
 cell_id: 1e056e41a7314906b5ebc748fa5979bd
-source_hash: 8110c2bb
-execution_start: 1667529272496
-execution_millis: 43898147
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 43898147
+execution_start: 1667529272496
 id: LIQl9-X0Iv4D
+source_hash: 8110c2bb
 ---
 # Filter t-values: standard alpha = 0.05
 gwr_filtered_t1 = gwr_results.filter_tvals(alpha = 0.05)
@@ -1617,17 +1607,17 @@ gwr_filtered_t1 = gwr_results.filter_tvals(alpha = 0.05)
 ```{code-cell}
 ---
 cell_id: 34a772f12a6044b2be47312a48743c8b
-source_hash: 4aabff8a
-execution_start: 1667529272500
-execution_millis: 43898144
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 43898144
+execution_start: 1667529272500
 id: 6WRjI0X7Iv4D
+source_hash: 4aabff8a
 ---
 # Filter t-values: corrected alpha due to multiple testing
 gwr_filtered_tc1 = gwr_results.filter_tvals()
@@ -1636,21 +1626,21 @@ gwr_filtered_tc1 = gwr_results.filter_tvals()
 ```{code-cell}
 ---
 cell_id: dcfe7d4668334cb5a435a856ccf2fe0f
-source_hash: e500566d
-execution_start: 1667529272501
-execution_millis: 1079
+colab:
+  base_uri: https://localhost:8080/
+  height: 1000
 deepnote_app_coordinates:
   h: 5
   w: 12
   x: 0
   y: 0
-deepnote_to_be_reexecuted: false
 deepnote_cell_type: code
+deepnote_to_be_reexecuted: false
+execution_millis: 1079
+execution_start: 1667529272501
 id: 2Sa4GgzzIv4D
 outputId: 42fdd0f7-1bca-44d2-d290-fc2951220502
-colab:
-  base_uri: https://localhost:8080/
-  height: 1000
+source_hash: e500566d
 ---
 # Slope heterogeneity exploration using geopandas' explore() function
 gdf.explore(
@@ -1669,11 +1659,11 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: upPbkNweXw69
-outputId: 525b0a1a-b226-458d-99dc-61737c462243
 colab:
   base_uri: https://localhost:8080/
   height: 607
+id: upPbkNweXw69
+outputId: 525b0a1a-b226-458d-99dc-61737c462243
 ---
 # Create subplots for visualizations
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(18, 6))
@@ -1717,8 +1707,6 @@ ZX = (X - X.mean(axis=0)) / X.std(axis=0)
 
 ```{code-cell}
 ---
-id: 7oZMKqd49pyq
-outputId: 4b13ea6c-a052-4170-cb29-42a7ed678f9a
 colab:
   base_uri: https://localhost:8080/
   height: 66
@@ -1726,6 +1714,8 @@ colab:
     27b7a4b6d7db42d598905ed936fffe80, 0f27ca18075648618296ac7da0ac5d0f, b68183337a7646419547cf7c60fa1337,
     3c28a63d13cc4d5aa5a556f81c3a93f1, f6bc23c05a494a6d86ce065c618d90c0, 66d2185709bd48d0a162921dda1e6864,
     bbdfa3a9e41b4b5cbc45390cd78343c8, 349f4a35bc664181a6011a6f7a9f3c5e, 2d0ca32dbcae48d7bcb076b61b6b3dc2]
+id: 7oZMKqd49pyq
+outputId: 4b13ea6c-a052-4170-cb29-42a7ed678f9a
 ---
 # Perform bandwidth selection for Multiscale Geographically Weighted Regression (MGWR)
 mgwr_selector = Sel_BW(coords, Zy, ZX, multi=True, spherical = True)
@@ -1735,8 +1725,6 @@ mgwr_bw
 
 ```{code-cell}
 ---
-id: 5S1yzK5p-72k
-outputId: 35bf3921-60ce-4bfb-d06f-b253756f4477
 colab:
   base_uri: https://localhost:8080/
   height: 987
@@ -1744,6 +1732,8 @@ colab:
     6434615764dc49829d942e3cfa94a56e, caab9c0aced74f53b122418ff8dd6550, 5774bf6b4b064d288ef22488957a23ca,
     98c82a642a7142ba9273d15534331169, fb5c8e2f19f14fc0ad408b4d99a7e740, 8f398a8598ad4ab1b223da203657fae1,
     b9458796798b403f86e6df2eb636190a, 35c160c276a0491a83569c44f8dd2478, 1b0b4da0ad19473c80f5e8cdc62b468a]
+id: 5S1yzK5p-72k
+outputId: 35bf3921-60ce-4bfb-d06f-b253756f4477
 ---
 # Fit MGWR model
 mgwr_results = MGWR(coords, Zy, ZX, mgwr_selector).fit()
@@ -1752,10 +1742,10 @@ mgwr_results.summary()
 
 ```{code-cell}
 ---
-id: 9rHFwtwc_KmW
-outputId: c10371bc-fe36-4c46-f95e-da3c2bdf68d3
 colab:
   base_uri: https://localhost:8080/
+id: 9rHFwtwc_KmW
+outputId: c10371bc-fe36-4c46-f95e-da3c2bdf68d3
 ---
 #Show bandwidth intervals
 mgwr_bw_ci = mgwr_results.get_bws_intervals(mgwr_selector)
@@ -1764,10 +1754,10 @@ print(mgwr_bw_ci)
 
 ```{code-cell}
 ---
-id: vE12DFTc_QOT
-outputId: d4a28da9-9469-41bd-9028-d28ce43a177a
 colab:
   base_uri: https://localhost:8080/
+id: vE12DFTc_QOT
+outputId: d4a28da9-9469-41bd-9028-d28ce43a177a
 ---
 # As reference, here is the (mean) R2, AIC, and AICc
 print('Mean R2 =', mgwr_results.R2)
@@ -1799,11 +1789,11 @@ mgwr_filtered_tc1 = mgwr_results.filter_tvals()
 
 ```{code-cell}
 ---
-id: n_gkVbFYAZcK
-outputId: 5b308cdf-fe08-468e-c181-badc8aa37d8c
 colab:
   base_uri: https://localhost:8080/
   height: 1000
+id: n_gkVbFYAZcK
+outputId: 5b308cdf-fe08-468e-c181-badc8aa37d8c
 ---
 # Slope heterogeneity exploration using geopandas' explore() function
 gdf.explore(
@@ -1822,11 +1812,11 @@ gdf.explore(
 
 ```{code-cell}
 ---
-id: 0FAP88lDAkuo
-outputId: 2cd119f2-52e6-4c83-a4dd-5b62365511e8
 colab:
   base_uri: https://localhost:8080/
   height: 607
+id: 0FAP88lDAkuo
+outputId: 2cd119f2-52e6-4c83-a4dd-5b62365511e8
 ---
 # Create subplots for visualizations
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(18, 6))

@@ -28,11 +28,27 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
 
 ### Spatial Analysis Notebooks
 
+* **[Exploratory Data Analysis (EDA)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb)**
+  * *Focus:* Descriptive statistics, regional comparisons, population treemaps, and nighttime lights vs development.
+  * *Key Concepts:* Data exploration, interactive visualizations, Plotly.
+
 * **[Introduction to Exploratory Spatial Data Analysis (ESDA)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb)**
   * *Focus:* Learn how to detect spatial clusters and outliers using Global and Local Moran's I.
   * *Key Concepts:* Spatial Autocorrelation, LISA Statistics, Choropleth Mapping.
 
-* **[Extended Exploratory Data Analysis and Spatial Analysis](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb)**
+* **[Spatial Distribution & Dependence](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb)**
+  * *Focus:* Map classification schemes, spatial weights, and measures of spatial autocorrelation.
+  * *Key Concepts:* BoxPlot/Fisher-Jenks breaks, KNN weights, Global Moran's I, LISA clusters.
+
+* **[Spatial Inequality](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb)**
+  * *Focus:* Measuring regional inequality with decomposition by department.
+  * *Key Concepts:* Theil index (between/within), Gini coefficient, Spatial Gini.
+
+* **[Spatial Heterogeneity (GWR & MGWR)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb)**
+  * *Focus:* Spatially varying relationships between nighttime lights and development.
+  * *Key Concepts:* Geographically Weighted Regression, Multiscale GWR.
+
+* **[Extended EDA + Spatial Analysis](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb)**
   * *Focus:* Comprehensive analysis combining traditional EDA with advanced spatial methods.
   * *Key Concepts:* Statistical summaries, visualizations, spatial clustering, bivariate analysis.
 
