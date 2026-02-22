@@ -36,39 +36,6 @@ Step-by-step tutorials to help you reproduce our analysis. These notebooks utili
   * *Focus:* Comprehensive analysis combining traditional EDA with advanced spatial methods.
   * *Key Concepts:* Statistical summaries, visualizations, spatial clustering, bivariate analysis.
 
-### Machine Learning & Poverty Prediction Notebooks
-
-* **[Predicting General Poverty (SDG 1)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_poverty_rf.ipynb)**
-  * *Focus:* Random Forest model predicting poverty index using satellite embeddings.
-  * *Key Features:* Feature importance analysis, spatial visualization, model evaluation.
-
-* **[Predicting Energy Poverty (SDG 7)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_energy_rf.ipynb)**
-  * *Focus:* Predict energy access using satellite imagery features.
-  * *Key Features:* Comparison with general poverty, urban vs rural analysis.
-
-* **[Predicting Extreme Energy Poverty Rate](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_extreme_energy_poverty_rf.ipynb)** ⭐ *Recommended*
-  * *Focus:* Direct measurement of energy poverty (% of houses in extreme energy poverty).
-  * *Key Features:* Best cross-validation performance, policy-relevant indicators.
-
-* **[Predicting Municipal Sustainable Development Index (IMDS)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb)**
-  * *Focus:* Composite index aggregating all SDG indicators into a single development score.
-  * *Key Features:* Urban-rural prediction patterns, distributed feature importance, student exercises.
-
-### Advanced ML & Comparative Analysis Notebooks
-
-* **[IMDS with Optuna Hyperparameter Tuning](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb)**
-  * *Focus:* Bayesian hyperparameter optimization using Optuna.
-  * *Key Features:* TPE sampler, 100 trials, optimization visualization, comparison with baseline.
-
-* **[IMDS with Nested Cross-Validation](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb)**
-  * *Focus:* Rigorous evaluation using nested CV (double cross-validation).
-  * *Key Features:* 5-fold outer × 5-fold inner CV, confidence intervals, hyperparameter stability analysis.
-
-* **[Comparative SDG Prediction with XGBoost (GPU)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_all_sdgs_xgb_optuna_cv.ipynb)** ⭐ *Advanced*
-  * *Focus:* Predict ALL 16 SDG indicators to compare predictability from satellite imagery.
-  * *Key Features:* XGBoost with GPU acceleration (A100/T4), Optuna tuning, nested CV, feature importance heatmaps, publication-ready results.
-  * *Research Question:* Which SDGs are most predictable from satellite data?
-
 See [notebooks/README.md](notebooks/README.md) for complete documentation and learning paths.
 
 ---
@@ -141,6 +108,40 @@ Each dataset has comprehensive documentation with variable dictionaries, usage e
 * **[ntl/README.md](ntl/README.md)** - Night-time lights data with HP-filter trend components
 * **[satelliteEmbeddings/README.md](satelliteEmbeddings/README.md)** - Deep learning features from satellite imagery
 * **[datasets/README.md](datasets/README.md)** - Pre-merged SDG + satellite data ready for ML
+
+### Local Development Setup
+
+To run the notebooks and scripts locally, this project uses [UV](https://docs.astral.sh/uv/) for Python package management.
+
+**1. Install UV** (skip if already installed):
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+**2. Clone and set up the environment:**
+
+```bash
+git clone https://github.com/quarcs-lab/ds4bolivia.git
+cd ds4bolivia
+uv sync
+```
+
+This creates a `.venv/` directory and installs all dependencies from the lock file.
+
+**3. Run notebooks:**
+
+```bash
+uv run jupyter notebook
+```
+
+**4. Run Python scripts:**
+
+```bash
+uv run python code/run_poverty_prediction.py
+```
+
+> **Note:** The Jupyter notebooks are also designed to run in [Google Colab](https://colab.research.google.com/) without any local setup. Click the "Open in Colab" badges throughout this README.
 
 ### Construct Your Own Dataset
 

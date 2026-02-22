@@ -1,0 +1,2 @@
+[formats]
+"notebooks/" = "notebooks///ipynb,notebooks///md:myst"

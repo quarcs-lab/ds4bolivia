@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DS4Bolivia - Spatial Data Science Repository</title>
-    
+
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
+
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
     <!-- Custom Tailwind Config for Animations -->
     <script>
         tailwind.config = {
@@ -37,6 +40,13 @@
     <style>
         html { scroll-behavior: smooth; }
         body { -webkit-font-smoothing: antialiased; }
+        .contributor-avatar {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contributor-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -47,16 +57,16 @@
 
         // --- Icon Components (Replacing Lucide-React imports for standalone usage) ---
         const IconWrapper = ({ size = 24, className = "", children }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className={className}
             >
                 {children}
@@ -169,6 +179,213 @@
             </IconWrapper>
         );
 
+        // --- Content Registry ---
+        const CONTENT_REGISTRY = [
+          // Notebooks
+          {
+            id: "esda",
+            type: "notebook",
+            title: "Exploratory Spatial Data Analysis (ESDA)",
+            description: "Interactive tutorial: Global Moran's I, LISA statistics, spatial clustering, choropleth mapping, and spatial weights matrices.",
+            tags: ["spatial-analysis", "pysal", "geopandas"],
+            color: "blue",
+            icon: "BookOpen",
+            links: [
+              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "colab" },
+              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "github" },
+            ],
+          },
+          {
+            id: "eda-esda",
+            type: "notebook",
+            title: "Extended EDA + Spatial Analysis",
+            description: "Comprehensive notebook combining traditional exploratory data analysis with advanced spatial methods, visualizations, and statistical summaries.",
+            tags: ["spatial-analysis", "eda", "pysal", "geopandas"],
+            color: "blue",
+            icon: "BookOpen",
+            links: [
+              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "colab" },
+              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "github" },
+            ],
+          },
+          // Apps
+          {
+            id: "geoexplorer-v1",
+            type: "app",
+            title: "GeoExplorer v1.0 — Bolivia",
+            description: "Interactive dashboard: population density, night-time lights, land cover, and GDP estimates across 339 municipalities (2013-2019). No coding required.",
+            tags: ["earth-engine", "dashboard", "ntl", "population"],
+            color: "purple",
+            icon: "Globe",
+            links: [
+              { label: "Launch Dashboard", url: "https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia", type: "external" },
+              { label: "Source Code", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/apps/geoexplorer1v100bolivia.js", type: "github" },
+            ],
+          },
+          // Datasets
+          {
+            id: "sdgs-satellite-embeddings-2017",
+            type: "dataset",
+            title: "SDGs + Satellite Embeddings (2017)",
+            description: "Pre-merged dataset: 15 SDG indices + 64-dimensional satellite embedding feature vectors for 339 municipalities. Ready for ML.",
+            tags: ["sdg", "satellite-embeddings", "machine-learning", "merged"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 80,
+          },
+          {
+            id: "region-names",
+            type: "dataset",
+            title: "Region Names & Administrative Metadata",
+            description: "Municipality names, department names, official IDs, and spatial identifiers for all 339 municipalities.",
+            tags: ["administrative", "metadata"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 8,
+          },
+          {
+            id: "sdg-indices",
+            type: "dataset",
+            title: "SDG Composite Indices",
+            description: "15 composite SDG indices (0-100 scale) plus the Municipal Sustainable Development Index (IMDS) for 339 municipalities.",
+            tags: ["sdg", "socio-economic"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 17,
+          },
+          {
+            id: "sdg-variables",
+            type: "dataset",
+            title: "SDG Detailed Variables (64 indicators)",
+            description: "Granular SDG indicators across poverty, hunger, health, education, gender, water, energy, and more.",
+            tags: ["sdg", "socio-economic", "granular"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 66,
+          },
+          {
+            id: "satellite-embeddings",
+            type: "dataset",
+            title: "Satellite Embeddings (2017)",
+            description: "64-dimensional feature vectors from Google Earth Engine deep learning model, aggregated to municipal boundaries at 10m resolution.",
+            tags: ["satellite-embeddings", "earth-engine", "remote-sensing"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 65,
+          },
+          {
+            id: "ntl",
+            type: "dataset",
+            title: "Night-Time Lights (2012-2020)",
+            description: "Log-transformed NTL per capita and HP-filtered trend components from VIIRS satellite imagery. Economic activity proxy.",
+            tags: ["ntl", "remote-sensing", "time-series"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 19,
+          },
+          {
+            id: "population",
+            type: "dataset",
+            title: "Population Estimates (2001-2020)",
+            description: "Annual municipal population estimates across 20 years from census projections and satellite-based models.",
+            tags: ["population", "demographics", "time-series"],
+            color: "emerald",
+            icon: "Database",
+            links: [
+              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv", type: "github" },
+            ],
+            rows: 339,
+            columns: 21,
+          },
+          {
+            id: "geojson-boundaries",
+            type: "dataset",
+            title: "Municipal Boundaries (GeoJSON)",
+            description: "Optimized GeoJSON polygons for 339 municipalities. Use for choropleth maps and spatial joins.",
+            tags: ["spatial", "geojson", "boundaries"],
+            color: "emerald",
+            icon: "MapIcon",
+            links: [
+              { label: "View GeoJSON", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson", type: "github" },
+            ],
+            rows: 339,
+          },
+        ];
+
+        const COLOR_CONFIG = {
+          blue:    { bg: "bg-blue-100",    text: "text-blue-600",    tagBg: "bg-blue-50",    tagText: "text-blue-700" },
+          emerald: { bg: "bg-emerald-100", text: "text-emerald-600", tagBg: "bg-emerald-50", tagText: "text-emerald-700" },
+          purple:  { bg: "bg-purple-100",  text: "text-purple-600",  tagBg: "bg-purple-50",  tagText: "text-purple-700" },
+        };
+
+        const ICON_MAP = { BookOpen, Database, Globe, MapIcon };
+
+        const PEOPLE = {
+          editors: [
+            {
+              name: "Carlos Mendez",
+              title: "Associate Professor",
+              affiliation: "Nagoya University, Japan",
+              avatar: "https://carlos-mendez.org/authors/admin/avatar_hu789af5602b0564dea21bcf1e67237882_114840_270x270_fill_q75_lanczos_center.jpg",
+              website: "https://carlos-mendez.org",
+            },
+          ],
+          contributors: [
+            {
+              name: "Erick Gonzales",
+              title: "Researcher",
+              affiliation: "United Nations Office for Disaster Risk Reduction",
+              avatar: null,
+              website: null,
+            },
+            {
+              name: "Pedro Leoni",
+              title: "Researcher",
+              affiliation: "",
+              avatar: null,
+              website: null,
+            },
+            {
+              name: "Lykke Andersen",
+              title: "Researcher",
+              affiliation: "",
+              avatar: null,
+              website: null,
+            },
+            {
+              name: "Hendrix Peralta",
+              title: "Researcher",
+              affiliation: "",
+              avatar: null,
+              website: null,
+            },
+          ],
+        };
+
         // --- Navigation Component ---
         const Navigation = () => {
           const [isOpen, setIsOpen] = useState(false);
@@ -184,9 +401,11 @@
 
           const navLinks = [
             { name: 'Dashboards', href: '#dashboards' },
-            { name: 'Notebooks', href: '#notebooks' },
-            { name: 'Datasets', href: '#datasets' },
+            { name: 'Resources', href: '#resources' },
             { name: 'Examples', href: '#examples' },
+            { name: 'People', href: '#people' },
+            { name: 'Community', href: '#community' },
+            { name: 'Events', href: '#events' },
             { name: 'Citation', href: '#citation' },
           ];
 
@@ -199,7 +418,7 @@
                       DS4<span className="text-emerald-500">Bolivia</span>
                     </span>
                   </div>
-                  
+
                   {/* Desktop Menu */}
                   <div className="hidden md:flex space-x-8">
                     {navLinks.map((link) => (
@@ -213,13 +432,13 @@
                         {link.name}
                       </a>
                     ))}
-                    <a 
-                      href="https://github.com/quarcs-lab/ds4bolivia" 
-                      target="_blank" 
+                    <a
+                      href="https://github.com/quarcs-lab/ds4bolivia"
+                      target="_blank"
                       rel="noreferrer"
                       className={`flex items-center space-x-1 px-4 py-2 rounded-full text-sm font-bold transition-all ${
-                        scrolled 
-                          ? 'bg-slate-900 text-white hover:bg-slate-700' 
+                        scrolled
+                          ? 'bg-slate-900 text-white hover:bg-slate-700'
                           : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30'
                       }`}
                     >
@@ -254,8 +473,8 @@
                         {link.name}
                       </a>
                     ))}
-                     <a 
-                      href="https://github.com/quarcs-lab/ds4bolivia" 
+                     <a
+                      href="https://github.com/quarcs-lab/ds4bolivia"
                       className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-emerald-600 hover:bg-slate-50"
                     >
                       View on GitHub
@@ -273,9 +492,9 @@
             <div className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
               {/* Background Image with Overlay */}
               <div className="absolute inset-0 z-0">
-                <img 
-                  src="https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover.jpg?raw=true" 
-                  alt="Bolivia Landscape" 
+                <img
+                  src="https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover.jpg?raw=true"
+                  alt="Bolivia Landscape"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-slate-900/70 mix-blend-multiply"></div>
@@ -291,15 +510,15 @@
                     A Data Science Repository to Study GeoSpatial Development across <span className="font-semibold text-white">339 Municipalities</span>.
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <a 
-                      href="#dashboards" 
+                    <a
+                      href="#dashboards"
                       className="px-8 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2"
                     >
                       <Globe size={20} />
                       Explore Dashboards
                     </a>
-                    <a 
-                      href="#examples" 
+                    <a
+                      href="#examples"
                       className="px-8 py-3 rounded-lg bg-white text-slate-900 hover:bg-slate-100 font-bold text-lg transition-transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2"
                     >
                       <Terminal size={20} />
@@ -342,7 +561,7 @@
                    </div>
                    <span className="ml-3 text-xs text-slate-400 font-mono">{title}</span>
                 </div>
-                <button 
+                <button
                   onClick={handleCopy}
                   className="text-slate-400 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase font-bold tracking-wider"
                 >
@@ -358,6 +577,395 @@
             </div>
           );
         };
+
+        // --- Filterable Content Components ---
+
+        const FilterBar = ({ activeType, activeTags, availableTags, onTypeChange, onTagToggle }) => {
+          const types = [
+            { key: "all", label: "All" },
+            { key: "notebook", label: "Notebooks" },
+            { key: "app", label: "Apps" },
+            { key: "dataset", label: "Datasets" },
+          ];
+
+          return (
+            <div className="mb-10">
+              <div className="flex flex-wrap gap-2 mb-4">
+                {types.map((t) => (
+                  <button
+                    key={t.key}
+                    onClick={() => onTypeChange(t.key)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                      activeType === t.key
+                        ? "bg-emerald-600 text-white shadow-sm"
+                        : "bg-white text-slate-600 border border-slate-200 hover:border-emerald-300 hover:text-emerald-600"
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
+              {availableTags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {availableTags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => onTagToggle(tag)}
+                      className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                        activeTags.has(tag)
+                          ? "bg-slate-800 text-white"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                  {activeTags.size > 0 && (
+                    <button
+                      onClick={() => onTagToggle(null)}
+                      className="px-3 py-1 rounded-full text-xs font-medium text-red-500 hover:bg-red-50 transition-all"
+                    >
+                      Clear tags
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        };
+
+        const ContentCard = ({ item }) => {
+          const colors = COLOR_CONFIG[item.color] || COLOR_CONFIG.emerald;
+          const IconComponent = ICON_MAP[item.icon] || Database;
+
+          return (
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow flex flex-col">
+              <div className="flex items-start gap-3 mb-3">
+                <div className={`p-2 rounded-lg flex-shrink-0 ${colors.bg} ${colors.text}`}>
+                  <IconComponent size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 leading-tight">{item.title}</h4>
+                  <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">{item.type}</span>
+                </div>
+              </div>
+
+              <p className="text-sm text-slate-500 mb-4 flex-grow">{item.description}</p>
+
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {item.tags.map((tag) => (
+                  <span key={tag} className={`text-xs px-2 py-0.5 rounded-full ${colors.tagBg} ${colors.tagText}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {item.rows && (
+                <p className="text-xs text-slate-400 font-mono mb-3">
+                  {item.rows} rows{item.columns ? ` · ${item.columns} cols` : ""}
+                </p>
+              )}
+
+              <div className="flex flex-wrap gap-3 mt-auto">
+                {item.links.map((link, i) => (
+                  link.type === "colab" ? (
+                    <a key={i} href={link.url} target="_blank" rel="noreferrer">
+                      <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" className="h-5" />
+                    </a>
+                  ) : (
+                    <a
+                      key={i}
+                      href={link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm font-semibold hover:underline inline-flex items-center gap-1 text-slate-600 hover:text-emerald-600"
+                    >
+                      {link.label} <ExternalLink size={12} />
+                    </a>
+                  )
+                ))}
+              </div>
+            </div>
+          );
+        };
+
+        const ContentGrid = ({ items }) => {
+          if (items.length === 0) {
+            return (
+              <div className="text-center py-16 text-slate-400">
+                <p className="text-lg mb-2">No content matches your filters.</p>
+              </div>
+            );
+          }
+          return (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {items.map((item) => (
+                <ContentCard key={item.id} item={item} />
+              ))}
+            </div>
+          );
+        };
+
+        const ResourcesSection = () => {
+          const [activeType, setActiveType] = useState("all");
+          const [activeTags, setActiveTags] = useState(new Set());
+
+          const handleTagToggle = (tag) => {
+            if (tag === null) {
+              setActiveTags(new Set());
+              return;
+            }
+            setActiveTags((prev) => {
+              const next = new Set(prev);
+              if (next.has(tag)) next.delete(tag);
+              else next.add(tag);
+              return next;
+            });
+          };
+
+          const filteredItems = CONTENT_REGISTRY.filter((item) => {
+            const typeMatch = activeType === "all" || item.type === activeType;
+            const tagMatch = activeTags.size === 0 || [...activeTags].every((tag) => item.tags.includes(tag));
+            return typeMatch && tagMatch;
+          });
+
+          const availableTags = [...new Set(
+            CONTENT_REGISTRY
+              .filter((item) => activeType === "all" || item.type === activeType)
+              .flatMap((item) => item.tags)
+          )].sort();
+
+          return (
+            <section id="resources" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <span className="text-emerald-600 font-bold tracking-wide uppercase text-sm">Resources</span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-4">
+                  Notebooks, Apps & Datasets
+                </h2>
+                <p className="max-w-3xl mx-auto text-lg text-slate-600">
+                  Explore computational notebooks, interactive dashboards, and spatially-explicit datasets.
+                </p>
+              </div>
+
+              <FilterBar
+                activeType={activeType}
+                activeTags={activeTags}
+                availableTags={availableTags}
+                onTypeChange={(t) => { setActiveType(t); setActiveTags(new Set()); }}
+                onTagToggle={handleTagToggle}
+              />
+
+              <ContentGrid items={filteredItems} />
+
+              {/* Dataset Architecture Table */}
+              <div className="mt-16 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div className="px-6 py-5 border-b border-slate-100 bg-slate-50">
+                  <h3 className="text-lg font-bold text-slate-800">Dataset Architecture & Identifiers</h3>
+                  <p className="text-sm text-slate-500 mt-1">The datasets are linked by the unique identifier <code>asdf_id</code>.</p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-slate-50 text-slate-500 font-semibold uppercase text-xs">
+                      <tr>
+                        <th className="px-6 py-4">Category</th>
+                        <th className="px-6 py-4">File Path</th>
+                        <th className="px-6 py-4">Description</th>
+                        <th className="px-6 py-4">Join Key</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      <tr className="hover:bg-slate-50">
+                        <td className="px-6 py-4 font-medium text-slate-900">Region Names</td>
+                        <td className="px-6 py-4 font-mono text-slate-600">/regionNames/regionNames.csv</td>
+                        <td className="px-6 py-4 text-slate-600">Municipality & Department metadata</td>
+                        <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-slate-50">
+                        <td className="px-6 py-4 font-medium text-slate-900">Socio-Economic</td>
+                        <td className="px-6 py-4 font-mono text-slate-600">/sdg/sdg.csv</td>
+                        <td className="px-6 py-4 text-slate-600">SDG indices and poverty metrics</td>
+                        <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-slate-50">
+                        <td className="px-6 py-4 font-medium text-slate-900">Satellite Features</td>
+                        <td className="px-6 py-4 font-mono text-slate-600">/satelliteEmbeddings/...</td>
+                        <td className="px-6 py-4 text-slate-600">Embeddings from daytime imagery</td>
+                        <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-slate-50">
+                        <td className="px-6 py-4 font-medium text-slate-900">Spatial Vector</td>
+                        <td className="px-6 py-4 font-mono text-slate-600">/maps/bolivia339geoqueryOpt.geojson</td>
+                        <td className="px-6 py-4 text-slate-600">Geometric boundaries (Polygons)</td>
+                        <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="bg-orange-50 px-6 py-4 border-t border-orange-100 flex gap-3">
+                   <div className="text-orange-600 flex-shrink-0 mt-0.5">
+                     <Layers size={20} />
+                   </div>
+                   <p className="text-sm text-orange-800">
+                     <strong>Important Note:</strong> The primary key is <code>asdf_id</code>. While <code>mun_id</code> exists, <code>asdf_id</code> ensures consistency across satellite embeddings and optimized maps. Always treat this column as an <code>int</code> or <code>string</code> consistently before merging.
+                   </p>
+                </div>
+              </div>
+            </section>
+          );
+        };
+
+        // --- People Section ---
+        const PersonCard = ({ person }) => {
+          const initials = person.name.split(" ").map((n) => n[0]).join("");
+          return (
+            <div className="flex flex-col items-center max-w-xs">
+              {person.avatar ? (
+                <img
+                  src={person.avatar}
+                  alt={person.name}
+                  className="contributor-avatar w-24 h-24 rounded-full mb-4 object-cover shadow-sm border-2 border-slate-200"
+                />
+              ) : (
+                <div className="contributor-avatar w-24 h-24 rounded-full mb-4 bg-slate-200 flex items-center justify-center text-slate-500 text-2xl font-bold border-2 border-slate-200">
+                  {initials}
+                </div>
+              )}
+              <h3 className="text-xl font-bold text-slate-900">{person.name}</h3>
+              {person.title && <p className="text-slate-500 text-sm">{person.title}</p>}
+              {person.affiliation && <p className="text-slate-400 text-sm mt-1">{person.affiliation}</p>}
+              {person.website && (
+                <a
+                  href={person.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center mt-4 px-5 py-2 border border-emerald-600 text-emerald-600 text-sm font-semibold rounded-lg hover:bg-emerald-50 transition-colors"
+                >
+                  Visit Website <ExternalLink size={12} className="ml-2" />
+                </a>
+              )}
+            </div>
+          );
+        };
+
+        const PeopleSection = () => (
+          <section id="people" className="py-20 bg-white border-t border-slate-200">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 className="text-3xl font-extrabold text-slate-900 mb-14">People</h2>
+
+              {/* Project Coordinators */}
+              <div className="mb-14">
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-px bg-slate-300 flex-1"></div>
+                  <h3 className="text-lg font-bold text-emerald-700 whitespace-nowrap">Project Coordinators</h3>
+                  <div className="h-px bg-slate-300 flex-1"></div>
+                </div>
+                <div className="flex justify-center">
+                  {PEOPLE.editors.map((p) => (
+                    <PersonCard key={p.name} person={p} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Contributors */}
+              <div>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-px bg-slate-300 flex-1"></div>
+                  <h3 className="text-lg font-bold text-emerald-700 whitespace-nowrap">Contributors</h3>
+                  <div className="h-px bg-slate-300 flex-1"></div>
+                </div>
+                <div className="flex flex-wrap justify-center gap-12">
+                  {PEOPLE.contributors.map((p) => (
+                    <PersonCard key={p.name} person={p} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+
+        // --- Community Section ---
+        const CommunitySection = () => (
+          <section id="community" className="py-20 border-t border-slate-200">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 className="text-3xl font-extrabold text-slate-900 mb-6">Community</h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                We're using GitHub Discussions as a place to connect with other members of our community. We hope that you:
+              </p>
+
+              <ul className="text-left max-w-lg mx-auto space-y-3 text-slate-600 mb-10">
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-circle-question text-emerald-500 mt-1"></i>
+                  <span>Ask questions you're wondering about.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-lightbulb text-emerald-500 mt-1"></i>
+                  <span>Share ideas.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-code text-emerald-500 mt-1"></i>
+                  <span>Share your notebooks.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-comments text-emerald-500 mt-1"></i>
+                  <span>Engage with other community members.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-hand-holding-heart text-emerald-500 mt-1"></i>
+                  <span>Welcome others and are open-minded. Remember that this is a community we build together.</span>
+                </li>
+              </ul>
+
+              <a
+                href="https://github.com/quarcs-lab/ds4bolivia/discussions"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg shadow-sm text-white bg-emerald-500 hover:bg-emerald-600 transition-all hover:shadow-lg hover:-translate-y-0.5"
+              >
+                <i className="fa-brands fa-github mr-2"></i> Join the Discussion
+              </a>
+            </div>
+          </section>
+        );
+
+        // --- Events Section ---
+        const EventsSection = () => (
+          <section id="events" className="py-20 bg-white border-t border-slate-200">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 className="text-3xl font-extrabold text-slate-900 mb-6">Events</h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                We invite community members and newcomers to participate in our public events. Join us to learn, collaborate, and build together:
+              </p>
+
+              <ul className="text-left max-w-lg mx-auto space-y-3 text-slate-600 mb-10">
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-chalkboard-user text-emerald-500 mt-1"></i>
+                  <span>Attend training sessions on data science methods and tools.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-laptop-code text-emerald-500 mt-1"></i>
+                  <span>Design and prototype computational notebooks and apps.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-users text-emerald-500 mt-1"></i>
+                  <span>Collaborate with researchers and practitioners from diverse backgrounds.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <i className="fa-solid fa-bell text-emerald-500 mt-1"></i>
+                  <span>Subscribe on Luma to get notified when new events are announced.</span>
+                </li>
+              </ul>
+
+              <a
+                href="https://luma.com/cmg"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg shadow-sm text-white bg-emerald-500 hover:bg-emerald-600 transition-all hover:shadow-lg hover:-translate-y-0.5"
+              >
+                <i className="fa-solid fa-calendar-check mr-2"></i> Subscribe on Luma
+              </a>
+            </div>
+          </section>
+        );
 
         // --- Main App Component ---
 
@@ -380,17 +988,17 @@
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <FeatureCard 
+                  <FeatureCard
                     icon={BarChart2}
                     title="Spatial Econometrics"
                     description="Understanding regional disparities, growth patterns, and clustering effects across administrative boundaries."
                   />
-                  <FeatureCard 
+                  <FeatureCard
                     icon={MapIcon}
                     title="Spatial Machine Learning"
                     description="Utilizing Earth Observation satellite imagery for predictive modeling of poverty and development indices."
                   />
-                  <FeatureCard 
+                  <FeatureCard
                     icon={Globe}
                     title="Sustainable Development"
                     description="Tracking SDG indicators at a granular local level to inform policy and monitor progress."
@@ -425,7 +1033,7 @@
                           </li>
                         ))}
                       </ul>
-                      <a 
+                      <a
                         href="https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia"
                         target="_blank"
                         rel="noreferrer"
@@ -437,7 +1045,7 @@
                     <div className="lg:w-1/2 relative group">
                       <div className="absolute inset-0 bg-emerald-500 rounded-2xl rotate-3 opacity-20 group-hover:rotate-6 transition-transform duration-500"></div>
                       <div className="relative bg-slate-100 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
-                        <img 
+                        <img
                            src="https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master/images/cover.jpg"
                            className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity"
                            alt="Dashboard Preview"
@@ -450,213 +1058,8 @@
                 </div>
               </section>
 
-              {/* Notebooks & Data Grid */}
-              <section id="notebooks" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid md:grid-cols-2 gap-12">
-                  
-                  {/* Notebooks Column */}
-                  <div>
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-3 bg-blue-100 text-blue-600 rounded-lg">
-                        <BookOpen size={24} />
-                      </div>
-                      <h2 className="text-2xl font-bold text-slate-900">Computational Notebooks</h2>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      Tutorials using <code>GeoPandas</code>, <code>PySAL</code>, and <code>scikit-learn</code>.
-                    </p>
-
-                    <div className="space-y-4">
-                      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <h4 className="font-bold text-lg mb-2">Spatial Analysis: ESDA</h4>
-                        <p className="text-sm text-slate-500 mb-4">
-                          Tutorials for exploratory spatial data analysis and advanced spatial methods.
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            Introduction <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            Extended Analysis <ExternalLink size={12} />
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <h4 className="font-bold text-lg mb-2">Machine Learning: Poverty Prediction</h4>
-                        <p className="text-sm text-slate-500 mb-4">
-                          Random Forest models predicting poverty and energy poverty using satellite embeddings.
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_poverty_rf.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            SDG 1 <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_energy_rf.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            SDG 7 <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_extreme_energy_poverty_rf.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            Energy Poverty ⭐ <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            IMDS <ExternalLink size={12} />
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <h4 className="font-bold text-lg mb-2">Advanced ML: Comparative Analysis</h4>
-                        <p className="text-sm text-slate-500 mb-4">
-                          XGBoost with GPU acceleration, Optuna tuning, and nested cross-validation.
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            Optuna Tuning <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            Nested CV <ExternalLink size={12} />
-                          </a>
-                          <span className="text-slate-300">•</span>
-                          <a
-                            href="https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_all_sdgs_xgb_optuna_cv.ipynb"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 font-semibold text-xs hover:underline inline-flex items-center gap-1"
-                          >
-                            All SDGs (XGBoost GPU) ⭐ <ExternalLink size={12} />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Datasets Column */}
-                  <div id="datasets">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-3 bg-emerald-100 text-emerald-600 rounded-lg">
-                        <Database size={24} />
-                      </div>
-                      <h2 className="text-2xl font-bold text-slate-900">Spatially-Explicit Datasets</h2>
-                    </div>
-                    <p className="text-slate-600 mb-6">
-                      Pre-processed datasets aligned with Bolivian municipal boundaries.
-                    </p>
-                    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                      <h4 className="font-bold text-lg mb-2">SDGs & Satellite Embeddings (2017)</h4>
-                      <p className="text-sm text-slate-500 mb-4">
-                        Merged dataset combining socio-economic indicators with high-dimensional feature vectors extracted from satellite imagery. Ideal for training ML models.
-                      </p>
-                      <a 
-                        href="https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-emerald-600 font-semibold text-sm hover:underline inline-flex items-center gap-1"
-                      >
-                        View CSV <ExternalLink size={14} />
-                      </a>
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Dataset Structure Table */}
-                <div className="mt-16 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                  <div className="px-6 py-5 border-b border-slate-100 bg-slate-50">
-                    <h3 className="text-lg font-bold text-slate-800">Dataset Architecture & Identifiers</h3>
-                    <p className="text-sm text-slate-500 mt-1">The datasets are linked by the unique identifier <code>asdf_id</code>.</p>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left">
-                      <thead className="bg-slate-50 text-slate-500 font-semibold uppercase text-xs">
-                        <tr>
-                          <th className="px-6 py-4">Category</th>
-                          <th className="px-6 py-4">File Path</th>
-                          <th className="px-6 py-4">Description</th>
-                          <th className="px-6 py-4">Join Key</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-100">
-                        <tr className="hover:bg-slate-50">
-                          <td className="px-6 py-4 font-medium text-slate-900">Region Names</td>
-                          <td className="px-6 py-4 font-mono text-slate-600">/regionNames/regionNames.csv</td>
-                          <td className="px-6 py-4 text-slate-600">Municipality & Department metadata</td>
-                          <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
-                        </tr>
-                        <tr className="hover:bg-slate-50">
-                          <td className="px-6 py-4 font-medium text-slate-900">Socio-Economic</td>
-                          <td className="px-6 py-4 font-mono text-slate-600">/sdg/sdg.csv</td>
-                          <td className="px-6 py-4 text-slate-600">SDG indices and poverty metrics</td>
-                          <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
-                        </tr>
-                        <tr className="hover:bg-slate-50">
-                          <td className="px-6 py-4 font-medium text-slate-900">Satellite Features</td>
-                          <td className="px-6 py-4 font-mono text-slate-600">/satelliteEmbeddings...</td>
-                          <td className="px-6 py-4 text-slate-600">Embeddings from daytime imagery</td>
-                          <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
-                        </tr>
-                        <tr className="hover:bg-slate-50">
-                          <td className="px-6 py-4 font-medium text-slate-900">Spatial Vector</td>
-                          <td className="px-6 py-4 font-mono text-slate-600">/maps/bolivia339geoqueryOpt.geojson</td>
-                          <td className="px-6 py-4 text-slate-600">Geometric boundaries (Polygons)</td>
-                          <td className="px-6 py-4 font-mono text-emerald-600 font-bold">asdf_id</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="bg-orange-50 px-6 py-4 border-t border-orange-100 flex gap-3">
-                     <div className="text-orange-600 flex-shrink-0 mt-0.5">
-                       <Layers size={20} />
-                     </div>
-                     <p className="text-sm text-orange-800">
-                       <strong>Important Note:</strong> The primary key is <code>asdf_id</code>. While <code>mun_id</code> exists, <code>asdf_id</code> ensures consistency across satellite embeddings and optimized maps. Always treat this column as an <code>int</code> or <code>string</code> consistently before merging.
-                     </p>
-                  </div>
-                </div>
-              </section>
+              {/* Resources Section (Filterable) */}
+              <ResourcesSection />
 
               {/* Code Examples Section */}
               <section id="examples" className="bg-slate-900 text-white py-20">
@@ -669,7 +1072,7 @@
                         Run these examples immediately in Google Colab. No local setup required.
                       </p>
                     </div>
-                    <a 
+                    <a
                        href="https://colab.research.google.com/notebooks/empty.ipynb"
                        target="_blank"
                        rel="noreferrer"
@@ -680,7 +1083,7 @@
                   </div>
 
                   <div className="space-y-12">
-                    
+
                     {/* Example 1 */}
                     <div>
                       <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
@@ -688,7 +1091,7 @@
                         Integrating Attribute Data
                       </h3>
                       <p className="text-slate-400 mb-4 ml-10">Merge administrative names, socio-economic indicators, and satellite features.</p>
-                      <CodeBlock 
+                      <CodeBlock
                         title="example_01_merge_attributes.py"
                         code={`import pandas as pd
 
@@ -714,7 +1117,7 @@ df_final = pd.merge(df_merged_step1, df_embeddings, on='asdf_id', how='inner')
 
 # 4. VERIFY
 print(f"Merge Complete. Final Rows: {len(df_final)}")
-display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`} 
+display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`}
                       />
                     </div>
 
@@ -725,7 +1128,7 @@ display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`}
                         Integrating Spatial and Attribute Data
                       </h3>
                       <p className="text-slate-400 mb-4 ml-10">Attach merged attributes to municipality geometries (GeoJSON) for analysis.</p>
-                      <CodeBlock 
+                      <CodeBlock
                         title="example_02_spatial_merge.py"
                         code={`import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -756,7 +1159,7 @@ gdf_bolivia.plot(
 
 ax.set_title("Bolivia: SDG 1 Index by Municipality", fontsize=15)
 ax.set_axis_off()
-plt.show()`} 
+plt.show()`}
                       />
                     </div>
 
@@ -764,9 +1167,14 @@ plt.show()`}
                 </div>
               </section>
 
+              {/* People, Community & Events */}
+              <PeopleSection />
+              <CommunitySection />
+              <EventsSection />
+
               {/* Citation & Sources */}
               <section id="citation" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                
+
                 <div className="mb-12">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                     <FileText className="text-emerald-600" /> Citation
@@ -777,7 +1185,7 @@ plt.show()`}
                       Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
                     </p>
                   </div>
-                  
+
                   <CodeBlock
                      title="BibTeX"
                      language="latex"

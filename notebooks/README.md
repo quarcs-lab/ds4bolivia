@@ -43,240 +43,6 @@ A comprehensive notebook combining traditional exploratory data analysis with sp
 
 ---
 
-### Machine Learning & Poverty Prediction Notebooks
-
-#### predict_poverty_rf.ipynb
-
-**Predicting General Poverty (SDG 1) Using Satellite Embeddings**
-
-Random Forest model to predict the SDG 1 Index (No Poverty) using 64-dimensional satellite imagery embeddings from Google Earth Engine.
-
-**Key Features:**
-- Data loading and merging from DS4Bolivia datasets
-- Random Forest regression with 5-fold cross-validation
-- Feature importance analysis (top 20 features)
-- Model performance evaluation (R², RMSE, MAE)
-- Spatial visualization of predictions and errors
-- Comparison of actual vs predicted poverty levels
-
-**Performance:**
-- Test R²: 0.40 (explains 40% of variance)
-- Test MAE: ±13.3 percentage points
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_poverty_rf.ipynb)
-
-#### predict_energy_rf.ipynb
-
-**Predicting Energy Poverty (SDG 7) Using Satellite Embeddings**
-
-Random Forest model to predict the SDG 7 Index (Affordable and Clean Energy) using satellite embeddings.
-
-**Key Features:**
-- Comparison with general poverty (SDG 1) patterns
-- Correlation analysis: SDG 1 vs SDG 7 (r = 0.92)
-- Identification of municipalities with unique energy poverty patterns
-- Analysis of urban vs rural energy access disparities
-
-**Performance:**
-- Test R²: 0.35
-- Test MAE: ±10.0 percentage points
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_energy_rf.ipynb)
-
-#### predict_extreme_energy_poverty_rf.ipynb
-
-**Predicting Extreme Energy Poverty Rate Using Satellite Embeddings** ⭐ **Recommended**
-
-Random Forest model to predict `sdg1_1_eepr` - the percentage of houses in extreme energy poverty (2016). This notebook uses a **direct measurement** rather than composite indices.
-
-**Why This Variable?**
-- Direct measurement: % of houses in extreme energy poverty
-- Policy relevant: Directly actionable for electrification programs
-- Clear interpretation: Easy to understand and communicate
-- Better performance: Cross-validation R² = 0.57
-
-**Key Features:**
-- Analysis of 315 municipalities (24 with missing data)
-- Correlation analysis with related poverty indicators
-- Identification of systematic urban/rural prediction errors
-- Top features: A43, A25, A23, A61, A62
-- Only 36/64 features (56%) needed for 80% importance
-
-**Performance:**
-- Cross-validation R²: 0.57 (±0.08)
-- Test R²: 0.22
-- Test MAE: ±15.5 percentage points
-
-**Critical Findings:**
-- Urban centers systematically overpredicted (La Paz, Cochabamba, Oruro)
-- Rural extreme poverty areas underpredicted (Cocapata, Anzaldo)
-- Strong correlation with unsatisfied basic needs (r = 0.80)
-- Negative correlation with electricity coverage (r = -0.66)
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_extreme_energy_poverty_rf.ipynb)
-
-#### predict_imds_rf.ipynb
-
-**Predicting Municipal Sustainable Development Index (IMDS) Using Satellite Embeddings**
-
-Random Forest model to predict the IMDS - a composite index aggregating all SDG indicators into a single municipal development score.
-
-**Key Features:**
-- Prediction of overall sustainable development (IMDS)
-- Analysis of all 339 municipalities
-- 5-fold cross-validation
-- Feature importance across 64 satellite embeddings
-- Urban-rural prediction pattern analysis
-- Exercises for students
-
-**Performance:**
-- Cross-validation R²: 0.23 (±0.03)
-- Test R²: 0.23
-- Test MAE: ±4.75 IMDS points
-
-**Critical Findings:**
-- Urban centers systematically underpredicted (La Paz: 29 point error)
-- Rural highlands overpredicted (development outcomes below satellite-suggested levels)
-- 44/64 features (69%) needed for 80% importance
-- Composite indices harder to predict than specific indicators
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf.ipynb)
-
-#### predict_imds_rf_optuna.ipynb
-
-**Predicting IMDS with Optuna Hyperparameter Tuning**
-
-Advanced notebook extending the baseline IMDS prediction model using Optuna for automated hyperparameter optimization.
-
-**Key Features:**
-
-- Optuna framework for Bayesian hyperparameter optimization
-- TPE (Tree-structured Parzen Estimator) sampler
-- 100 trials with 5-fold cross-validation
-- Optimization history and parameter importance visualization
-- Comparison between baseline and tuned models
-- Rich pedagogical explanations for ML education
-
-**Topics Covered:**
-
-- Hyperparameter optimization fundamentals
-- Search space design for Random Forest
-- Optuna study creation and optimization
-- Interpreting optimization results
-- Avoiding overfitting during hyperparameter search
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna.ipynb)
-
-#### predict_imds_rf_optuna_cv.ipynb
-
-**Predicting IMDS with Optuna and Nested Cross-Validation**
-
-Advanced notebook implementing **nested cross-validation** (double CV) for rigorous, unbiased model evaluation. This is the gold standard approach when dataset size is limited.
-
-**What is Nested CV?**
-
-- **Outer loop**: K-fold CV for unbiased performance estimation
-- **Inner loop**: K-fold CV within Optuna for hyperparameter tuning
-- Every data point is used for both training and testing
-- Provides a distribution of scores with confidence intervals
-
-**Key Features:**
-
-- 5-fold outer CV × 5-fold inner CV × 50 Optuna trials
-- Performance estimates with standard deviations and 95% CIs
-- Hyperparameter stability analysis across folds
-- Complete predictions for all municipalities
-- Comparison of nested CV vs simple train-test split
-
-**Topics Covered:**
-
-- Why nested CV eliminates "lucky split" bias
-- Implementing nested loops with Optuna
-- Analyzing parameter stability across folds
-- Interpreting fold-by-fold results
-- When to use nested CV vs train-test split
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_imds_rf_optuna_cv.ipynb)
-
-#### predict_all_sdgs_xgb_optuna_cv.ipynb
-
-**Comparative SDG Prediction with XGBoost (GPU-Accelerated)** ⭐ **Advanced**
-
-Comprehensive notebook that predicts **all 16 SDG indicators** using satellite embeddings with XGBoost and rigorous nested cross-validation. This notebook answers the research question: *Which SDG dimensions are most predictable from satellite imagery?*
-
-**Why This Notebook?**
-
-- **Comparative analysis**: Predict all SDGs in a single workflow
-- **GPU acceleration**: XGBoost with `gpu_hist` for 10-50x speedup
-- **Rigorous evaluation**: Nested CV with 95% confidence intervals
-- **Research-ready**: Publication-quality tables and visualizations
-
-**Key Features:**
-
-- 16 target variables (IMDS + 15 individual SDG indices)
-- XGBoost with GPU acceleration (A100/T4 compatible)
-- Optuna hyperparameter tuning (100 trials per fold)
-- 5-fold outer CV × 5-fold inner CV
-- Feature importance analysis across all SDGs
-- SDG category comparison (Economic, Social, Environmental, Governance)
-- Hyperparameter stability analysis
-- Export to CSV, JSON, and Markdown formats
-
-**Topics Covered:**
-
-- XGBoost vs Random Forest for tabular data
-- GPU-accelerated machine learning
-- Comparative model evaluation
-- Feature importance aggregation
-- Policy implications of predictability patterns
-
-**Computational Requirements:**
-
-- **Recommended**: A100 GPU (~30-60 minutes)
-- **Alternative**: T4 GPU (~2-4 hours)
-- **CPU**: Not recommended (~8-12 hours)
-
-**Run in Google Colab:**
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/predict_all_sdgs_xgb_optuna_cv.ipynb)
-
----
-
-### Supporting Documentation
-
-#### ANALYSIS_COMPARISON.md
-
-**Comparative Analysis: Poverty (SDG 1) vs Energy Poverty (SDG 7)**
-
-Comprehensive comparison document analyzing the three prediction models:
-- Model performance comparison table
-- Feature importance analysis and overlap
-- Correlation analysis between poverty dimensions
-- Systematic prediction error patterns
-- Unique energy poverty patterns identification
-- Policy implications and recommendations
-
-**Key Insights:**
-- Both models explain 35-40% of variance
-- Same municipalities appear as outliers across models
-- Strong correlation (0.92) between general and energy poverty
-- Urban/rural divide drives systematic errors
-- Night-time lights data recommended for improvement
-
----
-
 ## Prerequisites
 
 To run these notebooks, you need:
@@ -299,12 +65,41 @@ splot
 scikit-learn
 ```
 
+## Jupytext and MyST Markdown
+
+All notebooks are managed with [Jupytext](https://jupytext.readthedocs.io/) using [MyST Markdown](https://myst-parser.readthedocs.io/) as the source format. Each `.ipynb` file is paired with a `.md` file that serves as the human-readable, version-control-friendly source.
+
+**Editing workflow:**
+
+1. Edit the `.md` file (the source of truth)
+2. Sync changes to the `.ipynb` file:
+
+   ```bash
+   uv run jupytext --sync notebooks/<notebook>.md
+   ```
+
+3. Or sync all notebooks at once:
+
+   ```bash
+   uv run jupytext --sync notebooks/*.md
+   ```
+
+**Opening `.md` files as notebooks:**
+
+With Jupytext installed, Jupyter can open `.md` files directly as notebooks. You can also convert manually:
+
+```bash
+uv run jupytext --to notebook notebooks/<notebook>.md
+```
+
+**Note:** Both `.md` and `.ipynb` files are tracked in git. The `.md` files produce cleaner diffs for code review.
+
 ## Usage
 
 You can run these notebooks in three ways:
 
 1. **Google Colab** (Recommended): Click the badge above to run in the cloud without installation
-2. **Local Jupyter**: Clone the repository and run `jupyter notebook` in this directory
+2. **Local Jupyter**: Clone the repository and run `uv run jupyter notebook` in this directory
 3. **Deepnote/Other Cloud Platforms**: Import the notebook files
 
 ## Learning Path
@@ -316,20 +111,6 @@ For best results, follow this sequence:
 1. Start with [esda.ipynb](esda.ipynb) to learn basic spatial analysis
 2. Review the main [README](../README.md) for data integration examples
 3. Explore [eda_esda.ipynb](eda_esda.ipynb) for advanced techniques
-
-### For Machine Learning & Poverty Prediction
-
-1. Start with [predict_extreme_energy_poverty_rf.ipynb](predict_extreme_energy_poverty_rf.ipynb) (best performance, clearest interpretation)
-2. Compare with [predict_poverty_rf.ipynb](predict_poverty_rf.ipynb) for general poverty patterns
-3. Review [predict_energy_rf.ipynb](predict_energy_rf.ipynb) for energy-specific analysis
-
-
-### For Advanced ML & Comparative Analysis
-
-1. Start with [predict_imds_rf.ipynb](predict_imds_rf.ipynb) for baseline IMDS prediction
-2. Learn hyperparameter tuning with [predict_imds_rf_optuna.ipynb](predict_imds_rf_optuna.ipynb)
-3. Understand nested CV with [predict_imds_rf_optuna_cv.ipynb](predict_imds_rf_optuna_cv.ipynb)
-4. Run the full comparative analysis with [predict_all_sdgs_xgb_optuna_cv.ipynb](predict_all_sdgs_xgb_optuna_cv.ipynb) (requires GPU)
 
 ## Data Used
 
@@ -381,12 +162,3 @@ Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026).
 DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
 [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
 ```
-
-## Companion Scripts
-
-Python scripts for running these analyses from the command line are available in [code/](../code/):
-
-- `run_poverty_prediction.py`
-- `run_energy_prediction.py`
-- `run_extreme_energy_poverty.py`
-- `run_imds_prediction.py`

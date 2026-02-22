@@ -38,6 +38,37 @@ When working with Claude, reference these key directories:
 - **`/code/`** - Data processing scripts (Stata, Python, JavaScript/GEE)
 - **`/apps/`** - Interactive web applications
 
+## Environment Setup (UV)
+
+This project uses [UV](https://docs.astral.sh/uv/) for Python package management. All dependencies are declared in `pyproject.toml` and pinned in `uv.lock`.
+
+### Key Commands
+
+```bash
+# Install all dependencies (first time or after pulling changes)
+uv sync
+
+# Run a Python script
+uv run python code/run_poverty_prediction.py
+
+# Launch Jupyter notebooks
+uv run jupyter notebook
+
+# Add a new dependency
+uv add <package-name>
+
+# Update all dependencies
+uv lock --upgrade && uv sync
+```
+
+### Important Notes
+
+- **Always use `uv run`** to execute Python scripts and Jupyter. This ensures the correct virtual environment is used.
+- **Commit `uv.lock`** after adding or updating dependencies. This file ensures reproducible builds.
+- **Do not commit `.venv/`** — it is in `.gitignore`.
+- **Google Colab compatibility**: Notebooks include `!pip install` cells for packages not in Colab's default environment. These cells are harmless when running locally with UV since the packages are already installed.
+- When suggesting code to users, prefer `uv run python script.py` over `python script.py`.
+
 ## Key Identifiers
 
 **Always use `asdf_id` as the primary join key** when merging datasets. This ensures consistency across all files, especially satellite embeddings and optimized maps.

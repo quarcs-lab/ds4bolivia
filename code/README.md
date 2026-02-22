@@ -52,8 +52,6 @@ Predicts the SDG 1 Index (No Poverty) using 64-dimensional satellite imagery emb
 python code/run_poverty_prediction.py
 ```
 
-**Companion Notebook:** [predict_poverty_rf.ipynb](../notebooks/predict_poverty_rf.ipynb)
-
 ---
 
 #### run_energy_prediction.py
@@ -80,8 +78,6 @@ Predicts the SDG 7 Index (Affordable and Clean Energy) using satellite embedding
 ```bash
 python code/run_energy_prediction.py
 ```
-
-**Companion Notebook:** [predict_energy_rf.ipynb](../notebooks/predict_energy_rf.ipynb)
 
 ---
 
@@ -122,8 +118,6 @@ Predicts `sdg1_1_eepr` - the percentage of houses in extreme energy poverty (201
 python code/run_extreme_energy_poverty.py
 ```
 
-**Companion Notebook:** [predict_extreme_energy_poverty_rf.ipynb](../notebooks/predict_extreme_energy_poverty_rf.ipynb)
-
 ---
 
 #### run_imds_prediction.py
@@ -158,8 +152,6 @@ python code/run_imds_prediction.py
 ```
 
 **Documentation:** [run_imds_prediction.md](run_imds_prediction.md)
-
-**Companion Notebook:** [predict_imds_rf.ipynb](../notebooks/predict_imds_rf.ipynb)
 
 ---
 
@@ -298,19 +290,6 @@ do code/020_create_regional_identifiers_dataset.do
 | **Extreme Energy Poverty** ⭐ | sdg1_1_eepr | 0.22 (CV: 0.57) | ±15.5pp | Best CV performance, clearest interpretation |
 
 **Recommendation:** Use `run_extreme_energy_poverty.py` for most analyses due to direct measurement and better cross-validation performance.
-
----
-
-## Companion Resources
-
-### Interactive Notebooks
-All Python scripts have companion Jupyter notebooks in [notebooks/](../notebooks/):
-- [predict_poverty_rf.ipynb](../notebooks/predict_poverty_rf.ipynb)
-- [predict_energy_rf.ipynb](../notebooks/predict_energy_rf.ipynb)
-- [predict_extreme_energy_poverty_rf.ipynb](../notebooks/predict_extreme_energy_poverty_rf.ipynb)
-
-### Analysis Documentation
-- [ANALYSIS_COMPARISON.md](../notebooks/ANALYSIS_COMPARISON.md) - Comprehensive comparison of all three models
 
 ---
 
