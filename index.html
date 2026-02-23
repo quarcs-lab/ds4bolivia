@@ -388,13 +388,13 @@
           return (
             <div className="relative">
               {/* Images */}
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              <div className="relative w-full overflow-hidden" style={{ paddingBottom: '56.25%' }}>
                 {images.map((src, i) => (
                   <img
                     key={src}
                     src={src}
                     alt={`App preview ${i + 1}`}
-                    loading="lazy"
+                    loading={i === 0 ? "eager" : "lazy"}
                     className="absolute inset-0 w-full h-full object-cover"
                     style={{
                       opacity: i === current ? 1 : 0,
