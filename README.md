@@ -1,10 +1,10 @@
 
-![](https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover.jpg?raw=true)
+![](https://github.com/quarcs-lab/ds4bolivia/blob/master/images/cover2.jpg?raw=true)
 
-# DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia
+# DS4Bolivia: A Data Science Repository to Study Regional Development in Bolivia
 
 
-[Welcome to **DS4Bolivia**!](https://github.com/quarcs-lab/ds4bolivia) This project aggregates spatial and socio-economic datasets, interactive dashboards, and computational workflows focused on  **339 municipalities** in Bolivia. It is designed to bridge the gap between spatial analysis and sustainable development goals (SDGs).
+[Welcome to **DS4Bolivia**!](https://github.com/quarcs-lab/ds4bolivia) This project aggregates spatial and socio-economic datasets, interactive apps, and computational workflows focused on  **339 municipalities** in Bolivia. It is designed to bridge the gap between spatial analysis and sustainable development goals (SDGs).
 
 This repository is organized for researchers and data scientists interested in:
 
@@ -14,7 +14,7 @@ This repository is organized for researchers and data scientists interested in:
 
 ---
 
-## 🖥️ Interactive Geospatial Dashboards
+## 🖥️ Interactive Apps
 
 Explore the data without writing code. These applications visualize the space-time dynamics of key development indicators.
 
@@ -94,14 +94,14 @@ Curated datasets ready for analysis. These files are pre-processed to align with
 If you use this repository in your research, please cite it using the following metadata.
 
 ### APA Format
-Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study Regional Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
 
 ### BibTeX Format
 
 ```bibtex
 @misc{ds4bolivia2026,
   author = {Mendez, Carlos and Gonzales, Erick and Leoni, Pedro and Andersen, Lykke and Peralta, Hendrix},
-  title = {{DS4Bolivia}: A Data Science Repository to Study GeoSpatial Development in Bolivia},
+  title = {{DS4Bolivia}: A Data Science Repository to Study Regional Development in Bolivia},
   year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
@@ -284,16 +284,10 @@ plt.show()
 
 ---
 
-## Data sources
-
-- SDG indicators are originally contructed by [Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020) Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia](https://atlas.sdsnbolivia.org)
-
-
-
 
 ## 🤝 Contributing
 
-We welcome contributions! If you are fixing a Coordinate Reference System (CRS) issue, adding a new spatial model, or uploading fresh data, please [submit a Pull Request](https://github.com/quarcs-lab/ds4bolivia/pulls).
+Find an error? Have a suggestion? Want to contribute? Submit an [issue](https://github.com/quarcs-lab/ds4bolivia/issues) or join the [discussion](https://github.com/quarcs-lab/ds4bolivia/discussions) via GitHub.
 
 
 
