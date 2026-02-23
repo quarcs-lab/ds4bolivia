@@ -94,7 +94,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useRef, useCallback } = React;
+        const { useState, useEffect, useRef, useCallback, useMemo } = React;
 
         // --- Icon Components (Replacing Lucide-React imports for standalone usage) ---
         const IconWrapper = ({ size = 24, className = "", children }) => (
@@ -926,8 +926,8 @@
 
           const navLinks = [
             { name: t(lang, 'nav.dashboards'), href: '#apps', id: 'apps' },
-            { name: t(lang, 'nav.resources'), href: '#resources', id: 'resources' },
             { name: t(lang, 'nav.examples'), href: '#examples', id: 'examples' },
+            { name: t(lang, 'nav.resources'), href: '#resources', id: 'resources' },
             { name: t(lang, 'nav.people'), href: '#people', id: 'people' },
             { name: t(lang, 'nav.community'), href: '#community', id: 'community' },
             { name: t(lang, 'nav.events'), href: '#events', id: 'events' },
@@ -947,15 +947,16 @@
           return (
             <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl shadow-lg shadow-slate-950/50 border-b border-white/5 py-2' : 'bg-transparent py-4'}`}>
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-12">
+                <div className="flex items-center h-12 relative">
+                  {/* Left: Logo */}
                   <div className="flex-shrink-0 flex items-center">
                     <span className="font-bold text-2xl tracking-tighter">
                       <span className="gradient-text">DS4Bolivia</span>
                     </span>
                   </div>
 
-                  {/* Desktop Menu */}
-                  <div className="hidden md:flex items-center space-x-8">
+                  {/* Center: Desktop Nav Links */}
+                  <div className="hidden md:flex items-center space-x-6 absolute left-1/2 -translate-x-1/2">
                     {navLinks.map((link) => (
                       <a
                         key={link.name}
@@ -969,33 +970,24 @@
                         {link.name}
                       </a>
                     ))}
-                    <a
-                      href="https://github.com/quarcs-lab/ds4bolivia"
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`flex items-center space-x-1 px-4 py-2 rounded-full text-sm font-bold transition-all ${
-                        scrolled
-                          ? 'bg-cyan-500 text-white hover:bg-cyan-600'
-                          : 'bg-white/15 backdrop-blur-sm text-white hover:bg-white/25 border border-white/10'
-                      }`}
-                    >
-                      <Github size={16} />
-                      <span>{t(lang, 'nav.github')}</span>
-                    </a>
+                  </div>
+
+                  {/* Right: Language Toggle */}
+                  <div className="hidden md:flex items-center ml-auto">
                     <button
                       onClick={toggleLang}
-                      className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-sm font-bold border border-white/20 hover:border-cyan-500/40 transition-all"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-bold bg-white/10 border border-cyan-500/30 hover:bg-white/15 hover:border-cyan-400/50 transition-all"
                       title={lang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
                     >
-                      <Globe size={14} className="text-slate-400" />
-                      <span className={lang === 'en' ? 'text-white' : 'text-slate-500'}>EN</span>
+                      <Globe size={15} className="text-cyan-400" />
+                      <span className={lang === 'en' ? 'text-cyan-400' : 'text-slate-500'}>English</span>
                       <span className="text-slate-600">|</span>
-                      <span className={lang === 'es' ? 'text-white' : 'text-slate-500'}>ES</span>
+                      <span className={lang === 'es' ? 'text-cyan-400' : 'text-slate-500'}>Español</span>
                     </button>
                   </div>
 
                   {/* Mobile Menu Button */}
-                  <div className="md:hidden flex items-center">
+                  <div className="md:hidden flex items-center ml-auto">
                     <button
                       onClick={() => setIsOpen(!isOpen)}
                       className="p-2 rounded-md text-white"
@@ -1020,12 +1012,6 @@
                         {link.name}
                       </a>
                     ))}
-                     <a
-                      href="https://github.com/quarcs-lab/ds4bolivia"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800"
-                    >
-                      {t(lang, 'nav.viewOnGithub')}
-                    </a>
                     <button
                       onClick={toggleLang}
                       className="flex items-center space-x-2 w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800"
@@ -1123,6 +1109,72 @@
           );
         };
 
+        const highlightPython = (code) => {
+          const esc = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const tokens = [];
+          const src = code;
+          let i = 0;
+          while (i < src.length) {
+            // Comments
+            if (src[i] === '#') {
+              let end = src.indexOf('\n', i);
+              if (end === -1) end = src.length;
+              tokens.push('<span style="color:#64748b;font-style:italic">' + esc(src.slice(i, end)) + '</span>');
+              i = end;
+              continue;
+            }
+            // Strings (f-strings, triple-quoted, single/double)
+            if ((src[i] === 'f' && (src[i+1] === '"' || src[i+1] === "'")) ||
+                src[i] === '"' || src[i] === "'") {
+              let start = i;
+              let prefix = '';
+              if (src[i] === 'f') { prefix = 'f'; i++; }
+              const q = src.slice(i, i+3) === '"""' || src.slice(i, i+3) === "'''" ? src.slice(i, i+3) : src[i];
+              i += q.length;
+              while (i < src.length) {
+                if (src[i] === '\\') { i += 2; continue; }
+                if (src.slice(i, i + q.length) === q) { i += q.length; break; }
+                i++;
+              }
+              tokens.push('<span style="color:#34d399">' + esc(src.slice(start, i)) + '</span>');
+              continue;
+            }
+            // Numbers
+            if (/[0-9]/.test(src[i]) && (i === 0 || /[\s(,=\[{+\-*/:]/.test(src[i-1]))) {
+              let start = i;
+              while (i < src.length && /[0-9._eE]/.test(src[i])) i++;
+              tokens.push('<span style="color:#fbbf24">' + esc(src.slice(start, i)) + '</span>');
+              continue;
+            }
+            // Words (keywords, builtins, identifiers)
+            if (/[a-zA-Z_]/.test(src[i])) {
+              let start = i;
+              while (i < src.length && /[a-zA-Z0-9_]/.test(src[i])) i++;
+              const word = src.slice(start, i);
+              const keywords = ['import','from','as','def','class','return','if','elif','else','for','while','in','not','and','or','is','with','try','except','finally','raise','pass','break','continue','lambda','yield','True','False','None','del','global','nonlocal','assert'];
+              const builtins = ['print','display','len','int','str','float','list','dict','set','tuple','range','type','isinstance','open','super','map','filter','zip','enumerate','sorted','reversed','abs','round','min','max','sum','any','all','input','format','bool','bytes','hex','id','iter','next','object','repr','getattr','setattr','hasattr','callable','staticmethod','classmethod','property'];
+              if (keywords.includes(word)) {
+                tokens.push('<span style="color:#818cf8;font-weight:600">' + esc(word) + '</span>');
+              } else if (builtins.includes(word)) {
+                tokens.push('<span style="color:#22d3ee">' + esc(word) + '</span>');
+              } else {
+                tokens.push('<span style="color:#cbd5e1">' + esc(word) + '</span>');
+              }
+              continue;
+            }
+            // Operators and punctuation
+            if (/[=+\-*/<>!%&|^~@]/.test(src[i])) {
+              tokens.push('<span style="color:#94a3b8">' + esc(src[i]) + '</span>');
+              i++;
+              continue;
+            }
+            // Everything else (whitespace, parens, brackets, etc.)
+            tokens.push(esc(src[i]));
+            i++;
+          }
+          return tokens.join('');
+        };
+
         const CodeBlock = ({ code, language = 'python', title }) => {
           const lang = useLanguage();
           const [copied, setCopied] = useState(false);
@@ -1132,6 +1184,9 @@
             setCopied(true);
             setTimeout(() => setCopied(false), 2000);
           };
+
+          const escHtml = (s) => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          const highlighted = useMemo(() => language === 'python' ? highlightPython(code) : escHtml(code), [code, language]);
 
           return (
             <div className="my-8 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md shadow-2xl border border-white/10">
@@ -1154,7 +1209,7 @@
               </div>
               <div className="p-4 overflow-x-auto">
                 <pre className="text-sm font-mono text-slate-300 leading-relaxed">
-                  <code>{code}</code>
+                  <code dangerouslySetInnerHTML={{ __html: highlighted }} />
                 </pre>
               </div>
             </div>
@@ -1390,79 +1445,6 @@
                 </div>
               )}
 
-              {/* Dataset Architecture Table */}
-              <AnimateIn className="mt-16">
-              <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 overflow-hidden">
-                <div className="px-6 py-5 border-b border-white/10 bg-white/5">
-                  <h3 className="text-lg font-bold text-white">{t(lang, 'table.title')}</h3>
-                  <p className="text-sm text-slate-400 mt-1">{t(lang, 'table.subtitle')} <code className="text-cyan-400">asdf_id</code>.</p>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left">
-                    <thead className="bg-white/5 text-slate-400 font-semibold uppercase text-xs">
-                      <tr>
-                        <th className="px-6 py-4">{t(lang, 'table.col.category')}</th>
-                        <th className="px-6 py-4">{t(lang, 'table.col.filePath')}</th>
-                        <th className="px-6 py-4">{t(lang, 'table.col.description')}</th>
-                        <th className="px-6 py-4">{t(lang, 'table.col.joinKey')}</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-700">
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.regionNames')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/regionNames/regionNames.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.regionNames')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgIndices')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdg/sdg.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgIndices')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgVariables')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdgVariables/sdgVariables.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgVariables')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.ntl')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/ntl/ln_NTLpc.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.ntl')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.population')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/pop/pop.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.population')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.satelliteEmb')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/satelliteEmbeddings/satelliteEmbeddings2017.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.satelliteEmb')}</a></td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                      <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.boundaries')}</td>
-                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/maps/bolivia339geoqueryOpt.geojson</a></td>
-                        <td className="px-6 py-4 text-slate-400">{t(lang, 'table.desc.boundaries')}</td>
-                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="bg-amber-950/30 px-6 py-4 border-t border-amber-900/30 flex gap-3">
-                   <div className="text-amber-400 flex-shrink-0 mt-0.5">
-                     <Layers size={20} />
-                   </div>
-                   <p className="text-sm text-amber-200/80">
-                     <strong>{t(lang, 'table.importantNote')}</strong> {t(lang, 'table.note')} <code className="text-amber-300">asdf_id</code>. {t(lang, 'table.note.1')} <code>mun_id</code> {t(lang, 'table.note.2')} <code>asdf_id</code> {t(lang, 'table.note.3')} <code>int</code> {t(lang, 'table.note.4')} <code>string</code> {t(lang, 'table.note.5')}
-                   </p>
-                </div>
-              </div>
-              </AnimateIn>
             </section>
           );
         };
@@ -1756,12 +1738,83 @@
                 </div>
               </section>
 
-              {/* Resources Section (Filterable) */}
-              <ResourcesSection />
-
               {/* Code Examples Section */}
               <section id="examples" className="bg-slate-900 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  {/* Dataset Architecture Table */}
+                  <AnimateIn className="mb-10">
+                  <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 overflow-hidden">
+                    <div className="px-6 py-5 border-b border-white/10 bg-white/5">
+                      <h3 className="text-lg font-bold text-white">{t(lang, 'table.title')}</h3>
+                      <p className="text-sm text-slate-400 mt-1">{t(lang, 'table.subtitle')} <code className="text-cyan-400">asdf_id</code>.</p>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm text-left">
+                        <thead className="bg-white/5 text-slate-400 font-semibold uppercase text-xs">
+                          <tr>
+                            <th className="px-6 py-4">{t(lang, 'table.col.category')}</th>
+                            <th className="px-6 py-4">{t(lang, 'table.col.filePath')}</th>
+                            <th className="px-6 py-4">{t(lang, 'table.col.description')}</th>
+                            <th className="px-6 py-4">{t(lang, 'table.col.joinKey')}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-700">
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.regionNames')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/regionNames/regionNames.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.regionNames')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgIndices')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdg/sdg.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgIndices')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgVariables')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdgVariables/sdgVariables.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgVariables')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.ntl')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/ntl/ln_NTLpc.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.ntl')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.population')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/pop/pop.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.population')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.satelliteEmb')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/satelliteEmbeddings/satelliteEmbeddings2017.csv</a></td>
+                            <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.satelliteEmb')}</a></td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                          <tr className="hover:bg-white/5">
+                            <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.boundaries')}</td>
+                            <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/maps/bolivia339geoqueryOpt.geojson</a></td>
+                            <td className="px-6 py-4 text-slate-400">{t(lang, 'table.desc.boundaries')}</td>
+                            <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="bg-amber-950/30 px-6 py-4 border-t border-amber-900/30 flex gap-3">
+                       <div className="text-amber-400 flex-shrink-0 mt-0.5">
+                         <Layers size={20} />
+                       </div>
+                       <p className="text-sm text-amber-200/80">
+                         <strong>{t(lang, 'table.importantNote')}</strong> {t(lang, 'table.note')} <code className="text-amber-300">asdf_id</code>. {t(lang, 'table.note.1')} <code>mun_id</code> {t(lang, 'table.note.2')} <code>asdf_id</code> {t(lang, 'table.note.3')} <code>int</code> {t(lang, 'table.note.4')} <code>string</code> {t(lang, 'table.note.5')}
+                       </p>
+                    </div>
+                  </div>
+                  </AnimateIn>
+
                   <AnimateIn>
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
                     <div>
@@ -1879,6 +1932,9 @@ plt.show()`}
                   </div>
                 </div>
               </section>
+
+              {/* Resources Section (Filterable) */}
+              <ResourcesSection />
 
               {/* People, Community & Events */}
               <PeopleSection />
