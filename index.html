@@ -423,7 +423,7 @@
             "ex.heading": "Construct your own dataset",
             "ex.description": "Run these examples immediately in Google Colab. No local setup required.",
             "ex.1.title": "Integrating Attribute Data",
-            "ex.1.desc": "Merge administrative names, socio-economic indicators, and satellite features.",
+            "ex.1.desc": "Merge datasets and visualize development vs nighttime lights.",
             "ex.2.title": "Integrating Spatial and Attribute Data",
             "ex.2.desc": "Attach merged attributes to municipality geometries (GeoJSON) for analysis.",
             "copy": "Copy",
@@ -559,7 +559,7 @@
             "ex.heading": "Construye tu propio dataset",
             "ex.description": "Ejecuta estos ejemplos directamente en Google Colab. No requiere instalaci\u00f3n local.",
             "ex.1.title": "Integrando Datos de Atributos",
-            "ex.1.desc": "Une nombres administrativos, indicadores socioecon\u00f3micos y caracter\u00edsticas satelitales.",
+            "ex.1.desc": "Integra datos y visualiza desarrollo vs luces nocturnas.",
             "ex.2.title": "Integrando Datos Espaciales y de Atributos",
             "ex.2.desc": "Adjunta atributos combinados a geometr\u00edas municipales (GeoJSON) para an\u00e1lisis.",
             "copy": "Copiar",
@@ -896,10 +896,10 @@
             },
             {
               name: "Pedro Leoni",
-              title: "Researcher",
-              affiliation: "",
-              avatar: null,
-              website: null,
+              title: "Research Assistant",
+              affiliation: "Cochabamba, Bolivia",
+              avatar: "https://avatars.githubusercontent.com/u/97562420?v=4",
+              website: "https://github.com/pedroleonip",
             },
             {
               name: "Lykke Andersen",
@@ -911,7 +911,7 @@
             {
               name: "Hendrix Peralta",
               title: "Data Scientist",
-              affiliation: "",
+              affiliation: "Tokyo, Japan",
               avatar: "https://hendrixperalta.github.io/resources/close_up.png",
               website: "https://hendrixperalta.github.io/",
             },
@@ -1794,30 +1794,43 @@
                       <CodeBlock
                         title="example_01_merge_attributes.py"
                         code={`import pandas as pd
+import plotly.express as px
 
 # 1. SETUP: Define Source URLs
 REPO_URL = "https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master"
 
 url_names = f"{REPO_URL}/regionNames/regionNames.csv"
-url_sdg = f"{REPO_URL}/sdg/sdg.csv"
-url_emb = f"{REPO_URL}/satelliteEmbeddings/satelliteEmbeddings2017.csv"
+url_sdg   = f"{REPO_URL}/sdg/sdg.csv"
+url_ntl   = f"{REPO_URL}/ntl/ln_NTLpc.csv"
+url_emb   = f"{REPO_URL}/satelliteEmbeddings/satelliteEmbeddings2017.csv"
 
 # 2. LOAD: Read CSVs
 print("Loading datasets...")
 df_names      = pd.read_csv(url_names)
 df_sdg        = pd.read_csv(url_sdg)
+df_ntl        = pd.read_csv(url_ntl)
 df_embeddings = pd.read_csv(url_emb)
 
 # 3. MERGE: Combine Dataframes
-# Step A: Attach SDG data to Names
-df_merged_step1 = pd.merge(df_names, df_sdg, on='asdf_id', how='inner')
-
-# Step B: Attach Satellite Embeddings to the result
-df_final = pd.merge(df_merged_step1, df_embeddings, on='asdf_id', how='inner')
+df = pd.merge(df_names, df_sdg, on='asdf_id', how='inner')
+df = pd.merge(df, df_ntl, on='asdf_id', how='inner')
+df = pd.merge(df, df_embeddings, on='asdf_id', how='inner')
 
 # 4. VERIFY
-print(f"Merge Complete. Final Rows: {len(df_final)}")
-display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`}
+print(f"Merge Complete. Final Rows: {len(df)}")
+display(df[['mun', 'dep', 'imds', 'ln_NTLpc2019', 'A00']].head())
+
+# 5. SCATTERPLOT: Development vs NTL
+fig = px.scatter(
+    df, x='ln_NTLpc2019', y='imds',
+    hover_name='mun', color='dep',
+    trendline='ols', trendline_scope='overall',
+    labels={'ln_NTLpc2019': 'Log Night-time Lights (2019)',
+            'imds': 'Sustainable Development Index'},
+    title='Sustainable Development vs Night-time Lights'
+)
+
+fig.show()`}
                       />
                     </AnimateIn>
 
