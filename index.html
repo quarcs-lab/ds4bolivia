@@ -319,6 +319,286 @@
           );
         };
 
+        // --- i18n ---
+        const LanguageContext = React.createContext('en');
+        const useLanguage = () => React.useContext(LanguageContext);
+        const t = (lang, key) => translations[lang]?.[key] ?? translations.en[key] ?? key;
+
+        const translations = {
+          en: {
+            // Nav
+            "nav.dashboards": "Apps",
+            "nav.resources": "Resources",
+            "nav.examples": "How to use",
+            "nav.people": "People",
+            "nav.community": "Community",
+            "nav.events": "Events",
+            "nav.citation": "Citation",
+            "nav.github": "GitHub",
+            "nav.viewOnGithub": "View on GitHub",
+            // Hero
+            "hero.subtitle": "A Data Science Repository to Study Regional Development across",
+            "hero.subtitle.bold": "339 Municipalities in Bolivia",
+            "hero.builtFor": "Built for",
+            "hero.typing.1": "Regional Development Monitoring",
+            "hero.typing.2": "Spatial Econometrics Modeling",
+            "hero.typing.3": "Machine Learning Analyses",
+            "hero.cta.dashboards": "Explore Apps",
+            "hero.cta.coding": "Start Coding",
+            // Mission
+            "mission.eyebrow": "Our Mission",
+            "mission.heading": "Bridging Spatial Analysis & Sustainable Development",
+            "mission.description": "DS4Bolivia aggregates spatial and socio-economic datasets, interactive apps, and computational workflows for 339 municipalities in Bolivia.",
+            "mission.card1.title": "Sustainable Development",
+            "mission.card1.desc": "Tracking SDG indicators at a granular local level to inform policy and monitor progress.",
+            "mission.card2.title": "Spatial Econometrics",
+            "mission.card2.desc": "Understanding regional disparities, growth patterns, and clustering effects across administrative boundaries.",
+            "mission.card3.title": "Spatial Machine Learning",
+            "mission.card3.desc": "Utilizing Earth Observation satellite imagery for predictive modeling of poverty and development indices.",
+            // Apps
+            "dash.eyebrow": "Interactive Apps",
+            "dash.heading": "Explore Space-Time Dynamics of Regional Development",
+            "dash.description": "No code required. Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities (2013-2019).",
+            "dash.bullet.1": "Population Density Maps",
+            "dash.bullet.2": "Night-time Lights Analysis",
+            "dash.bullet.3": "Land Cover Changes",
+            "dash.bullet.4": "GDP Estimates",
+            "dash.launch": "Launch App",
+            // Resources
+            "res.eyebrow": "Resources",
+            "res.heading": "Notebooks, Apps & Datasets",
+            "res.description": "Explore computational notebooks, interactive apps, and spatially-explicit datasets.",
+            "res.filter.all": "All",
+            "res.filter.notebooks": "Notebooks",
+            "res.filter.apps": "Apps",
+            "res.filter.datasets": "Datasets",
+            "res.clearTags": "Clear tags",
+            "res.showLess": "Show less",
+            "res.viewAll": "View all {count} resources",
+            "res.empty": "No content matches your filters.",
+            "res.pinned": "Pinned",
+            "res.rows": "rows",
+            "res.cols": "cols",
+            // Card types
+            "type.notebook": "notebook",
+            "type.app": "app",
+            "type.dataset": "dataset",
+            // Card link labels
+            "link.openInColab": "Open in Colab",
+            "link.github": "GitHub",
+            "link.launchDashboard": "Launch App",
+            "link.sourceCode": "Source Code",
+            "link.viewCsv": "View CSV",
+            "link.viewGeojson": "View GeoJSON",
+            // Dataset table
+            "table.title": "Dataset Architecture & Identifiers",
+            "table.subtitle": "The datasets are linked by the unique identifier",
+            "table.col.category": "Category",
+            "table.col.filePath": "File Path",
+            "table.col.description": "Description",
+            "table.col.joinKey": "Join Key",
+            "table.cat.regionNames": "Region Names",
+            "table.cat.sdgIndices": "SDG Indices",
+            "table.cat.sdgVariables": "SDG Variables",
+            "table.cat.ntl": "Night-Time Lights",
+            "table.cat.population": "Population",
+            "table.cat.satelliteEmb": "Satellite Embeddings",
+            "table.cat.boundaries": "Municipal Boundaries",
+            "table.desc.regionNames": "Municipality & department metadata",
+            "table.desc.sdgIndices": "15 composite SDG indices (0\u2013100 scale)",
+            "table.desc.sdgVariables": "64 granular SDG indicators",
+            "table.desc.ntl": "NTL per capita (2012\u20132020)",
+            "table.desc.population": "Annual municipal estimates (2001\u20132020)",
+            "table.desc.satelliteEmb": "64-dim features from satellite imagery",
+            "table.desc.boundaries": "Optimized GeoJSON polygons (339 municipalities)",
+            "table.note": "The primary key is",
+            "table.note.1": "While",
+            "table.note.2": "exists,",
+            "table.note.3": "ensures consistency across satellite embeddings and optimized maps. Always treat this column as an",
+            "table.note.4": "or",
+            "table.note.5": "consistently before merging.",
+            "table.importantNote": "Important Note:",
+            // Examples
+            "ex.eyebrow": "How To Use",
+            "ex.heading": "Construct your own dataset",
+            "ex.description": "Run these examples immediately in Google Colab. No local setup required.",
+            "ex.1.title": "Integrating Attribute Data",
+            "ex.1.desc": "Merge administrative names, socio-economic indicators, and satellite features.",
+            "ex.2.title": "Integrating Spatial and Attribute Data",
+            "ex.2.desc": "Attach merged attributes to municipality geometries (GeoJSON) for analysis.",
+            "copy": "Copy",
+            "copied": "Copied",
+            // People
+            "people.heading": "People",
+            "people.coordinators": "Project Coordinators",
+            "people.contributors": "Contributors",
+            "people.visitWebsite": "Visit Website",
+            // Community
+            "community.heading": "Community",
+            "community.intro": "We're using GitHub Discussions as a place to connect with other members of our community. We hope that you:",
+            "community.bullet.1": "Ask questions you're wondering about.",
+            "community.bullet.2": "Share ideas.",
+            "community.bullet.3": "Share your notebooks.",
+            "community.bullet.4": "Engage with other community members.",
+            "community.bullet.5": "Welcome others and are open-minded. Remember that this is a community we build together.",
+            "community.cta": "Join the Discussion",
+            // Events
+            "events.heading": "Events",
+            "events.intro": "We invite community members and newcomers to participate in our public events. Join us to learn, collaborate, and build together:",
+            "events.bullet.1": "Attend training sessions on data science methods and tools.",
+            "events.bullet.2": "Design and prototype computational notebooks and apps.",
+            "events.bullet.3": "Collaborate with researchers and practitioners from diverse backgrounds.",
+            "events.bullet.4": "Subscribe on Luma to get notified when new events are announced.",
+            "events.cta": "Subscribe on Luma",
+            // Citation
+            "cite.heading": "How to cite this project",
+            "cite.apa": "APA Format",
+            // Footer
+            "footer.tagline": "Open source geospatial intelligence for sustainable development.",
+            "footer.prompt1": "Find an error? Have a suggestion? Want to contribute? Submit an",
+            "footer.issue": "issue",
+            "footer.prompt2": "or join the",
+            "footer.discussion": "discussion",
+            "footer.prompt3": "via GitHub.",
+          },
+          es: {
+            // Nav
+            "nav.dashboards": "Apps",
+            "nav.resources": "Recursos",
+            "nav.examples": "Cómo usar",
+            "nav.people": "Personas",
+            "nav.community": "Comunidad",
+            "nav.events": "Eventos",
+            "nav.citation": "Citar",
+            "nav.github": "GitHub",
+            "nav.viewOnGithub": "Ver en GitHub",
+            // Hero
+            "hero.subtitle": "Un Repositorio de Ciencia de Datos para Estudiar el Desarrollo Regional en",
+            "hero.subtitle.bold": "339 Municipios de Bolivia",
+            "hero.builtFor": "Desarrollado para",
+            "hero.typing.1": "Monitoreo del Desarrollo Regional",
+            "hero.typing.2": "Modelado de Econometr\u00eda Espacial",
+            "hero.typing.3": "An\u00e1lisis de Machine Learning",
+            "hero.cta.dashboards": "Explorar Apps",
+            "hero.cta.coding": "Empezar a Programar",
+            // Mission
+            "mission.eyebrow": "Nuestra Misi\u00f3n",
+            "mission.heading": "Conectando el An\u00e1lisis Espacial y el Desarrollo Sostenible",
+            "mission.description": "DS4Bolivia agrega conjuntos de datos espaciales y socioecon\u00f3micos, apps interactivas y flujos de trabajo computacionales para los 339 municipios de Bolivia.",
+            "mission.card1.title": "Desarrollo Sostenible",
+            "mission.card1.desc": "Seguimiento de indicadores ODS a nivel local granular para informar pol\u00edticas y monitorear el progreso.",
+            "mission.card2.title": "Econometr\u00eda Espacial",
+            "mission.card2.desc": "Comprensi\u00f3n de disparidades regionales, patrones de crecimiento y efectos de agrupamiento a trav\u00e9s de l\u00edmites administrativos.",
+            "mission.card3.title": "Machine Learning Espacial",
+            "mission.card3.desc": "Uso de im\u00e1genes satelitales de observaci\u00f3n terrestre para el modelado predictivo de \u00edndices de pobreza y desarrollo.",
+            // Apps
+            "dash.eyebrow": "Aplicaciones Interactivas",
+            "dash.heading": "Explora las Din\u00e1micas Espacio-Temporales del Desarrollo Regional",
+            "dash.description": "No se requiere c\u00f3digo. Visualiza la evoluci\u00f3n de la densidad poblacional, luces nocturnas, cambios de cobertura terrestre y estimaciones del PIB en los municipios de Bolivia (2013-2019).",
+            "dash.bullet.1": "Mapas de Densidad Poblacional",
+            "dash.bullet.2": "An\u00e1lisis de Luces Nocturnas",
+            "dash.bullet.3": "Cambios de Cobertura Terrestre",
+            "dash.bullet.4": "Estimaciones del PIB",
+            "dash.launch": "Abrir App",
+            // Resources
+            "res.eyebrow": "Recursos",
+            "res.heading": "Notebooks, Apps y Datasets",
+            "res.description": "Explora notebooks computacionales, apps interactivas y conjuntos de datos espaciales.",
+            "res.filter.all": "Todos",
+            "res.filter.notebooks": "Notebooks",
+            "res.filter.apps": "Apps",
+            "res.filter.datasets": "Datasets",
+            "res.clearTags": "Limpiar filtros",
+            "res.showLess": "Mostrar menos",
+            "res.viewAll": "Ver los {count} recursos",
+            "res.empty": "Ning\u00fan contenido coincide con tus filtros.",
+            "res.pinned": "Fijado",
+            "res.rows": "filas",
+            "res.cols": "cols",
+            // Card types
+            "type.notebook": "notebook",
+            "type.app": "app",
+            "type.dataset": "dataset",
+            // Card link labels
+            "link.openInColab": "Abrir en Colab",
+            "link.github": "GitHub",
+            "link.launchDashboard": "Abrir App",
+            "link.sourceCode": "C\u00f3digo Fuente",
+            "link.viewCsv": "Ver CSV",
+            "link.viewGeojson": "Ver GeoJSON",
+            // Dataset table
+            "table.title": "Arquitectura de Datos e Identificadores",
+            "table.subtitle": "Los conjuntos de datos est\u00e1n vinculados por el identificador \u00fanico",
+            "table.col.category": "Categor\u00eda",
+            "table.col.filePath": "Ruta del Archivo",
+            "table.col.description": "Descripci\u00f3n",
+            "table.col.joinKey": "Clave de Uni\u00f3n",
+            "table.cat.regionNames": "Nombres de Regiones",
+            "table.cat.sdgIndices": "\u00cdndices ODS",
+            "table.cat.sdgVariables": "Variables ODS",
+            "table.cat.ntl": "Luces Nocturnas",
+            "table.cat.population": "Poblaci\u00f3n",
+            "table.cat.satelliteEmb": "Embeddings Satelitales",
+            "table.cat.boundaries": "L\u00edmites Municipales",
+            "table.desc.regionNames": "Metadatos de municipios y departamentos",
+            "table.desc.sdgIndices": "15 \u00edndices compuestos ODS (escala 0\u2013100)",
+            "table.desc.sdgVariables": "64 indicadores ODS granulares",
+            "table.desc.ntl": "LN per c\u00e1pita (2012\u20132020)",
+            "table.desc.population": "Estimaciones municipales anuales (2001\u20132020)",
+            "table.desc.satelliteEmb": "Caracter\u00edsticas de 64 dimensiones de im\u00e1genes satelitales",
+            "table.desc.boundaries": "Pol\u00edgonos GeoJSON optimizados (339 municipios)",
+            "table.note": "La clave primaria es",
+            "table.note.1": "Aunque",
+            "table.note.2": "existe,",
+            "table.note.3": "asegura consistencia en embeddings satelitales y mapas optimizados. Siempre trata esta columna como",
+            "table.note.4": "o",
+            "table.note.5": "de forma consistente antes de unir.",
+            "table.importantNote": "Nota Importante:",
+            // Examples
+            "ex.eyebrow": "C\u00f3mo Usar",
+            "ex.heading": "Construye tu propio dataset",
+            "ex.description": "Ejecuta estos ejemplos directamente en Google Colab. No requiere instalaci\u00f3n local.",
+            "ex.1.title": "Integrando Datos de Atributos",
+            "ex.1.desc": "Une nombres administrativos, indicadores socioecon\u00f3micos y caracter\u00edsticas satelitales.",
+            "ex.2.title": "Integrando Datos Espaciales y de Atributos",
+            "ex.2.desc": "Adjunta atributos combinados a geometr\u00edas municipales (GeoJSON) para an\u00e1lisis.",
+            "copy": "Copiar",
+            "copied": "Copiado",
+            // People
+            "people.heading": "Personas",
+            "people.coordinators": "Coordinadores del Proyecto",
+            "people.contributors": "Colaboradores",
+            "people.visitWebsite": "Visitar Sitio Web",
+            // Community
+            "community.heading": "Comunidad",
+            "community.intro": "Usamos las Discusiones de GitHub como espacio para conectar con otros miembros de nuestra comunidad. Esperamos que:",
+            "community.bullet.1": "Hagas preguntas sobre lo que te interesa.",
+            "community.bullet.2": "Compartas ideas.",
+            "community.bullet.3": "Compartas tus notebooks.",
+            "community.bullet.4": "Interact\u00faes con otros miembros de la comunidad.",
+            "community.bullet.5": "Des la bienvenida a otros y seas de mente abierta. Recuerda que esta es una comunidad que construimos juntos.",
+            "community.cta": "\u00danete a la Discusi\u00f3n",
+            // Events
+            "events.heading": "Eventos",
+            "events.intro": "Invitamos a miembros de la comunidad y nuevos participantes a nuestros eventos p\u00fablicos. \u00danete para aprender, colaborar y construir juntos:",
+            "events.bullet.1": "Asiste a sesiones de capacitaci\u00f3n sobre m\u00e9todos y herramientas de ciencia de datos.",
+            "events.bullet.2": "Dise\u00f1a y prototipa notebooks computacionales y apps.",
+            "events.bullet.3": "Colabora con investigadores y profesionales de diversos contextos.",
+            "events.bullet.4": "Suscr\u00edbete en Luma para recibir notificaciones de nuevos eventos.",
+            "events.cta": "Suscribirse en Luma",
+            // Citation
+            "cite.heading": "C\u00f3mo citar este proyecto",
+            "cite.apa": "Formato APA",
+            // Footer
+            "footer.tagline": "Inteligencia geoespacial de c\u00f3digo abierto para el desarrollo sostenible.",
+            "footer.prompt1": "¿Encontraste un error? ¿Tienes una sugerencia? ¿Quieres contribuir? Envía un",
+            "footer.issue": "issue",
+            "footer.prompt2": "o únete a la",
+            "footer.discussion": "discusión",
+            "footer.prompt3": "en GitHub.",
+          },
+        };
+
         // --- Content Registry ---
         const CONTENT_REGISTRY = [
           // Notebooks
@@ -326,106 +606,120 @@
             id: "esda",
             type: "notebook",
             title: "Exploratory Spatial Data Analysis (ESDA)",
+            title_es: "An\u00e1lisis Exploratorio de Datos Espaciales (ESDA)",
             description: "Interactive tutorial: Global Moran's I, LISA statistics, spatial clustering, choropleth mapping, and spatial weights matrices.",
+            description_es: "Tutorial interactivo: I de Moran global, estad\u00edsticas LISA, agrupamiento espacial, mapas coropl\u00e9ticos y matrices de pesos espaciales.",
             tags: ["spatial-analysis", "pysal", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
             date: "2025-01-15",
             pinned: false,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "github" },
             ],
           },
           {
             id: "eda",
             type: "notebook",
             title: "Exploratory Data Analysis (EDA)",
+            title_es: "An\u00e1lisis Exploratorio de Datos (EDA)",
             description: "Descriptive statistics, regional comparisons, population treemaps, and nighttime lights vs development across 339 municipalities.",
+            description_es: "Estad\u00edsticas descriptivas, comparaciones regionales, treemaps de poblaci\u00f3n y luces nocturnas vs desarrollo en 339 municipios.",
             tags: ["eda", "plotly", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
             date: "2025-01-15",
             pinned: false,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "github" },
             ],
           },
           {
             id: "esda-dependence",
             type: "notebook",
             title: "Spatial Distribution & Dependence",
+            title_es: "Distribuci\u00f3n y Dependencia Espacial",
             description: "Map classification schemes (BoxPlot, Fisher-Jenks), spatial weights, Global Moran's I, and LISA cluster analysis.",
+            description_es: "Esquemas de clasificaci\u00f3n de mapas (BoxPlot, Fisher-Jenks), pesos espaciales, I de Moran global y an\u00e1lisis de cl\u00fasteres LISA.",
             tags: ["spatial-analysis", "pysal", "moran"],
             color: "cyan",
             icon: "BookOpen",
             date: "2026-02-22",
             pinned: true,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "github" },
             ],
           },
           {
             id: "esda-inequality",
             type: "notebook",
             title: "Spatial Inequality",
+            title_es: "Desigualdad Espacial",
             description: "Theil index with between/within decomposition, Gini coefficient, and Spatial Gini index for development indicators.",
+            description_es: "\u00cdndice de Theil con descomposici\u00f3n entre/dentro, coeficiente de Gini e \u00edndice de Gini espacial para indicadores de desarrollo.",
             tags: ["spatial-analysis", "inequality", "theil", "gini"],
             color: "cyan",
             icon: "BookOpen",
             date: "2026-02-22",
             pinned: true,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "github" },
             ],
           },
           {
             id: "esda-heterogeneity",
             type: "notebook",
             title: "Spatial Heterogeneity (GWR & MGWR)",
+            title_es: "Heterogeneidad Espacial (GWR y MGWR)",
             description: "Geographically Weighted Regression and Multiscale GWR to detect spatially varying relationships between nighttime lights and development.",
+            description_es: "Regresi\u00f3n Geogr\u00e1ficamente Ponderada y MGWR multiescala para detectar relaciones espacialmente variables entre luces nocturnas y desarrollo.",
             tags: ["spatial-analysis", "gwr", "mgwr"],
             color: "cyan",
             icon: "BookOpen",
             date: "2026-02-22",
             pinned: true,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "github" },
             ],
           },
           {
             id: "eda-esda",
             type: "notebook",
             title: "Extended EDA + Spatial Analysis",
+            title_es: "EDA Extendido + An\u00e1lisis Espacial",
             description: "Comprehensive notebook combining traditional exploratory data analysis with advanced spatial methods, visualizations, and statistical summaries.",
+            description_es: "Notebook integral que combina an\u00e1lisis exploratorio tradicional con m\u00e9todos espaciales avanzados, visualizaciones y res\u00famenes estad\u00edsticos.",
             tags: ["spatial-analysis", "eda", "pysal", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
             date: "2026-02-22",
             pinned: false,
             links: [
-              { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "colab" },
-              { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "github" },
+              { label_key: "link.openInColab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "colab" },
+              { label_key: "link.github", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "github" },
             ],
           },
           // Apps
           {
             id: "geoexplorer-v1",
             type: "app",
-            title: "GeoExplorer v1.0 — Bolivia",
-            description: "Interactive dashboard: population density, night-time lights, land cover, and GDP estimates across 339 municipalities (2013-2019). No coding required.",
-            tags: ["earth-engine", "dashboard", "ntl", "population"],
+            title: "GeoExplorer v1.0 \u2014 Bolivia",
+            title_es: "GeoExplorer v1.0 \u2014 Bolivia",
+            description: "Interactive app: population density, night-time lights, land cover, and GDP estimates across 339 municipalities (2013-2019). No coding required.",
+            description_es: "App interactiva: densidad poblacional, luces nocturnas, cobertura terrestre y estimaciones del PIB en 339 municipios (2013-2019). No requiere programaci\u00f3n.",
+            tags: ["earth-engine", "app", "ntl", "population"],
             color: "amber",
             icon: "Globe",
             date: "2024-06-01",
             pinned: true,
             links: [
-              { label: "Launch Dashboard", url: "https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia", type: "external" },
-              { label: "Source Code", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/apps/geoexplorer1v100bolivia.js", type: "github" },
+              { label_key: "link.launchDashboard", url: "https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia", type: "external" },
+              { label_key: "link.sourceCode", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/apps/geoexplorer1v100bolivia.js", type: "github" },
             ],
           },
           // Datasets
@@ -433,14 +727,16 @@
             id: "sdgs-satellite-embeddings-2017",
             type: "dataset",
             title: "SDGs + Satellite Embeddings (2017)",
+            title_es: "ODS + Embeddings Satelitales (2017)",
             description: "Pre-merged dataset: 15 SDG indices + 64-dimensional satellite embedding feature vectors for 339 municipalities. Ready for ML.",
+            description_es: "Dataset pre-combinado: 15 \u00edndices ODS + vectores de caracter\u00edsticas de embeddings satelitales de 64 dimensiones para 339 municipios. Listo para ML.",
             tags: ["sdg", "satellite-embeddings", "machine-learning", "merged"],
             color: "violet",
             icon: "Database",
             date: "2025-06-01",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv", type: "github" },
             ],
             rows: 339,
             columns: 80,
@@ -449,14 +745,16 @@
             id: "region-names",
             type: "dataset",
             title: "Region Names & Administrative Metadata",
+            title_es: "Nombres de Regiones y Metadatos Administrativos",
             description: "Municipality names, department names, official IDs, and spatial identifiers for all 339 municipalities.",
+            description_es: "Nombres de municipios, departamentos, IDs oficiales e identificadores espaciales para los 339 municipios.",
             tags: ["administrative", "metadata"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv", type: "github" },
             ],
             rows: 339,
             columns: 8,
@@ -465,14 +763,16 @@
             id: "sdg-indices",
             type: "dataset",
             title: "SDG Composite Indices",
+            title_es: "\u00cdndices Compuestos ODS",
             description: "15 composite SDG indices (0-100 scale) plus the Municipal Sustainable Development Index (IMDS) for 339 municipalities.",
+            description_es: "15 \u00edndices compuestos ODS (escala 0-100) m\u00e1s el \u00cdndice Municipal de Desarrollo Sostenible (IMDS) para 339 municipios.",
             tags: ["sdg", "socio-economic"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv", type: "github" },
             ],
             rows: 339,
             columns: 17,
@@ -481,14 +781,16 @@
             id: "sdg-variables",
             type: "dataset",
             title: "SDG Detailed Variables (64 indicators)",
+            title_es: "Variables Detalladas ODS (64 indicadores)",
             description: "Granular SDG indicators across poverty, hunger, health, education, gender, water, energy, and more.",
+            description_es: "Indicadores ODS granulares de pobreza, hambre, salud, educaci\u00f3n, g\u00e9nero, agua, energ\u00eda y m\u00e1s.",
             tags: ["sdg", "socio-economic", "granular"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv", type: "github" },
             ],
             rows: 339,
             columns: 66,
@@ -497,14 +799,16 @@
             id: "satellite-embeddings",
             type: "dataset",
             title: "Satellite Embeddings (2017)",
+            title_es: "Embeddings Satelitales (2017)",
             description: "64-dimensional feature vectors from Google Earth Engine deep learning model, aggregated to municipal boundaries at 10m resolution.",
+            description_es: "Vectores de caracter\u00edsticas de 64 dimensiones del modelo de deep learning de Google Earth Engine, agregados a l\u00edmites municipales a resoluci\u00f3n de 10m.",
             tags: ["satellite-embeddings", "earth-engine", "remote-sensing"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv", type: "github" },
             ],
             rows: 339,
             columns: 65,
@@ -513,14 +817,16 @@
             id: "ntl",
             type: "dataset",
             title: "Night-Time Lights (2012-2020)",
+            title_es: "Luces Nocturnas (2012-2020)",
             description: "Log-transformed NTL per capita and HP-filtered trend components from VIIRS satellite imagery. Economic activity proxy.",
+            description_es: "NTL per c\u00e1pita transformada logar\u00edtmicamente y componentes de tendencia filtrados HP de im\u00e1genes satelitales VIIRS. Proxy de actividad econ\u00f3mica.",
             tags: ["ntl", "remote-sensing", "time-series"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv", type: "github" },
             ],
             rows: 339,
             columns: 19,
@@ -529,14 +835,16 @@
             id: "population",
             type: "dataset",
             title: "Population Estimates (2001-2020)",
+            title_es: "Estimaciones de Poblaci\u00f3n (2001-2020)",
             description: "Annual municipal population estimates across 20 years from census projections and satellite-based models.",
+            description_es: "Estimaciones anuales de poblaci\u00f3n municipal a lo largo de 20 a\u00f1os a partir de proyecciones censales y modelos satelitales.",
             tags: ["population", "demographics", "time-series"],
             color: "violet",
             icon: "Database",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv", type: "github" },
+              { label_key: "link.viewCsv", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv", type: "github" },
             ],
             rows: 339,
             columns: 21,
@@ -545,14 +853,16 @@
             id: "geojson-boundaries",
             type: "dataset",
             title: "Municipal Boundaries (GeoJSON)",
+            title_es: "L\u00edmites Municipales (GeoJSON)",
             description: "Optimized GeoJSON polygons for 339 municipalities. Use for choropleth maps and spatial joins.",
+            description_es: "Pol\u00edgonos GeoJSON optimizados para 339 municipios. Usar para mapas coropl\u00e9ticos y uniones espaciales.",
             tags: ["spatial", "geojson", "boundaries"],
             color: "violet",
             icon: "MapIcon",
             date: "2024-01-15",
             pinned: false,
             links: [
-              { label: "View GeoJSON", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson", type: "github" },
+              { label_key: "link.viewGeojson", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson", type: "github" },
             ],
             rows: 339,
           },
@@ -609,18 +919,19 @@
         };
 
         // --- Navigation Component ---
-        const Navigation = () => {
+        const Navigation = ({ toggleLang }) => {
+          const lang = useLanguage();
           const [isOpen, setIsOpen] = useState(false);
           const [scrolled, setScrolled] = useState(false);
 
           const navLinks = [
-            { name: 'Dashboards', href: '#dashboards', id: 'dashboards' },
-            { name: 'Resources', href: '#resources', id: 'resources' },
-            { name: 'Examples', href: '#examples', id: 'examples' },
-            { name: 'People', href: '#people', id: 'people' },
-            { name: 'Community', href: '#community', id: 'community' },
-            { name: 'Events', href: '#events', id: 'events' },
-            { name: 'Citation', href: '#citation', id: 'citation' },
+            { name: t(lang, 'nav.dashboards'), href: '#apps', id: 'apps' },
+            { name: t(lang, 'nav.resources'), href: '#resources', id: 'resources' },
+            { name: t(lang, 'nav.examples'), href: '#examples', id: 'examples' },
+            { name: t(lang, 'nav.people'), href: '#people', id: 'people' },
+            { name: t(lang, 'nav.community'), href: '#community', id: 'community' },
+            { name: t(lang, 'nav.events'), href: '#events', id: 'events' },
+            { name: t(lang, 'nav.citation'), href: '#citation', id: 'citation' },
           ];
 
           const activeSection = useActiveSection(navLinks.map((l) => l.id));
@@ -669,8 +980,18 @@
                       }`}
                     >
                       <Github size={16} />
-                      <span>GitHub</span>
+                      <span>{t(lang, 'nav.github')}</span>
                     </a>
+                    <button
+                      onClick={toggleLang}
+                      className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-sm font-bold border border-white/20 hover:border-cyan-500/40 transition-all"
+                      title={lang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
+                    >
+                      <Globe size={14} className="text-slate-400" />
+                      <span className={lang === 'en' ? 'text-white' : 'text-slate-500'}>EN</span>
+                      <span className="text-slate-600">|</span>
+                      <span className={lang === 'es' ? 'text-white' : 'text-slate-500'}>ES</span>
+                    </button>
                   </div>
 
                   {/* Mobile Menu Button */}
@@ -703,8 +1024,15 @@
                       href="https://github.com/quarcs-lab/ds4bolivia"
                       className="block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800"
                     >
-                      View on GitHub
+                      {t(lang, 'nav.viewOnGithub')}
                     </a>
+                    <button
+                      onClick={toggleLang}
+                      className="flex items-center space-x-2 w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800"
+                    >
+                      <Globe size={16} />
+                      <span>{lang === 'en' ? 'Español' : 'English'}</span>
+                    </button>
                   </div>
                 </div>
               )}
@@ -714,10 +1042,11 @@
 
         // --- Hero Component ---
         const Hero = () => {
+          const lang = useLanguage();
           const typingText = useTypingEffect([
-            'Regional Development Monitoring',
-            'Spatial Econometrics Modeling',
-            'Machine Learning Analyses',
+            t(lang, 'hero.typing.1'),
+            t(lang, 'hero.typing.2'),
+            t(lang, 'hero.typing.3'),
           ]);
 
           return (
@@ -746,27 +1075,27 @@
                     <span className="gradient-text">DS4Bolivia</span>
                   </h1>
                   <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto font-light leading-relaxed mb-3">
-                    A Data Science Repository to Study GeoSpatial Development across <span className="font-semibold text-white">339 Municipalities in Bolivia</span>.
+                    {t(lang, 'hero.subtitle')} <span className="font-semibold text-white">{t(lang, 'hero.subtitle.bold')}</span>.
                   </p>
                   <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light mb-10 h-8">
-                    Built for{' '}
+                    {t(lang, 'hero.builtFor')}{' '}
                     <span className="gradient-text font-semibold">{typingText}</span>
                     <span className="typing-cursor text-cyan-400">|</span>
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <a
-                      href="#dashboards"
+                      href="#apps"
                       className="px-8 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg transition-all hover:-translate-y-1 shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2"
                     >
                       <Globe size={20} />
-                      Explore Dashboards
+                      {t(lang, 'hero.cta.dashboards')}
                     </a>
                     <a
                       href="#examples"
                       className="px-8 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-bold text-lg transition-all hover:-translate-y-1 shadow-lg border border-white/20 flex items-center justify-center gap-2"
                     >
                       <Terminal size={20} />
-                      Start Coding
+                      {t(lang, 'hero.cta.coding')}
                     </a>
                   </div>
                 </div>
@@ -795,6 +1124,7 @@
         };
 
         const CodeBlock = ({ code, language = 'python', title }) => {
+          const lang = useLanguage();
           const [copied, setCopied] = useState(false);
 
           const handleCopy = () => {
@@ -819,7 +1149,7 @@
                   className="text-slate-400 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase font-bold tracking-wider"
                 >
                   {copied ? <Check size={14} className="text-cyan-400" /> : <Copy size={14} />}
-                  {copied ? 'Copied' : 'Copy'}
+                  {copied ? t(lang, 'copied') : t(lang, 'copy')}
                 </button>
               </div>
               <div className="p-4 overflow-x-auto">
@@ -834,27 +1164,28 @@
         // --- Filterable Content Components ---
 
         const FilterBar = ({ activeType, activeTags, availableTags, onTypeChange, onTagToggle }) => {
+          const lang = useLanguage();
           const types = [
-            { key: "all", label: "All" },
-            { key: "notebook", label: "Notebooks" },
-            { key: "app", label: "Apps" },
-            { key: "dataset", label: "Datasets" },
+            { key: "all", label: t(lang, 'res.filter.all') },
+            { key: "notebook", label: t(lang, 'res.filter.notebooks') },
+            { key: "app", label: t(lang, 'res.filter.apps') },
+            { key: "dataset", label: t(lang, 'res.filter.datasets') },
           ];
 
           return (
             <div className="mb-10">
               <div className="flex flex-wrap gap-2 mb-4">
-                {types.map((t) => (
+                {types.map((tp) => (
                   <button
-                    key={t.key}
-                    onClick={() => onTypeChange(t.key)}
+                    key={tp.key}
+                    onClick={() => onTypeChange(tp.key)}
                     className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                      activeType === t.key
+                      activeType === tp.key
                         ? "bg-cyan-600 text-white shadow-sm"
                         : "bg-slate-800 text-slate-300 border border-slate-700 hover:border-cyan-500/50 hover:text-cyan-400"
                     }`}
                   >
-                    {t.label}
+                    {tp.label}
                   </button>
                 ))}
               </div>
@@ -878,7 +1209,7 @@
                       onClick={() => onTagToggle(null)}
                       className="px-3 py-1 rounded-full text-xs font-medium text-red-400 hover:bg-red-900/20 transition-all"
                     >
-                      Clear tags
+                      {t(lang, 'res.clearTags')}
                     </button>
                   )}
                 </div>
@@ -894,14 +1225,17 @@
         };
 
         const ContentCard = ({ item }) => {
+          const lang = useLanguage();
           const colors = COLOR_CONFIG[item.color] || COLOR_CONFIG.cyan;
           const hoverGlow = HOVER_GLOW[item.color] || HOVER_GLOW.cyan;
           const IconComponent = ICON_MAP[item.icon] || Database;
+          const title = lang === 'es' && item.title_es ? item.title_es : item.title;
+          const description = lang === 'es' && item.description_es ? item.description_es : item.description;
 
           return (
             <div className={`bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 transition-all duration-300 flex flex-col relative ${hoverGlow}`}>
               {item.pinned && (
-                <div className="absolute top-3 right-3 text-cyan-400/60" title="Pinned">
+                <div className="absolute top-3 right-3 text-cyan-400/60" title={t(lang, 'res.pinned')}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none">
                     <path d="M16 2L14.5 3.5l1 1-5.5 5.5-4-1L4.5 10.5 9 15l-5 5h2l4-4 4.5 4.5 1.5-1.5-1-4 5.5-5.5 1 1L23 8z"/>
                   </svg>
@@ -912,12 +1246,12 @@
                   <IconComponent size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white leading-tight">{item.title}</h4>
-                  <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">{item.type}</span>
+                  <h4 className="font-bold text-white leading-tight">{title}</h4>
+                  <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">{t(lang, `type.${item.type}`)}</span>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-400 mb-4 flex-grow">{item.description}</p>
+              <p className="text-sm text-slate-400 mb-4 flex-grow">{description}</p>
 
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {item.tags.map((tag) => (
@@ -929,7 +1263,7 @@
 
               {item.rows && (
                 <p className="text-xs text-slate-400 font-mono mb-3">
-                  {item.rows} rows{item.columns ? ` · ${item.columns} cols` : ""}
+                  {item.rows} {t(lang, 'res.rows')}{item.columns ? ` · ${item.columns} ${t(lang, 'res.cols')}` : ""}
                 </p>
               )}
 
@@ -947,7 +1281,7 @@
                       rel="noreferrer"
                       className="text-sm font-semibold hover:underline inline-flex items-center gap-1 text-slate-400 hover:text-cyan-400"
                     >
-                      {link.label} <ExternalLink size={12} />
+                      {t(lang, link.label_key)} <ExternalLink size={12} />
                     </a>
                   )
                 ))}
@@ -957,10 +1291,11 @@
         };
 
         const ContentGrid = ({ items }) => {
+          const lang = useLanguage();
           if (items.length === 0) {
             return (
               <div className="text-center py-16 text-slate-500">
-                <p className="text-lg mb-2">No content matches your filters.</p>
+                <p className="text-lg mb-2">{t(lang, 'res.empty')}</p>
               </div>
             );
           }
@@ -978,6 +1313,7 @@
         const MAX_VISIBLE_CARDS = 9;
 
         const ResourcesSection = () => {
+          const lang = useLanguage();
           const [activeType, setActiveType] = useState("all");
           const [activeTags, setActiveTags] = useState(new Set());
           const [showAll, setShowAll] = useState(false);
@@ -1023,12 +1359,12 @@
               <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-teal-500/8 rounded-full blur-[120px] pointer-events-none"></div>
               <AnimateIn>
                 <div className="text-center mb-12 relative z-10">
-                  <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Resources</span>
+                  <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">{t(lang, 'res.eyebrow')}</span>
                   <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4">
-                    <span className="gradient-text">Notebooks, Apps & Datasets</span>
+                    <span className="gradient-text">{t(lang, 'res.heading')}</span>
                   </h2>
                   <p className="max-w-3xl mx-auto text-lg text-slate-400">
-                    Explore computational notebooks, interactive dashboards, and spatially-explicit datasets.
+                    {t(lang, 'res.description')}
                   </p>
                 </div>
               </AnimateIn>
@@ -1037,7 +1373,7 @@
                 activeType={activeType}
                 activeTags={activeTags}
                 availableTags={availableTags}
-                onTypeChange={(t) => { setActiveType(t); setActiveTags(new Set()); setShowAll(false); }}
+                onTypeChange={(tp) => { setActiveType(tp); setActiveTags(new Set()); setShowAll(false); }}
                 onTagToggle={handleTagToggle}
               />
 
@@ -1049,7 +1385,7 @@
                     onClick={() => setShowAll((prev) => !prev)}
                     className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all border border-white/10 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-500/10"
                   >
-                    {showAll ? 'Show less' : `View all ${sortedItems.length} resources`}
+                    {showAll ? t(lang, 'res.showLess') : t(lang, 'res.viewAll').replace('{count}', sortedItems.length)}
                   </button>
                 </div>
               )}
@@ -1058,60 +1394,60 @@
               <AnimateIn className="mt-16">
               <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 overflow-hidden">
                 <div className="px-6 py-5 border-b border-white/10 bg-white/5">
-                  <h3 className="text-lg font-bold text-white">Dataset Architecture & Identifiers</h3>
-                  <p className="text-sm text-slate-400 mt-1">The datasets are linked by the unique identifier <code className="text-cyan-400">asdf_id</code>.</p>
+                  <h3 className="text-lg font-bold text-white">{t(lang, 'table.title')}</h3>
+                  <p className="text-sm text-slate-400 mt-1">{t(lang, 'table.subtitle')} <code className="text-cyan-400">asdf_id</code>.</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
                     <thead className="bg-white/5 text-slate-400 font-semibold uppercase text-xs">
                       <tr>
-                        <th className="px-6 py-4">Category</th>
-                        <th className="px-6 py-4">File Path</th>
-                        <th className="px-6 py-4">Description</th>
-                        <th className="px-6 py-4">Join Key</th>
+                        <th className="px-6 py-4">{t(lang, 'table.col.category')}</th>
+                        <th className="px-6 py-4">{t(lang, 'table.col.filePath')}</th>
+                        <th className="px-6 py-4">{t(lang, 'table.col.description')}</th>
+                        <th className="px-6 py-4">{t(lang, 'table.col.joinKey')}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-700">
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">Region Names</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.regionNames')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/regionNames/regionNames.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">Municipality & department metadata</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.regionNames')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">SDG Indices</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgIndices')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdg/sdg.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">15 composite SDG indices (0–100 scale)</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgIndices')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">SDG Variables</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.sdgVariables')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdgVariables/sdgVariables.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">64 granular SDG indicators</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.sdgVariables')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">Night-Time Lights</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.ntl')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/ntl/ln_NTLpc.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">NTL per capita (2012–2020)</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.ntl')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">Population</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.population')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/pop/pop.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">Annual municipal estimates (2001–2020)</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.population')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">Satellite Embeddings</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.satelliteEmb')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/satelliteEmbeddings/satelliteEmbeddings2017.csv</a></td>
-                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">64-dim features from satellite imagery</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">{t(lang, 'table.desc.satelliteEmb')}</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                       <tr className="hover:bg-white/5">
-                        <td className="px-6 py-4 font-medium text-white">Municipal Boundaries</td>
+                        <td className="px-6 py-4 font-medium text-white">{t(lang, 'table.cat.boundaries')}</td>
                         <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/maps/bolivia339geoqueryOpt.geojson</a></td>
-                        <td className="px-6 py-4 text-slate-400">Optimized GeoJSON polygons (339 municipalities)</td>
+                        <td className="px-6 py-4 text-slate-400">{t(lang, 'table.desc.boundaries')}</td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                     </tbody>
@@ -1122,7 +1458,7 @@
                      <Layers size={20} />
                    </div>
                    <p className="text-sm text-amber-200/80">
-                     <strong>Important Note:</strong> The primary key is <code className="text-amber-300">asdf_id</code>. While <code>mun_id</code> exists, <code>asdf_id</code> ensures consistency across satellite embeddings and optimized maps. Always treat this column as an <code>int</code> or <code>string</code> consistently before merging.
+                     <strong>{t(lang, 'table.importantNote')}</strong> {t(lang, 'table.note')} <code className="text-amber-300">asdf_id</code>. {t(lang, 'table.note.1')} <code>mun_id</code> {t(lang, 'table.note.2')} <code>asdf_id</code> {t(lang, 'table.note.3')} <code>int</code> {t(lang, 'table.note.4')} <code>string</code> {t(lang, 'table.note.5')}
                    </p>
                 </div>
               </div>
@@ -1133,6 +1469,7 @@
 
         // --- People Section ---
         const PersonCard = ({ person }) => {
+          const lang = useLanguage();
           const initials = person.name.split(" ").map((n) => n[0]).join("");
           return (
             <div className="flex flex-col items-center max-w-xs">
@@ -1157,18 +1494,20 @@
                   rel="noreferrer"
                   className="inline-flex items-center mt-4 px-5 py-2 border border-white/20 text-cyan-400 text-sm font-semibold rounded-lg hover:bg-white/10 hover:border-cyan-500/40 transition-all"
                 >
-                  Visit Website <ExternalLink size={12} className="ml-2" />
+                  {t(lang, 'people.visitWebsite')} <ExternalLink size={12} className="ml-2" />
                 </a>
               )}
             </div>
           );
         };
 
-        const PeopleSection = () => (
+        const PeopleSection = () => {
+          const lang = useLanguage();
+          return (
           <section id="people" className="py-20 bg-slate-900 border-t border-slate-800">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <AnimateIn>
-                <h2 className="text-3xl font-extrabold mb-14"><span className="gradient-text">People</span></h2>
+                <h2 className="text-3xl font-extrabold mb-14"><span className="gradient-text">{t(lang, 'people.heading')}</span></h2>
               </AnimateIn>
 
               {/* Project Coordinators */}
@@ -1176,7 +1515,7 @@
                 <AnimateIn>
                   <div className="flex items-center gap-4 mb-8">
                     <div className="h-px bg-slate-600 flex-1"></div>
-                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Project Coordinators</h3>
+                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">{t(lang, 'people.coordinators')}</h3>
                     <div className="h-px bg-slate-600 flex-1"></div>
                   </div>
                 </AnimateIn>
@@ -1194,7 +1533,7 @@
                 <AnimateIn>
                   <div className="flex items-center gap-4 mb-8">
                     <div className="h-px bg-slate-600 flex-1"></div>
-                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Contributors</h3>
+                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">{t(lang, 'people.contributors')}</h3>
                     <div className="h-px bg-slate-600 flex-1"></div>
                   </div>
                 </AnimateIn>
@@ -1208,40 +1547,43 @@
               </div>
             </div>
           </section>
-        );
+          );
+        };
 
         // --- Community Section ---
-        const CommunitySection = () => (
+        const CommunitySection = () => {
+          const lang = useLanguage();
+          return (
           <section id="community" className="py-20 border-t border-slate-800 relative overflow-hidden">
             <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[120px] pointer-events-none"></div>
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
               <AnimateIn>
-                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">Community</span></h2>
+                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">{t(lang, 'community.heading')}</span></h2>
               </AnimateIn>
               <p className="text-slate-400 leading-relaxed mb-8">
-                We're using GitHub Discussions as a place to connect with other members of our community. We hope that you:
+                {t(lang, 'community.intro')}
               </p>
 
               <ul className="text-left max-w-lg mx-auto space-y-3 text-slate-400 mb-10">
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-circle-question text-cyan-500 mt-1"></i>
-                  <span>Ask questions you're wondering about.</span>
+                  <span>{t(lang, 'community.bullet.1')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-lightbulb text-cyan-500 mt-1"></i>
-                  <span>Share ideas.</span>
+                  <span>{t(lang, 'community.bullet.2')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-code text-cyan-500 mt-1"></i>
-                  <span>Share your notebooks.</span>
+                  <span>{t(lang, 'community.bullet.3')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-comments text-cyan-500 mt-1"></i>
-                  <span>Engage with other community members.</span>
+                  <span>{t(lang, 'community.bullet.4')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-hand-holding-heart text-cyan-500 mt-1"></i>
-                  <span>Welcome others and are open-minded. Remember that this is a community we build together.</span>
+                  <span>{t(lang, 'community.bullet.5')}</span>
                 </li>
               </ul>
 
@@ -1251,39 +1593,42 @@
                 rel="noreferrer"
                 className="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg shadow-sm text-white bg-cyan-500 hover:bg-cyan-600 transition-all hover:shadow-lg hover:-translate-y-0.5"
               >
-                <i className="fa-brands fa-github mr-2"></i> Join the Discussion
+                <i className="fa-brands fa-github mr-2"></i> {t(lang, 'community.cta')}
               </a>
             </div>
           </section>
-        );
+          );
+        };
 
         // --- Events Section ---
-        const EventsSection = () => (
+        const EventsSection = () => {
+          const lang = useLanguage();
+          return (
           <section id="events" className="py-20 bg-slate-900 border-t border-slate-800">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <AnimateIn>
-                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">Events</span></h2>
+                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">{t(lang, 'events.heading')}</span></h2>
               </AnimateIn>
               <p className="text-slate-400 leading-relaxed mb-8">
-                We invite community members and newcomers to participate in our public events. Join us to learn, collaborate, and build together:
+                {t(lang, 'events.intro')}
               </p>
 
               <ul className="text-left max-w-lg mx-auto space-y-3 text-slate-400 mb-10">
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-chalkboard-user text-cyan-500 mt-1"></i>
-                  <span>Attend training sessions on data science methods and tools.</span>
+                  <span>{t(lang, 'events.bullet.1')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-laptop-code text-cyan-500 mt-1"></i>
-                  <span>Design and prototype computational notebooks and apps.</span>
+                  <span>{t(lang, 'events.bullet.2')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-users text-cyan-500 mt-1"></i>
-                  <span>Collaborate with researchers and practitioners from diverse backgrounds.</span>
+                  <span>{t(lang, 'events.bullet.3')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <i className="fa-solid fa-bell text-cyan-500 mt-1"></i>
-                  <span>Subscribe on Luma to get notified when new events are announced.</span>
+                  <span>{t(lang, 'events.bullet.4')}</span>
                 </li>
               </ul>
 
@@ -1293,18 +1638,27 @@
                 rel="noreferrer"
                 className="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg shadow-sm text-white bg-cyan-500 hover:bg-cyan-600 transition-all hover:shadow-lg hover:-translate-y-0.5"
               >
-                <i className="fa-solid fa-calendar-check mr-2"></i> Subscribe on Luma
+                <i className="fa-solid fa-calendar-check mr-2"></i> {t(lang, 'events.cta')}
               </a>
             </div>
           </section>
-        );
+          );
+        };
 
         // --- Main App Component ---
 
         const App = () => {
+          const [lang, setLang] = useState(() => localStorage.getItem('ds4b_lang') || 'en');
+          const toggleLang = () => {
+            const next = lang === 'en' ? 'es' : 'en';
+            setLang(next);
+            localStorage.setItem('ds4b_lang', next);
+          };
+
           return (
+            <LanguageContext.Provider value={lang}>
             <div className="bg-slate-950 min-h-screen font-sans selection:bg-cyan-900/50 selection:text-cyan-100">
-              <Navigation />
+              <Navigation toggleLang={toggleLang} />
               <Hero />
 
               {/* Introduction Section */}
@@ -1312,12 +1666,12 @@
                 <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/8 rounded-full blur-[128px] pointer-events-none"></div>
                 <AnimateIn>
                   <div className="text-center mb-16 relative z-10">
-                    <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Our Mission</span>
+                    <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">{t(lang, 'mission.eyebrow')}</span>
                     <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4">
-                      <span className="gradient-text">Bridging Spatial Analysis & Sustainable Development</span>
+                      <span className="gradient-text">{t(lang, 'mission.heading')}</span>
                     </h2>
                     <p className="max-w-3xl mx-auto text-lg text-slate-400">
-                      DS4Bolivia aggregates spatial and socio-economic datasets, interactive dashboards, and computational workflows for 339 municipalities in Bolivia.
+                      {t(lang, 'mission.description')}
                     </p>
                   </div>
                 </AnimateIn>
@@ -1326,48 +1680,48 @@
                   <AnimateIn delay={0}>
                     <FeatureCard
                       icon={Globe}
-                      title="Sustainable Development"
-                      description="Tracking SDG indicators at a granular local level to inform policy and monitor progress."
+                      title={t(lang, 'mission.card1.title')}
+                      description={t(lang, 'mission.card1.desc')}
                       accent="emerald"
                     />
                   </AnimateIn>
                   <AnimateIn delay={100}>
                     <FeatureCard
                       icon={BarChart2}
-                      title="Spatial Econometrics"
-                      description="Understanding regional disparities, growth patterns, and clustering effects across administrative boundaries."
+                      title={t(lang, 'mission.card2.title')}
+                      description={t(lang, 'mission.card2.desc')}
                       accent="violet"
                     />
                   </AnimateIn>
                   <AnimateIn delay={200}>
                     <FeatureCard
                       icon={MapIcon}
-                      title="Spatial Machine Learning"
-                      description="Utilizing Earth Observation satellite imagery for predictive modeling of poverty and development indices."
+                      title={t(lang, 'mission.card3.title')}
+                      description={t(lang, 'mission.card3.desc')}
                       accent="amber"
                     />
                   </AnimateIn>
                 </div>
               </section>
 
-              {/* Dashboards Section */}
-              <section id="dashboards" className="bg-slate-900 py-20 border-y border-slate-800">
+              {/* Apps Section */}
+              <section id="apps" className="bg-slate-900 py-20 border-y border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="flex flex-col lg:flex-row items-center gap-12">
                     <AnimateIn className="lg:w-1/2">
-                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Interactive Apps and Dashboards</span>
+                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">{t(lang, 'dash.eyebrow')}</span>
                       <h2 className="text-3xl font-extrabold mt-2 mb-6">
-                        <span className="gradient-text">Explore Space-Time Dynamics of Regional Development</span>
+                        <span className="gradient-text">{t(lang, 'dash.heading')}</span>
                       </h2>
                       <p className="text-slate-400 mb-6 text-lg">
-                        No code required. Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities (2013-2019).
+                        {t(lang, 'dash.description')}
                       </p>
                       <ul className="space-y-4 mb-8">
                         {[
-                          "Population Density Maps",
-                          "Night-time Lights Analysis",
-                          "Land Cover Changes",
-                          "GDP Estimates"
+                          t(lang, 'dash.bullet.1'),
+                          t(lang, 'dash.bullet.2'),
+                          t(lang, 'dash.bullet.3'),
+                          t(lang, 'dash.bullet.4')
                         ].map((item, i) => (
                           <li key={i} className="flex items-center gap-3 text-slate-300">
                             <div className="w-6 h-6 rounded-full bg-cyan-900/30 flex items-center justify-center text-cyan-400">
@@ -1383,7 +1737,7 @@
                         rel="noreferrer"
                         className="inline-flex items-center gap-2 text-white bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold transition-all"
                       >
-                        Launch Dashboard <ExternalLink size={18} />
+                        {t(lang, 'dash.launch')} <ExternalLink size={18} />
                       </a>
                     </AnimateIn>
                     <AnimateIn delay={200} className="lg:w-1/2 relative group">
@@ -1392,7 +1746,7 @@
                         <img
                            src="images/app01.jpg"
                            className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity"
-                           alt="Dashboard Preview"
+                           alt="App Preview"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-slate-900/10 group-hover:bg-transparent transition-colors">
                         </div>
@@ -1411,10 +1765,10 @@
                   <AnimateIn>
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
                     <div>
-                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">How To Use</span>
-                      <h2 className="text-3xl font-extrabold mt-2"><span className="gradient-text">Construct your own dataset</span></h2>
+                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">{t(lang, 'ex.eyebrow')}</span>
+                      <h2 className="text-3xl font-extrabold mt-2"><span className="gradient-text">{t(lang, 'ex.heading')}</span></h2>
                       <p className="text-slate-400 mt-2 max-w-2xl">
-                        Run these examples immediately in Google Colab. No local setup required.
+                        {t(lang, 'ex.description')}
                       </p>
                     </div>
                     <a
@@ -1434,9 +1788,9 @@
                     <AnimateIn>
                       <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
                         <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm text-cyan-400">1</span>
-                        Integrating Attribute Data
+                        {t(lang, 'ex.1.title')}
                       </h3>
-                      <p className="text-slate-400 mb-4 ml-10">Merge administrative names, socio-economic indicators, and satellite features.</p>
+                      <p className="text-slate-400 mb-4 ml-10">{t(lang, 'ex.1.desc')}</p>
                       <CodeBlock
                         title="example_01_merge_attributes.py"
                         code={`import pandas as pd
@@ -1471,9 +1825,9 @@ display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`}
                     <AnimateIn>
                       <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
                         <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm text-cyan-400">2</span>
-                        Integrating Spatial and Attribute Data
+                        {t(lang, 'ex.2.title')}
                       </h3>
-                      <p className="text-slate-400 mb-4 ml-10">Attach merged attributes to municipality geometries (GeoJSON) for analysis.</p>
+                      <p className="text-slate-400 mb-4 ml-10">{t(lang, 'ex.2.desc')}</p>
                       <CodeBlock
                         title="example_02_spatial_merge.py"
                         code={`import geopandas as gpd
@@ -1525,10 +1879,10 @@ plt.show()`}
                 <AnimateIn>
                 <div className="mb-12 relative z-10">
                   <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                    <FileText className="text-cyan-400" /> <span className="gradient-text">How to cite this project</span>
+                    <FileText className="text-cyan-400" /> <span className="gradient-text">{t(lang, 'cite.heading')}</span>
                   </h2>
                   <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-sm mb-6">
-                    <h4 className="font-bold text-slate-200 mb-2 text-sm uppercase tracking-wide">APA Format</h4>
+                    <h4 className="font-bold text-slate-200 mb-2 text-sm uppercase tracking-wide">{t(lang, 'cite.apa')}</h4>
                     <p className="text-slate-400 italic">
                       Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia. GitHub. https://github.com/quarcs-lab/ds4bolivia
                     </p>
@@ -1549,14 +1903,6 @@ plt.show()`}
                 </div>
                 </AnimateIn>
 
-                <AnimateIn>
-                <div className="border-t border-white/10 pt-8 relative z-10">
-                  <h2 className="text-xl font-bold text-white mb-4">Data Sources</h2>
-                  <p className="text-slate-400">
-                    SDG indicators are originally constructed by <a href="https://atlas.sdsnbolivia.org" className="text-cyan-400 hover:underline">Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020)</a> Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia.
-                  </p>
-                </div>
-                </AnimateIn>
               </section>
 
               {/* Footer */}
@@ -1564,7 +1910,7 @@ plt.show()`}
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                   <div className="text-center md:text-left">
                     <span className="font-bold text-xl gradient-text">DS4Bolivia</span>
-                    <p className="text-sm text-slate-500 mt-2">Open source geospatial intelligence for sustainable development.</p>
+                    <p className="text-sm text-slate-500 mt-2">{t(lang, 'footer.tagline')}</p>
                   </div>
                   <div className="flex gap-6">
                      <a href="https://github.com/quarcs-lab/ds4bolivia" className="text-slate-500 hover:text-white transition-colors">
@@ -1574,12 +1920,17 @@ plt.show()`}
                 </div>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 text-center">
                     <p className="text-sm text-slate-500">
-                       Fixing a CRS issue? Adding a model? <a href="https://github.com/quarcs-lab/ds4bolivia/pulls" className="text-cyan-400 hover:underline">Submit a Pull Request</a>.
+                       {t(lang, 'footer.prompt1')}{' '}
+                       <a href="https://github.com/quarcs-lab/ds4bolivia/issues" className="text-cyan-400 hover:underline">{t(lang, 'footer.issue')}</a>{' '}
+                       {t(lang, 'footer.prompt2')}{' '}
+                       <a href="https://github.com/quarcs-lab/ds4bolivia/discussions" className="text-cyan-400 hover:underline">{t(lang, 'footer.discussion')}</a>{' '}
+                       {t(lang, 'footer.prompt3')}
                     </p>
                 </div>
               </footer>
 
             </div>
+            </LanguageContext.Provider>
           );
         };
 
