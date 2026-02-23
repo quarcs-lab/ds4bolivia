@@ -25,11 +25,16 @@
                 extend: {
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
                     },
                     keyframes: {
                         fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translate3d(0, 20px, 0)' },
+                            '0%': { opacity: '0', transform: 'translate3d(0, 30px, 0)' },
                             '100%': { opacity: '1', transform: 'translate3d(0, 0, 0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
                         }
                     }
                 }
@@ -47,13 +52,49 @@
             transform: scale(1.05);
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
         }
+        .gradient-text {
+            background: linear-gradient(135deg, #22d3ee, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-link-underline {
+            position: relative;
+        }
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22d3ee, #818cf8);
+            transition: width 0.3s ease;
+        }
+        .nav-link-underline:hover::after,
+        .nav-link-underline.active::after {
+            width: 100%;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .typing-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-slow { animation: float 8s ease-in-out infinite; }
+        .float-slower { animation: float 12s ease-in-out infinite; }
     </style>
 </head>
 <body class="bg-slate-950">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef, useCallback } = React;
 
         // --- Icon Components (Replacing Lucide-React imports for standalone usage) ---
         const IconWrapper = ({ size = 24, className = "", children }) => (
@@ -179,6 +220,105 @@
             </IconWrapper>
         );
 
+        // --- Custom Hooks ---
+
+        const useInView = (options = {}) => {
+          const { threshold = 0.1, once = true } = options;
+          const ref = useRef(null);
+          const [isInView, setIsInView] = useState(false);
+
+          useEffect(() => {
+            const element = ref.current;
+            if (!element) return;
+
+            const observer = new IntersectionObserver(
+              ([entry]) => {
+                if (entry.isIntersecting) {
+                  setIsInView(true);
+                  if (once) observer.unobserve(element);
+                } else if (!once) {
+                  setIsInView(false);
+                }
+              },
+              { threshold }
+            );
+
+            observer.observe(element);
+            return () => observer.disconnect();
+          }, [threshold, once]);
+
+          return [ref, isInView];
+        };
+
+        const useActiveSection = (sectionIds) => {
+          const [activeId, setActiveId] = useState('');
+
+          useEffect(() => {
+            const observers = [];
+            sectionIds.forEach((id) => {
+              const el = document.getElementById(id);
+              if (!el) return;
+              const observer = new IntersectionObserver(
+                ([entry]) => {
+                  if (entry.isIntersecting) setActiveId(id);
+                },
+                { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' }
+              );
+              observer.observe(el);
+              observers.push(observer);
+            });
+            return () => observers.forEach((o) => o.disconnect());
+          }, []);
+
+          return activeId;
+        };
+
+        const useTypingEffect = (phrases, typingSpeed = 80, deletingSpeed = 40, pauseDuration = 2000) => {
+          const [text, setText] = useState('');
+          const [phraseIndex, setPhraseIndex] = useState(0);
+          const [isDeleting, setIsDeleting] = useState(false);
+
+          useEffect(() => {
+            const currentPhrase = phrases[phraseIndex];
+            let timeout;
+
+            if (!isDeleting && text === currentPhrase) {
+              timeout = setTimeout(() => setIsDeleting(true), pauseDuration);
+            } else if (isDeleting && text === '') {
+              setIsDeleting(false);
+              setPhraseIndex((prev) => (prev + 1) % phrases.length);
+            } else {
+              timeout = setTimeout(() => {
+                setText(currentPhrase.substring(0, text.length + (isDeleting ? -1 : 1)));
+              }, isDeleting ? deletingSpeed : typingSpeed);
+            }
+
+            return () => clearTimeout(timeout);
+          }, [text, isDeleting, phraseIndex, phrases]);
+
+          return text;
+        };
+
+        // --- Animation Wrapper Components ---
+
+        const AnimateIn = ({ children, delay = 0, className = '' }) => {
+          const [ref, isInView] = useInView({ threshold: 0.1 });
+
+          return (
+            <div
+              ref={ref}
+              className={className}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateY(0)' : 'translateY(30px)',
+                transition: `opacity 0.6s ease-out ${delay}ms, transform 0.6s ease-out ${delay}ms`,
+              }}
+            >
+              {children}
+            </div>
+          );
+        };
+
         // --- Content Registry ---
         const CONTENT_REGISTRY = [
           // Notebooks
@@ -190,6 +330,8 @@
             tags: ["spatial-analysis", "pysal", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2025-01-15",
+            pinned: false,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda.ipynb", type: "github" },
@@ -203,6 +345,8 @@
             tags: ["eda", "plotly", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2025-01-15",
+            pinned: false,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda.ipynb", type: "github" },
@@ -216,6 +360,8 @@
             tags: ["spatial-analysis", "pysal", "moran"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2026-02-22",
+            pinned: true,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_dependence.ipynb", type: "github" },
@@ -229,6 +375,8 @@
             tags: ["spatial-analysis", "inequality", "theil", "gini"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2026-02-22",
+            pinned: true,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_inequality.ipynb", type: "github" },
@@ -242,6 +390,8 @@
             tags: ["spatial-analysis", "gwr", "mgwr"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2026-02-22",
+            pinned: true,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/esda_heterogeneity.ipynb", type: "github" },
@@ -255,6 +405,8 @@
             tags: ["spatial-analysis", "eda", "pysal", "geopandas"],
             color: "cyan",
             icon: "BookOpen",
+            date: "2026-02-22",
+            pinned: false,
             links: [
               { label: "Open in Colab", url: "https://colab.research.google.com/github/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "colab" },
               { label: "GitHub", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/notebooks/eda_esda.ipynb", type: "github" },
@@ -269,6 +421,8 @@
             tags: ["earth-engine", "dashboard", "ntl", "population"],
             color: "amber",
             icon: "Globe",
+            date: "2024-06-01",
+            pinned: true,
             links: [
               { label: "Launch Dashboard", url: "https://carlos-mendez.projects.earthengine.app/view/geoexplorer1v100bolivia", type: "external" },
               { label: "Source Code", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/apps/geoexplorer1v100bolivia.js", type: "github" },
@@ -283,6 +437,8 @@
             tags: ["sdg", "satellite-embeddings", "machine-learning", "merged"],
             color: "violet",
             icon: "Database",
+            date: "2025-06-01",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/datasets/sdgs_satelliteEmbeddings2017.csv", type: "github" },
             ],
@@ -297,6 +453,8 @@
             tags: ["administrative", "metadata"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv", type: "github" },
             ],
@@ -311,6 +469,8 @@
             tags: ["sdg", "socio-economic"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv", type: "github" },
             ],
@@ -325,6 +485,8 @@
             tags: ["sdg", "socio-economic", "granular"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv", type: "github" },
             ],
@@ -339,6 +501,8 @@
             tags: ["satellite-embeddings", "earth-engine", "remote-sensing"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv", type: "github" },
             ],
@@ -353,6 +517,8 @@
             tags: ["ntl", "remote-sensing", "time-series"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv", type: "github" },
             ],
@@ -367,6 +533,8 @@
             tags: ["population", "demographics", "time-series"],
             color: "violet",
             icon: "Database",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View CSV", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv", type: "github" },
             ],
@@ -381,6 +549,8 @@
             tags: ["spatial", "geojson", "boundaries"],
             color: "violet",
             icon: "MapIcon",
+            date: "2024-01-15",
+            pinned: false,
             links: [
               { label: "View GeoJSON", url: "https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson", type: "github" },
             ],
@@ -443,6 +613,18 @@
           const [isOpen, setIsOpen] = useState(false);
           const [scrolled, setScrolled] = useState(false);
 
+          const navLinks = [
+            { name: 'Dashboards', href: '#dashboards', id: 'dashboards' },
+            { name: 'Resources', href: '#resources', id: 'resources' },
+            { name: 'Examples', href: '#examples', id: 'examples' },
+            { name: 'People', href: '#people', id: 'people' },
+            { name: 'Community', href: '#community', id: 'community' },
+            { name: 'Events', href: '#events', id: 'events' },
+            { name: 'Citation', href: '#citation', id: 'citation' },
+          ];
+
+          const activeSection = useActiveSection(navLinks.map((l) => l.id));
+
           useEffect(() => {
             const handleScroll = () => {
               setScrolled(window.scrollY > 20);
@@ -451,34 +633,26 @@
             return () => window.removeEventListener('scroll', handleScroll);
           }, []);
 
-          const navLinks = [
-            { name: 'Dashboards', href: '#dashboards' },
-            { name: 'Resources', href: '#resources' },
-            { name: 'Examples', href: '#examples' },
-            { name: 'People', href: '#people' },
-            { name: 'Community', href: '#community' },
-            { name: 'Events', href: '#events' },
-            { name: 'Citation', href: '#citation' },
-          ];
-
           return (
-            <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-md shadow-slate-950/50 py-2' : 'bg-transparent py-4'}`}>
+            <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl shadow-lg shadow-slate-950/50 border-b border-white/5 py-2' : 'bg-transparent py-4'}`}>
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-12">
                   <div className="flex-shrink-0 flex items-center">
-                    <span className="font-bold text-2xl tracking-tighter text-white">
-                      DS4<span className="text-cyan-500">Bolivia</span>
+                    <span className="font-bold text-2xl tracking-tighter">
+                      <span className="gradient-text">DS4Bolivia</span>
                     </span>
                   </div>
 
                   {/* Desktop Menu */}
-                  <div className="hidden md:flex space-x-8">
+                  <div className="hidden md:flex items-center space-x-8">
                     {navLinks.map((link) => (
                       <a
                         key={link.name}
                         href={link.href}
-                        className={`text-sm font-medium transition-colors ${
-                          scrolled ? 'text-slate-300 hover:text-cyan-400' : 'text-gray-100 hover:text-white'
+                        className={`nav-link-underline text-sm font-medium transition-colors ${
+                          activeSection === link.id
+                            ? 'text-cyan-400 active'
+                            : scrolled ? 'text-slate-300 hover:text-cyan-400' : 'text-gray-100 hover:text-white'
                         }`}
                       >
                         {link.name}
@@ -491,7 +665,7 @@
                       className={`flex items-center space-x-1 px-4 py-2 rounded-full text-sm font-bold transition-all ${
                         scrolled
                           ? 'bg-cyan-500 text-white hover:bg-cyan-600'
-                          : 'bg-white/20 backdrop-blur-sm text-white hover:bg-white/30'
+                          : 'bg-white/15 backdrop-blur-sm text-white hover:bg-white/25 border border-white/10'
                       }`}
                     >
                       <Github size={16} />
@@ -540,6 +714,12 @@
 
         // --- Hero Component ---
         const Hero = () => {
+          const typingText = useTypingEffect([
+            'Regional Development Monitoring',
+            'Spatial Econometrics Modeling',
+            'Machine Learning Analyses',
+          ]);
+
           return (
             <div className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
               {/* Background Image with Overlay */}
@@ -549,29 +729,41 @@
                   alt="Bolivia Landscape"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-slate-900/70 mix-blend-multiply"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-slate-950/75 mix-blend-multiply"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+              </div>
+
+              {/* Ambient Gradient Orbs */}
+              <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[128px] float-slow"></div>
+                <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[100px] float-slower"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-500/8 rounded-full blur-[120px]"></div>
               </div>
 
               <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <div className="animate-fade-in-up">
-                  <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
-                    DS4<span className="text-cyan-400">Bolivia</span>
+                  <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6">
+                    <span className="gradient-text">DS4Bolivia</span>
                   </h1>
-                  <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto font-light leading-relaxed mb-8">
-                    A Data Science Repository to Study GeoSpatial Development across <span className="font-semibold text-white">339 Municipalities</span>.
+                  <p className="text-xl md:text-2xl text-slate-200 max-w-3xl mx-auto font-light leading-relaxed mb-3">
+                    A Data Science Repository to Study GeoSpatial Development across <span className="font-semibold text-white">339 Municipalities in Bolivia</span>.
+                  </p>
+                  <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light mb-10 h-8">
+                    Built for{' '}
+                    <span className="gradient-text font-semibold">{typingText}</span>
+                    <span className="typing-cursor text-cyan-400">|</span>
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <a
                       href="#dashboards"
-                      className="px-8 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2"
+                      className="px-8 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg transition-all hover:-translate-y-1 shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2"
                     >
                       <Globe size={20} />
                       Explore Dashboards
                     </a>
                     <a
                       href="#examples"
-                      className="px-8 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-bold text-lg transition-transform hover:-translate-y-1 shadow-lg border border-white/20 flex items-center justify-center gap-2"
+                      className="px-8 py-3 rounded-lg bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 font-bold text-lg transition-all hover:-translate-y-1 shadow-lg border border-white/20 flex items-center justify-center gap-2"
                     >
                       <Terminal size={20} />
                       Start Coding
@@ -583,15 +775,24 @@
           );
         };
 
-        const FeatureCard = ({ icon: Icon, title, description }) => (
-          <div className="bg-slate-800/50 p-8 rounded-2xl shadow-sm border border-slate-700 hover:shadow-xl hover:border-cyan-500/30 transition-all duration-300 group">
-            <div className="w-14 h-14 bg-slate-700/50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-900/30 transition-colors">
-              <Icon className="text-slate-400 group-hover:text-cyan-400 w-8 h-8 transition-colors" />
+        const accentMap = {
+          emerald: { iconBg: 'bg-emerald-900/30', iconText: 'text-emerald-400', border: 'border-emerald-500/30', shadow: 'hover:shadow-emerald-500/10', titleHover: 'group-hover:text-emerald-400' },
+          violet:  { iconBg: 'bg-violet-900/30',  iconText: 'text-violet-400',  border: 'border-violet-500/30',  shadow: 'hover:shadow-violet-500/10',  titleHover: 'group-hover:text-violet-400'  },
+          amber:   { iconBg: 'bg-amber-900/30',   iconText: 'text-amber-400',   border: 'border-amber-500/30',   shadow: 'hover:shadow-amber-500/10',   titleHover: 'group-hover:text-amber-400'   },
+          cyan:    { iconBg: 'bg-cyan-900/30',    iconText: 'text-cyan-400',    border: 'border-cyan-500/30',    shadow: 'hover:shadow-cyan-500/10',    titleHover: 'group-hover:text-cyan-400'    },
+        };
+        const FeatureCard = ({ icon: Icon, title, description, accent = 'cyan' }) => {
+          const a = accentMap[accent] || accentMap.cyan;
+          return (
+            <div className={`bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-sm border ${a.border} hover:shadow-xl ${a.shadow} transition-all duration-300 group`}>
+              <div className={`w-14 h-14 ${a.iconBg} rounded-xl flex items-center justify-center mb-6`}>
+                <Icon className={`${a.iconText} w-8 h-8`} />
+              </div>
+              <h3 className={`text-xl font-bold text-white mb-3 ${a.titleHover} transition-colors`}>{title}</h3>
+              <p className="text-slate-400 leading-relaxed">{description}</p>
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-            <p className="text-slate-400 leading-relaxed">{description}</p>
-          </div>
-        );
+          );
+        };
 
         const CodeBlock = ({ code, language = 'python', title }) => {
           const [copied, setCopied] = useState(false);
@@ -603,8 +804,8 @@
           };
 
           return (
-            <div className="my-8 rounded-xl overflow-hidden bg-slate-900 shadow-2xl border border-slate-700">
-              <div className="flex justify-between items-center px-4 py-2 bg-slate-800 border-b border-slate-700">
+            <div className="my-8 rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md shadow-2xl border border-white/10">
+              <div className="flex justify-between items-center px-4 py-2 bg-white/5 border-b border-white/10">
                 <div className="flex items-center gap-2">
                    <div className="flex gap-1.5">
                      <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
@@ -686,12 +887,26 @@
           );
         };
 
+        const HOVER_GLOW = {
+          cyan:   "hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-500/10",
+          amber:  "hover:border-amber-500/40 hover:shadow-lg hover:shadow-amber-500/10",
+          violet: "hover:border-violet-500/40 hover:shadow-lg hover:shadow-violet-500/10",
+        };
+
         const ContentCard = ({ item }) => {
           const colors = COLOR_CONFIG[item.color] || COLOR_CONFIG.cyan;
+          const hoverGlow = HOVER_GLOW[item.color] || HOVER_GLOW.cyan;
           const IconComponent = ICON_MAP[item.icon] || Database;
 
           return (
-            <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 shadow-sm hover:shadow-md hover:shadow-slate-900/50 transition-shadow flex flex-col">
+            <div className={`bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 transition-all duration-300 flex flex-col relative ${hoverGlow}`}>
+              {item.pinned && (
+                <div className="absolute top-3 right-3 text-cyan-400/60" title="Pinned">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                    <path d="M16 2L14.5 3.5l1 1-5.5 5.5-4-1L4.5 10.5 9 15l-5 5h2l4-4 4.5 4.5 1.5-1.5-1-4 5.5-5.5 1 1L23 8z"/>
+                  </svg>
+                </div>
+              )}
               <div className="flex items-start gap-3 mb-3">
                 <div className={`p-2 rounded-lg flex-shrink-0 ${colors.bg} ${colors.text}`}>
                   <IconComponent size={20} />
@@ -751,20 +966,26 @@
           }
           return (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {items.map((item) => (
-                <ContentCard key={item.id} item={item} />
+              {items.map((item, i) => (
+                <AnimateIn key={item.id} delay={i * 80}>
+                  <ContentCard item={item} />
+                </AnimateIn>
               ))}
             </div>
           );
         };
 
+        const MAX_VISIBLE_CARDS = 9;
+
         const ResourcesSection = () => {
           const [activeType, setActiveType] = useState("all");
           const [activeTags, setActiveTags] = useState(new Set());
+          const [showAll, setShowAll] = useState(false);
 
           const handleTagToggle = (tag) => {
             if (tag === null) {
               setActiveTags(new Set());
+              setShowAll(false);
               return;
             }
             setActiveTags((prev) => {
@@ -773,6 +994,7 @@
               else next.add(tag);
               return next;
             });
+            setShowAll(false);
           };
 
           const filteredItems = CONTENT_REGISTRY.filter((item) => {
@@ -781,6 +1003,15 @@
             return typeMatch && tagMatch;
           });
 
+          // Sort: pinned first, then by date descending
+          const sortedItems = [...filteredItems].sort((a, b) => {
+            if (a.pinned !== b.pinned) return b.pinned - a.pinned;
+            return new Date(b.date) - new Date(a.date);
+          });
+
+          const displayItems = showAll ? sortedItems : sortedItems.slice(0, MAX_VISIBLE_CARDS);
+          const hasMore = sortedItems.length > MAX_VISIBLE_CARDS;
+
           const availableTags = [...new Set(
             CONTENT_REGISTRY
               .filter((item) => activeType === "all" || item.type === activeType)
@@ -788,36 +1019,51 @@
           )].sort();
 
           return (
-            <section id="resources" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Resources</span>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">
-                  Notebooks, Apps & Datasets
-                </h2>
-                <p className="max-w-3xl mx-auto text-lg text-slate-400">
-                  Explore computational notebooks, interactive dashboards, and spatially-explicit datasets.
-                </p>
-              </div>
+            <section id="resources" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+              <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-teal-500/8 rounded-full blur-[120px] pointer-events-none"></div>
+              <AnimateIn>
+                <div className="text-center mb-12 relative z-10">
+                  <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Resources</span>
+                  <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4">
+                    <span className="gradient-text">Notebooks, Apps & Datasets</span>
+                  </h2>
+                  <p className="max-w-3xl mx-auto text-lg text-slate-400">
+                    Explore computational notebooks, interactive dashboards, and spatially-explicit datasets.
+                  </p>
+                </div>
+              </AnimateIn>
 
               <FilterBar
                 activeType={activeType}
                 activeTags={activeTags}
                 availableTags={availableTags}
-                onTypeChange={(t) => { setActiveType(t); setActiveTags(new Set()); }}
+                onTypeChange={(t) => { setActiveType(t); setActiveTags(new Set()); setShowAll(false); }}
                 onTagToggle={handleTagToggle}
               />
 
-              <ContentGrid items={filteredItems} />
+              <ContentGrid items={displayItems} />
+
+              {hasMore && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={() => setShowAll((prev) => !prev)}
+                    className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all border border-white/10 text-slate-300 hover:border-cyan-500/40 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-500/10"
+                  >
+                    {showAll ? 'Show less' : `View all ${sortedItems.length} resources`}
+                  </button>
+                </div>
+              )}
 
               {/* Dataset Architecture Table */}
-              <div className="mt-16 bg-slate-800/50 rounded-2xl shadow-sm border border-slate-700 overflow-hidden">
-                <div className="px-6 py-5 border-b border-slate-700 bg-slate-800/80">
+              <AnimateIn className="mt-16">
+              <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 overflow-hidden">
+                <div className="px-6 py-5 border-b border-white/10 bg-white/5">
                   <h3 className="text-lg font-bold text-white">Dataset Architecture & Identifiers</h3>
                   <p className="text-sm text-slate-400 mt-1">The datasets are linked by the unique identifier <code className="text-cyan-400">asdf_id</code>.</p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left">
-                    <thead className="bg-slate-700/50 text-slate-400 font-semibold uppercase text-xs">
+                    <thead className="bg-white/5 text-slate-400 font-semibold uppercase text-xs">
                       <tr>
                         <th className="px-6 py-4">Category</th>
                         <th className="px-6 py-4">File Path</th>
@@ -826,28 +1072,46 @@
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-700">
-                      <tr className="hover:bg-slate-700/30">
+                      <tr className="hover:bg-white/5">
                         <td className="px-6 py-4 font-medium text-white">Region Names</td>
-                        <td className="px-6 py-4 font-mono text-slate-400">/regionNames/regionNames.csv</td>
-                        <td className="px-6 py-4 text-slate-400">Municipality & Department metadata</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/regionNames.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/regionNames/regionNames.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/regionNames/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">Municipality & department metadata</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
-                      <tr className="hover:bg-slate-700/30">
-                        <td className="px-6 py-4 font-medium text-white">Socio-Economic</td>
-                        <td className="px-6 py-4 font-mono text-slate-400">/sdg/sdg.csv</td>
-                        <td className="px-6 py-4 text-slate-400">SDG indices and poverty metrics</td>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">SDG Indices</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/sdg.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdg/sdg.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdg/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">15 composite SDG indices (0–100 scale)</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
-                      <tr className="hover:bg-slate-700/30">
-                        <td className="px-6 py-4 font-medium text-white">Satellite Features</td>
-                        <td className="px-6 py-4 font-mono text-slate-400">/satelliteEmbeddings/...</td>
-                        <td className="px-6 py-4 text-slate-400">Embeddings from daytime imagery</td>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">SDG Variables</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/sdgVariables.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/sdgVariables/sdgVariables.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/sdgVariables/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">64 granular SDG indicators</a></td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
-                      <tr className="hover:bg-slate-700/30">
-                        <td className="px-6 py-4 font-medium text-white">Spatial Vector</td>
-                        <td className="px-6 py-4 font-mono text-slate-400">/maps/bolivia339geoqueryOpt.geojson</td>
-                        <td className="px-6 py-4 text-slate-400">Geometric boundaries (Polygons)</td>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">Night-Time Lights</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/ln_NTLpc.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/ntl/ln_NTLpc.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/ntl/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">NTL per capita (2012–2020)</a></td>
+                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">Population</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/pop.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/pop/pop.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/pop/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">Annual municipal estimates (2001–2020)</a></td>
+                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">Satellite Embeddings</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/satelliteEmbeddings2017.csv" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/satelliteEmbeddings/satelliteEmbeddings2017.csv</a></td>
+                        <td className="px-6 py-4"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/satelliteEmbeddings/README.md" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-cyan-400 hover:underline">64-dim features from satellite imagery</a></td>
+                        <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
+                      </tr>
+                      <tr className="hover:bg-white/5">
+                        <td className="px-6 py-4 font-medium text-white">Municipal Boundaries</td>
+                        <td className="px-6 py-4 font-mono text-xs"><a href="https://github.com/quarcs-lab/ds4bolivia/blob/master/maps/bolivia339geoqueryOpt.geojson" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/maps/bolivia339geoqueryOpt.geojson</a></td>
+                        <td className="px-6 py-4 text-slate-400">Optimized GeoJSON polygons (339 municipalities)</td>
                         <td className="px-6 py-4 font-mono text-cyan-400 font-bold">asdf_id</td>
                       </tr>
                     </tbody>
@@ -862,6 +1126,7 @@
                    </p>
                 </div>
               </div>
+              </AnimateIn>
             </section>
           );
         };
@@ -875,10 +1140,10 @@
                 <img
                   src={person.avatar}
                   alt={person.name}
-                  className="contributor-avatar w-24 h-24 rounded-full mb-4 object-cover shadow-sm border-2 border-slate-600"
+                  className="contributor-avatar w-24 h-24 rounded-full mb-4 object-cover shadow-sm border-2 border-white/20"
                 />
               ) : (
-                <div className="contributor-avatar w-24 h-24 rounded-full mb-4 bg-slate-700 flex items-center justify-center text-slate-400 text-2xl font-bold border-2 border-slate-600">
+                <div className="contributor-avatar w-24 h-24 rounded-full mb-4 bg-white/10 flex items-center justify-center text-slate-400 text-2xl font-bold border-2 border-white/20">
                   {initials}
                 </div>
               )}
@@ -890,7 +1155,7 @@
                   href={person.website}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center mt-4 px-5 py-2 border border-cyan-500 text-cyan-400 text-sm font-semibold rounded-lg hover:bg-cyan-900/30 transition-colors"
+                  className="inline-flex items-center mt-4 px-5 py-2 border border-white/20 text-cyan-400 text-sm font-semibold rounded-lg hover:bg-white/10 hover:border-cyan-500/40 transition-all"
                 >
                   Visit Website <ExternalLink size={12} className="ml-2" />
                 </a>
@@ -902,32 +1167,42 @@
         const PeopleSection = () => (
           <section id="people" className="py-20 bg-slate-900 border-t border-slate-800">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-3xl font-extrabold text-white mb-14">People</h2>
+              <AnimateIn>
+                <h2 className="text-3xl font-extrabold mb-14"><span className="gradient-text">People</span></h2>
+              </AnimateIn>
 
               {/* Project Coordinators */}
               <div className="mb-14">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px bg-slate-600 flex-1"></div>
-                  <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Project Coordinators</h3>
-                  <div className="h-px bg-slate-600 flex-1"></div>
-                </div>
+                <AnimateIn>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="h-px bg-slate-600 flex-1"></div>
+                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Project Coordinators</h3>
+                    <div className="h-px bg-slate-600 flex-1"></div>
+                  </div>
+                </AnimateIn>
                 <div className="flex justify-center">
-                  {PEOPLE.editors.map((p) => (
-                    <PersonCard key={p.name} person={p} />
+                  {PEOPLE.editors.map((p, i) => (
+                    <AnimateIn key={p.name} delay={i * 100}>
+                      <PersonCard person={p} />
+                    </AnimateIn>
                   ))}
                 </div>
               </div>
 
               {/* Contributors */}
               <div>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px bg-slate-600 flex-1"></div>
-                  <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Contributors</h3>
-                  <div className="h-px bg-slate-600 flex-1"></div>
-                </div>
+                <AnimateIn>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="h-px bg-slate-600 flex-1"></div>
+                    <h3 className="text-lg font-bold text-cyan-400 whitespace-nowrap">Contributors</h3>
+                    <div className="h-px bg-slate-600 flex-1"></div>
+                  </div>
+                </AnimateIn>
                 <div className="flex flex-wrap justify-center gap-12">
-                  {PEOPLE.contributors.map((p) => (
-                    <PersonCard key={p.name} person={p} />
+                  {PEOPLE.contributors.map((p, i) => (
+                    <AnimateIn key={p.name} delay={i * 100}>
+                      <PersonCard person={p} />
+                    </AnimateIn>
                   ))}
                 </div>
               </div>
@@ -937,9 +1212,12 @@
 
         // --- Community Section ---
         const CommunitySection = () => (
-          <section id="community" className="py-20 border-t border-slate-800">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-3xl font-extrabold text-white mb-6">Community</h2>
+          <section id="community" className="py-20 border-t border-slate-800 relative overflow-hidden">
+            <div className="absolute top-1/2 left-1/3 w-[400px] h-[400px] bg-cyan-500/8 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+              <AnimateIn>
+                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">Community</span></h2>
+              </AnimateIn>
               <p className="text-slate-400 leading-relaxed mb-8">
                 We're using GitHub Discussions as a place to connect with other members of our community. We hope that you:
               </p>
@@ -983,7 +1261,9 @@
         const EventsSection = () => (
           <section id="events" className="py-20 bg-slate-900 border-t border-slate-800">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-3xl font-extrabold text-white mb-6">Events</h2>
+              <AnimateIn>
+                <h2 className="text-3xl font-extrabold mb-6"><span className="gradient-text">Events</span></h2>
+              </AnimateIn>
               <p className="text-slate-400 leading-relaxed mb-8">
                 We invite community members and newcomers to participate in our public events. Join us to learn, collaborate, and build together:
               </p>
@@ -1028,33 +1308,45 @@
               <Hero />
 
               {/* Introduction Section */}
-              <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                  <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Our Mission</span>
-                  <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">
-                    Bridging Spatial Analysis & Sustainable Development
-                  </h2>
-                  <p className="max-w-3xl mx-auto text-lg text-slate-400">
-                    DS4Bolivia aggregates spatial and socio-economic datasets, interactive dashboards, and computational workflows tailored for the 339 municipalities of Bolivia.
-                  </p>
-                </div>
+              <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/8 rounded-full blur-[128px] pointer-events-none"></div>
+                <AnimateIn>
+                  <div className="text-center mb-16 relative z-10">
+                    <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Our Mission</span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4">
+                      <span className="gradient-text">Bridging Spatial Analysis & Sustainable Development</span>
+                    </h2>
+                    <p className="max-w-3xl mx-auto text-lg text-slate-400">
+                      DS4Bolivia aggregates spatial and socio-economic datasets, interactive dashboards, and computational workflows for 339 municipalities in Bolivia.
+                    </p>
+                  </div>
+                </AnimateIn>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <FeatureCard
-                    icon={BarChart2}
-                    title="Spatial Econometrics"
-                    description="Understanding regional disparities, growth patterns, and clustering effects across administrative boundaries."
-                  />
-                  <FeatureCard
-                    icon={MapIcon}
-                    title="Spatial Machine Learning"
-                    description="Utilizing Earth Observation satellite imagery for predictive modeling of poverty and development indices."
-                  />
-                  <FeatureCard
-                    icon={Globe}
-                    title="Sustainable Development"
-                    description="Tracking SDG indicators at a granular local level to inform policy and monitor progress."
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                  <AnimateIn delay={0}>
+                    <FeatureCard
+                      icon={Globe}
+                      title="Sustainable Development"
+                      description="Tracking SDG indicators at a granular local level to inform policy and monitor progress."
+                      accent="emerald"
+                    />
+                  </AnimateIn>
+                  <AnimateIn delay={100}>
+                    <FeatureCard
+                      icon={BarChart2}
+                      title="Spatial Econometrics"
+                      description="Understanding regional disparities, growth patterns, and clustering effects across administrative boundaries."
+                      accent="violet"
+                    />
+                  </AnimateIn>
+                  <AnimateIn delay={200}>
+                    <FeatureCard
+                      icon={MapIcon}
+                      title="Spatial Machine Learning"
+                      description="Utilizing Earth Observation satellite imagery for predictive modeling of poverty and development indices."
+                      accent="amber"
+                    />
+                  </AnimateIn>
                 </div>
               </section>
 
@@ -1062,10 +1354,10 @@
               <section id="dashboards" className="bg-slate-900 py-20 border-y border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="flex flex-col lg:flex-row items-center gap-12">
-                    <div className="lg:w-1/2">
-                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Interactive Visualization</span>
-                      <h2 className="text-3xl font-extrabold text-white mt-2 mb-6">
-                        Explore the Space-Time Dynamics
+                    <AnimateIn className="lg:w-1/2">
+                      <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">Interactive Apps and Dashboards</span>
+                      <h2 className="text-3xl font-extrabold mt-2 mb-6">
+                        <span className="gradient-text">Explore Space-Time Dynamics of Regional Development</span>
                       </h2>
                       <p className="text-slate-400 mb-6 text-lg">
                         No code required. Visualize the evolution of population density, night-time lights, land cover changes, and GDP estimates across Bolivian municipalities (2013-2019).
@@ -1093,19 +1385,19 @@
                       >
                         Launch Dashboard <ExternalLink size={18} />
                       </a>
-                    </div>
-                    <div className="lg:w-1/2 relative group">
+                    </AnimateIn>
+                    <AnimateIn delay={200} className="lg:w-1/2 relative group">
                       <div className="absolute inset-0 bg-cyan-500 rounded-2xl rotate-3 opacity-20 group-hover:rotate-6 transition-transform duration-500"></div>
-                      <div className="relative bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
+                      <div className="relative bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/10">
                         <img
-                           src="https://raw.githubusercontent.com/quarcs-lab/ds4bolivia/master/images/cover2.jpg"
+                           src="images/app01.jpg"
                            className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity"
                            alt="Dashboard Preview"
                         />
                         <div className="absolute inset-0 flex items-center justify-center bg-slate-900/10 group-hover:bg-transparent transition-colors">
                         </div>
                       </div>
-                    </div>
+                    </AnimateIn>
                   </div>
                 </div>
               </section>
@@ -1116,10 +1408,11 @@
               {/* Code Examples Section */}
               <section id="examples" className="bg-slate-900 text-white py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <AnimateIn>
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
                     <div>
                       <span className="text-cyan-400 font-bold tracking-wide uppercase text-sm">How To Use</span>
-                      <h2 className="text-3xl font-extrabold mt-2">Construct your own dataset</h2>
+                      <h2 className="text-3xl font-extrabold mt-2"><span className="gradient-text">Construct your own dataset</span></h2>
                       <p className="text-slate-400 mt-2 max-w-2xl">
                         Run these examples immediately in Google Colab. No local setup required.
                       </p>
@@ -1133,13 +1426,14 @@
                       <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
                     </a>
                   </div>
+                  </AnimateIn>
 
                   <div className="space-y-12">
 
                     {/* Example 1 */}
-                    <div>
+                    <AnimateIn>
                       <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
-                        <span className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">1</span>
+                        <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm text-cyan-400">1</span>
                         Integrating Attribute Data
                       </h3>
                       <p className="text-slate-400 mb-4 ml-10">Merge administrative names, socio-economic indicators, and satellite features.</p>
@@ -1171,12 +1465,12 @@ df_final = pd.merge(df_merged_step1, df_embeddings, on='asdf_id', how='inner')
 print(f"Merge Complete. Final Rows: {len(df_final)}")
 display(df_final[['mun', 'dep', 'index_sdg1', 'A00']].head())`}
                       />
-                    </div>
+                    </AnimateIn>
 
                     {/* Example 2 */}
-                    <div>
+                    <AnimateIn>
                       <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
-                        <span className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-sm">2</span>
+                        <span className="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm text-cyan-400">2</span>
                         Integrating Spatial and Attribute Data
                       </h3>
                       <p className="text-slate-400 mb-4 ml-10">Attach merged attributes to municipality geometries (GeoJSON) for analysis.</p>
@@ -1213,7 +1507,7 @@ ax.set_title("Bolivia: SDG 1 Index by Municipality", fontsize=15)
 ax.set_axis_off()
 plt.show()`}
                       />
-                    </div>
+                    </AnimateIn>
 
                   </div>
                 </div>
@@ -1225,16 +1519,18 @@ plt.show()`}
               <EventsSection />
 
               {/* Citation & Sources */}
-              <section id="citation" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <section id="citation" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+                <div className="absolute top-1/3 right-0 w-[350px] h-[350px] bg-violet-500/8 rounded-full blur-[120px] pointer-events-none"></div>
 
-                <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                    <FileText className="text-cyan-400" /> Citation
+                <AnimateIn>
+                <div className="mb-12 relative z-10">
+                  <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <FileText className="text-cyan-400" /> <span className="gradient-text">How to cite this project</span>
                   </h2>
-                  <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 shadow-sm mb-6">
+                  <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-sm mb-6">
                     <h4 className="font-bold text-slate-200 mb-2 text-sm uppercase tracking-wide">APA Format</h4>
                     <p className="text-slate-400 italic">
-                      Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia [Data set]. GitHub. https://github.com/quarcs-lab/ds4bolivia
+                      Mendez, C., Gonzales, E., Leoni, P., Andersen, L., Peralta, H. (2026). DS4Bolivia: A Data Science Repository to Study GeoSpatial Development in Bolivia. GitHub. https://github.com/quarcs-lab/ds4bolivia
                     </p>
                   </div>
 
@@ -1251,20 +1547,23 @@ plt.show()`}
 }`}
                   />
                 </div>
+                </AnimateIn>
 
-                <div className="border-t border-slate-700 pt-8">
+                <AnimateIn>
+                <div className="border-t border-white/10 pt-8 relative z-10">
                   <h2 className="text-xl font-bold text-white mb-4">Data Sources</h2>
                   <p className="text-slate-400">
                     SDG indicators are originally constructed by <a href="https://atlas.sdsnbolivia.org" className="text-cyan-400 hover:underline">Andersen, L. E., Canelas, S., Gonzales, A., Peñaranda, L. (2020)</a> Atlas municipal de los Objetivos de Desarrollo Sostenible en Bolivia 2020. La Paz: Universidad Privada Boliviana, SDSN Bolivia.
                   </p>
                 </div>
+                </AnimateIn>
               </section>
 
               {/* Footer */}
-              <footer className="bg-slate-950 border-t border-slate-800 py-12">
+              <footer className="bg-slate-950 border-t border-white/5 py-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
                   <div className="text-center md:text-left">
-                    <span className="font-bold text-xl text-white">DS4<span className="text-cyan-400">Bolivia</span></span>
+                    <span className="font-bold text-xl gradient-text">DS4Bolivia</span>
                     <p className="text-sm text-slate-500 mt-2">Open source geospatial intelligence for sustainable development.</p>
                   </div>
                   <div className="flex gap-6">
